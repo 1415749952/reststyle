@@ -28,11 +28,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.reststyle</groupId>
-            <artifactId>reststyle-domain</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
