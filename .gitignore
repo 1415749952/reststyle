@@ -1,0 +1,4 @@
+# Project exclude paths
+/reststyle-common/target/
+/reststyle-service/target/
+/reststyle-web/target/
