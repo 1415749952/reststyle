@@ -43,16 +43,16 @@
         </dependency>
 
         <!-- 定时任务-->
-        <!--<dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-quartz</artifactId>
-        </dependency>-->
+        <dependency>
+            <groupId>com.reststyle</groupId>
+            <artifactId>reststyle-quartz</artifactId>
+        </dependency>
 
         <!-- 代码生成-->
-        <!-- <dependency>
-             <groupId>com.ruoyi</groupId>
-             <artifactId>ruoyi-generator</artifactId>
-         </dependency>-->
+         <dependency>
+             <groupId>com.reststyle</groupId>
+             <artifactId>reststyle-generator</artifactId>
+         </dependency>
 
         <!--  demo模块  -->
         <!-- <dependency>
