@@ -17,8 +17,8 @@ import java.util.Map;
  * @Time: 8:49
  */
 @RestController
-@RequestMapping("/test")
-public class Test
+@RequestMapping("/web/test")
+public class WebTest
 {
     @GetMapping
     public Map test()
