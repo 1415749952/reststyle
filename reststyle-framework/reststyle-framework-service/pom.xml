@@ -21,6 +21,18 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.reststyle</groupId>
+            <artifactId>reststyle-framework-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.reststyle</groupId>
+            <artifactId>reststyle-framework-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.reststyle</groupId>
+            <artifactId>reststyle-framework-dao</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

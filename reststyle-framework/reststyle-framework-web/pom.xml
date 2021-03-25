@@ -41,14 +41,6 @@
             <groupId>com.reststyle</groupId>
             <artifactId>reststyle-framework-service</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.reststyle</groupId>
-            <artifactId>reststyle-framework-domain</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.reststyle</groupId>
-            <artifactId>reststyle-framework-dao</artifactId>
-        </dependency>
     </dependencies>
 
 
