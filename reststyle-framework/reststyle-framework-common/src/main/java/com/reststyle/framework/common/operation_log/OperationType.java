@@ -42,8 +42,23 @@ public enum OperationType
     /**
      * 导出
      */
-    EXPORT("export");
-
+    EXPORT("export"),
+    /**
+     * 授权
+     */
+    GRANT("grant"),
+    /**
+     * 导入
+     */
+    IMPORT("import"),
+    /**
+     * 强退
+     */
+    FORCE("force"),
+    /**
+     * 清空数据
+     */
+    CLEAN("clean");
 
     private String value;
 
