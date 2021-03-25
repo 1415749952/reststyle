@@ -9,7 +9,7 @@ package com.reststyle.framework.common.operation_log;
  * @Date: 2020-05-27
  * @Time: 17:23
  */
-public enum OperationType
+public enum BusinessType
 {
     /**
      * 其他
@@ -72,7 +72,7 @@ public enum OperationType
         this.value = value;
     }
 
-    OperationType(String s)
+    BusinessType(String s)
     {
         this.value = s;
     }

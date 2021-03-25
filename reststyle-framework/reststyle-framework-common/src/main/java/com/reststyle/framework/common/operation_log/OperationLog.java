@@ -29,9 +29,9 @@ public @interface OperationLog
     int level() default 0;
 
     /**
-     * 操作类型(enum):主要是select,insert,update,delete
+     * 记录操作的业务类型(enum):主要是select,insert,update,delete
      */
-    OperationType operationType() default OperationType.OTHER;
+    BusinessType businessType() default BusinessType.OTHER;
 
     /**
      * 被操作的对象(此处使用enum):可以是任何对象，如表名(user)，或者是工具(redis)
