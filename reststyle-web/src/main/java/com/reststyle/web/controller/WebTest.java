@@ -1,5 +1,7 @@
 package com.reststyle.web.controller;
 
+import com.reststyle.service.WebTestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,13 +22,12 @@ import java.util.Map;
 @RequestMapping("/web/test")
 public class WebTest
 {
+    @Autowired
+    private WebTestService webTestService;
+
     @GetMapping
     public Map test()
     {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("userName","zhangsan");
-        map.put("name","张三");
-        map.put("password","123456");
-        return map;
+        return webTestService.test();
     }
 }
