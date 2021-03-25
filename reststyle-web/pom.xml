@@ -52,11 +52,7 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>-->
 
-        <!-- 核心模块-->
-        <dependency>
-            <groupId>com.reststyle</groupId>
-            <artifactId>reststyle-framework</artifactId>
-        </dependency>
+
 
         <!-- 定时任务-->
         <dependency>
