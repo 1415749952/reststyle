@@ -53,10 +53,10 @@
         </dependency>-->
 
         <!-- 核心模块-->
-        <!--<dependency>
+        <dependency>
             <groupId>com.reststyle</groupId>
             <artifactId>reststyle-framework</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!-- 定时任务-->
         <dependency>
@@ -76,6 +76,14 @@
              <artifactId>reststyle-service</artifactId>
          </dependency>
 
+        <dependency>
+            <groupId>com.reststyle</groupId>
+            <artifactId>reststyle-framework-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.reststyle</groupId>
+            <artifactId>reststyle-framework-service</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

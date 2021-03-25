@@ -189,7 +189,16 @@
                 <artifactId>reststyle-dao</artifactId>
                 <version>${reststyle.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-web</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-service</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
             <!-- demo模块 -->
             <!-- <dependency>
                  <groupId>com.ruoyi</groupId>
