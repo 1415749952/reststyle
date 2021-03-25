@@ -1,4 +1,4 @@
-package com.reststyle.web.testcontroller;
+package com.reststyle.web.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +17,8 @@ import java.util.Map;
  * @Time: 8:49
  */
 @RestController
-@RequestMapping("/web/test")
-public class WebTest
+@RequestMapping("/framework/test")
+public class Test
 {
     @GetMapping
     public Map test()

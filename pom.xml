@@ -16,7 +16,7 @@
     <properties>
         <reststyle.version>1.0.0</reststyle.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.11</java.version>
+        <java.version>11</java.version>
         <druid.version>1.2.4</druid.version>
         <knife4j.version>2.0.8</knife4j.version>
         <pagehelper.boot.version>1.3.0</pagehelper.boot.version>
@@ -152,21 +152,10 @@
                  <version>${reststyle.version}</version>
              </dependency>
 
-            <!-- 核心模块-->
-            <dependency>
-                <groupId>com.reststyle</groupId>
-                <artifactId>reststyle-framework</artifactId>
-                <version>${reststyle.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.reststyle</groupId>
                 <artifactId>reststyle-service</artifactId>
-                <version>${reststyle.version}</version>
-            </dependency>
-            <!-- 系统模块-->
-            <dependency>
-                <groupId>com.reststyle</groupId>
-                <artifactId>reststyle-system</artifactId>
                 <version>${reststyle.version}</version>
             </dependency>
 
@@ -187,6 +176,33 @@
             <dependency>
                 <groupId>com.reststyle</groupId>
                 <artifactId>reststyle-dao</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-web</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-service</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-dao</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-domain</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-common</artifactId>
                 <version>${reststyle.version}</version>
             </dependency>
 

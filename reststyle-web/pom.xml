@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <artifactId>reststyle-web</artifactId>
+    <version>1.0.0</version>
+
 
     <description>reststyle后台管理系统 web服务入口</description>
 
@@ -24,7 +26,21 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- web 容器使用 undertow 性能更强 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
        <!-- <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
@@ -36,11 +52,7 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>-->
 
-        <!-- 核心模块-->
-        <dependency>
-            <groupId>com.reststyle</groupId>
-            <artifactId>reststyle-framework</artifactId>
-        </dependency>
+
 
         <!-- 定时任务-->
         <dependency>
@@ -60,6 +72,10 @@
              <artifactId>reststyle-service</artifactId>
          </dependency>
 
+        <dependency>
+            <groupId>com.reststyle</groupId>
+            <artifactId>reststyle-framework-web</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

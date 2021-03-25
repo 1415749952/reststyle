@@ -10,45 +10,55 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>reststyle-framework</artifactId>
-
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
     <description>reststyle后台管理系统 framework核心模块</description>
 
-    <dependencies>
-        <!-- 系统模块-->
-        <!--<dependency>
-            <groupId>com.reststyle</groupId>
-            <artifactId>reststyle-service</artifactId>
-        </dependency>-->
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <reststyle.version>1.0.0</reststyle.version>
+    </properties>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- web 容器使用 undertow 性能更强 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
-        </dependency>
-       <!-- <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>-->
+    <!-- 依赖声明 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-service</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-web</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-dao</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-domain</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-commom</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+        </dependencies>
 
-        <!-- SpringBoot 拦截器 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
+    </dependencyManagement>
 
 
-
-    </dependencies>
-
+    <modules>
+        <module>reststyle-framework-web</module>
+        <module>reststyle-framework-service</module>
+        <module>reststyle-framework-dao</module>
+        <module>reststyle-framework-domain</module>
+        <module>reststyle-framework-common</module>
+    </modules>
 
 </project>
