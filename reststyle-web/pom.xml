@@ -76,10 +76,6 @@
             <groupId>com.reststyle</groupId>
             <artifactId>reststyle-framework-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.reststyle</groupId>
-            <artifactId>reststyle-framework-service</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

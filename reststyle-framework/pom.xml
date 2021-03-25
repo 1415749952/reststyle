@@ -17,6 +17,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <reststyle.version>1.0.0</reststyle.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -32,7 +33,21 @@
                 <artifactId>reststyle-framework-web</artifactId>
                 <version>${reststyle.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-dao</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-domain</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-commom</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
@@ -41,6 +56,9 @@
     <modules>
         <module>reststyle-framework-web</module>
         <module>reststyle-framework-service</module>
+        <module>reststyle-framework-dao</module>
+        <module>reststyle-framework-domain</module>
+        <module>reststyle-framework-common</module>
     </modules>
 
 </project>

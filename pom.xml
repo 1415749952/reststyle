@@ -152,21 +152,10 @@
                  <version>${reststyle.version}</version>
              </dependency>
 
-            <!-- 核心模块-->
-            <dependency>
-                <groupId>com.reststyle</groupId>
-                <artifactId>reststyle-framework</artifactId>
-                <version>${reststyle.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.reststyle</groupId>
                 <artifactId>reststyle-service</artifactId>
-                <version>${reststyle.version}</version>
-            </dependency>
-            <!-- 系统模块-->
-            <dependency>
-                <groupId>com.reststyle</groupId>
-                <artifactId>reststyle-system</artifactId>
                 <version>${reststyle.version}</version>
             </dependency>
 
@@ -189,6 +178,8 @@
                 <artifactId>reststyle-dao</artifactId>
                 <version>${reststyle.version}</version>
             </dependency>
+
+
             <dependency>
                 <groupId>com.reststyle</groupId>
                 <artifactId>reststyle-framework-web</artifactId>
@@ -199,6 +190,22 @@
                 <artifactId>reststyle-framework-service</artifactId>
                 <version>${reststyle.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-dao</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-domain</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-common</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+
             <!-- demo模块 -->
             <!-- <dependency>
                  <groupId>com.ruoyi</groupId>
