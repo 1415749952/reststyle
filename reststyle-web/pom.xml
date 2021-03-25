@@ -25,16 +25,16 @@
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
 
-        <dependency>
+       <!-- <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- Mysql驱动包 -->
-        <dependency>
+ <!--       <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- 核心模块-->
         <dependency>
@@ -54,11 +54,11 @@
              <artifactId>reststyle-generator</artifactId>
          </dependency>
 
-        <!--  demo模块  -->
-        <!-- <dependency>
-             <groupId>com.ruoyi</groupId>
-             <artifactId>ruoyi-demo</artifactId>
-         </dependency>-->
+        <!--  reststyle-service模块  -->
+         <dependency>
+             <groupId>com.reststyle</groupId>
+             <artifactId>reststyle-service</artifactId>
+         </dependency>
 
     </dependencies>
 

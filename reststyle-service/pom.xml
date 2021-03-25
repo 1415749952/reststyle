@@ -27,10 +27,7 @@
             <artifactId>reststyle-dao</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-        </dependency>
+
 
     </dependencies>
 
