@@ -1,6 +1,4 @@
-package com.reststyle.service;
-
-import org.springframework.stereotype.Service;
+package com.reststyle.framework.service;
 
 import java.util.Map;
 

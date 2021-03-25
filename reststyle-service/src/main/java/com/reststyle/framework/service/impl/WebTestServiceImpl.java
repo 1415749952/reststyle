@@ -1,7 +1,7 @@
-package com.reststyle.service.impl;
+package com.reststyle.framework.service.impl;
 
 import com.reststyle.mapper.WebTestMapper;
-import com.reststyle.service.WebTestService;
+import com.reststyle.framework.service.WebTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -9,7 +9,7 @@ package com.reststyle.framework.common.operation_log;
  * @Date: 2020-05-27
  * @Time: 17:24
  */
-public enum OperationUnit
+public enum OperUnit
 {
 
     /**
@@ -22,7 +22,7 @@ public enum OperationUnit
 
     private String value;
 
-    OperationUnit(String value)
+    OperUnit(String value)
     {
         this.value = value;
     }

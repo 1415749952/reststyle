@@ -16,17 +16,17 @@ import java.lang.annotation.*;
 @Documented
 @Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OperationLog
+public @interface OperLog
 {
     /**
      * 方法描述
      */
-    String detail() default "";
+    String methodDetail() default "";
 
     /**
-     * 日志等级:自己定，此处分为1-9
+     * 是否保存请求的参数
      */
-    int level() default 0;
+    public boolean isSaveRequestData() default true;
 
     /**
      * 记录操作的业务类型(enum):主要是select,insert,update,delete
@@ -36,5 +36,5 @@ public @interface OperationLog
     /**
      * 被操作的对象(此处使用enum):可以是任何对象，如表名(user)，或者是工具(redis)
      */
-    OperationUnit operationUnit() default OperationUnit.UNKNOWN;
+    OperUnit operUnit() default OperUnit.UNKNOWN;
 }
