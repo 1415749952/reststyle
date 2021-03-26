@@ -28,7 +28,9 @@ spring:
       use-global-data-source-stat: true
   profiles:
     active: dev
-
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
 
 
 mybatis-plus:
