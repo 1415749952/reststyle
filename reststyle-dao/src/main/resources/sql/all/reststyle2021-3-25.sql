@@ -413,23 +413,23 @@ insert into sys_user_post values ('2', '2');
 drop table if exists sys_oper_log;
 create table sys_oper_log
 (
-    oper_id         bigint auto_increment comment '日志主键'
+    oper_id        bigint auto_increment comment '日志主键'
         primary key,
-    title           varchar(50)   default '' null comment '模块标题',
-    business_type   varchar(50)   default 'other' null comment '业务类型(其他other,删除delete,查询select,修改update,新增INSERT("insert,生成代码generate,下载download,导出export,授权grant,导入import,强退force,清空数据clean',
-    method          varchar(100)  default '' null comment '方法名称',
-    request_method  varchar(10)   default '' null comment '请求方式(post,get,put,delete)',
-    operator_client varchar(50)   default 'unknown' null comment '操作客户端',
-    oper_name       varchar(50)   default '' null comment '操作人员',
-    dept_name       varchar(50)   default '' null comment '部门名称',
-    oper_url        varchar(255)  default '' null comment '请求URL',
-    oper_ip         varchar(128)  default '' null comment '主机地址',
-    oper_address    varchar(255)  default '' null comment '操作地点',
-    request_param   varchar(2000) default '' null comment '请求参数',
-    respose_result  varchar(2000) default '' null comment '返回参数',
-    status          int           default 0 null comment '操作状态（0正常 1异常）',
-    error_msg       varchar(2000) default '' null comment '错误消息',
-    oper_time       datetime null comment '操作时间'
+    business_type  int   default 99 null comment '业务类型(其他other,删除delete,查询select,修改update,新增INSERT("insert,生成代码generate,下载download,导出export,授权grant,导入import,强退force,清空数据clean',
+    method         varchar(100)  default '' null comment '方法名称',
+    method_detail  varchar(100) null comment '方法描述(这个方法是干什么的)',
+    request_url    varchar(255)  default '' null comment '请求URL',
+    request_method varchar(10)   default '' null comment '请求方式(post,get,put,delete)',
+    request_param  varchar(2000) default '' null comment '请求参数',
+    respose_result varchar(2000) default '' null comment '返回参数',
+    status         int           default 0 null comment '操作状态（0正常 1异常）',
+    oper_unit      varchar(50)   default '' null comment '被操作的对象(此处使用enum):可以是任何对象，如表名(user)，或者是工具(redis)',
+    oper_client    varchar(50)   default 'unknown' null comment '操作客户端',
+    oper_name      varchar(50)   default '' null comment '操作人员',
+    oper_ip        varchar(128)  default '' null comment '主机地址',
+    oper_address   varchar(255)  default '' null comment '操作地点',
+    error_msg      varchar(2000) default '' null comment '错误消息',
+    oper_time      datetime null comment '操作时间'
 ) engine=innodb auto_increment=100 comment = '操作日志记录';
 
 
