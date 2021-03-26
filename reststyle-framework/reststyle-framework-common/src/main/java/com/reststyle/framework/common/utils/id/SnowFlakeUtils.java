@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.utils;
+package com.reststyle.framework.common.utils.id;
 
 /**
  * Created with IntelliJ IDEA.

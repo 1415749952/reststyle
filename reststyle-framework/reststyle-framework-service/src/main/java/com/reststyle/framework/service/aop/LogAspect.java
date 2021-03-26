@@ -8,7 +8,7 @@ import com.reststyle.framework.common.oper_log.OperStatus;
 import com.reststyle.framework.common.oper_log.OperLog;
 import com.reststyle.framework.common.utils.DateUtils;
 import com.reststyle.framework.common.utils.ServletUtils;
-import com.reststyle.framework.common.utils.SnowFlakeUtils;
+import com.reststyle.framework.common.utils.id.SnowFlakeUtils;
 import com.reststyle.framework.common.utils.ip.IpUtils;
 import com.reststyle.framework.common.utils.json.JacksonUtils;
 import com.reststyle.framework.domain.table.SysOperLog;

@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.utils;
+package com.reststyle.framework.common.utils.security;
 
 import cn.hutool.http.HttpStatus;
 import com.reststyle.framework.common.domain.model.LoginUser;
