@@ -39,27 +39,30 @@ insert into sys_dept values(109,  102, '0,100,102',  '财务部门',   2, '若�
 -- 2、用户信息表
 -- ----------------------------
 drop table if exists sys_user;
-create table sys_user (
-  user_id           bigint(20)      not null auto_increment    comment '用户ID',
-  dept_id           bigint(20)      default null               comment '部门ID',
-  user_name         varchar(30)     not null                   comment '用户账号',
-  nick_name         varchar(30)     not null                   comment '用户昵称',
-  user_type         varchar(2)      default '00'               comment '用户类型（00系统用户）',
-  email             varchar(50)     default ''                 comment '用户邮箱',
-  phonenumber       varchar(11)     default ''                 comment '手机号码',
-  sex               char(1)         default '0'                comment '用户性别（0男 1女 2未知）',
-  avatar            varchar(100)    default ''                 comment '头像地址',
-  password          varchar(100)    default ''                 comment '密码',
-  status            char(1)         default '0'                comment '帐号状态（0正常 1停用）',
-  del_flag          char(1)         default '0'                comment '删除标志（0代表存在 2代表删除）',
-  login_ip          varchar(128)    default ''                 comment '最后登录IP',
-  login_date        datetime                                   comment '最后登录时间',
-  create_by         varchar(64)     default ''                 comment '创建者',
-  create_time       datetime                                   comment '创建时间',
-  update_by         varchar(64)     default ''                 comment '更新者',
-  update_time       datetime                                   comment '更新时间',
-  remark            varchar(500)    default null               comment '备注',
-  primary key (user_id)
+create table sys_user
+(
+    user_id                    bigint auto_increment comment '用户ID'
+        primary key,
+    user_name                  varchar(30) not null comment '用户账号',
+    password                   varchar(100) default '' null comment '密码',
+    nick_name                  varchar(30) not null comment '用户昵称',
+    user_type                  varchar(2)   default '00' null comment '用户类型（00系统用户）',
+    email                      varchar(50)  default '' null comment '用户邮箱',
+    phone_number               varchar(11)  default '' null comment '手机号码',
+    sex                        char         default '9' null comment '用户性别（1男 2女 9未知）',
+    avatar                     varchar(100) default '' null comment '头像地址',
+    is_enabled                 tinyint(1) default 1 null comment '帐号是否启用',
+    is_credentials_non_expired tinyint(1) default 1 null comment '凭证未过期',
+    is_account_non_locked      tinyint(1) default 1 null comment '帐户未锁定',
+    is_account_non_expired     tinyint(1) default 1 null comment '帐户未过期',
+    last_login_ip              varchar(128) default '' null comment '最后登录IP',
+    last_login_date            datetime null comment '最后登录时间',
+    create_by                  varchar(64)  default '' null comment '创建者',
+    create_time                datetime null comment '创建时间',
+    update_by                  varchar(64)  default '' null comment '更新者',
+    update_time                datetime null comment '更新时间',
+    del_flag                   char         default '0' null comment '删除标志（0代表存在 2代表删除）',
+    remark                     varchar(500) null comment '备注'
 ) engine=innodb auto_increment=100 comment = '用户信息表';
 
 -- ----------------------------
