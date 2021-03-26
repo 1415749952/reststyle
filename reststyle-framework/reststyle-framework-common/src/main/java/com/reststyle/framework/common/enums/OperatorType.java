@@ -3,7 +3,7 @@ package com.reststyle.framework.common.enums;
 /**
  * 操作人类别
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public enum OperatorType
 {

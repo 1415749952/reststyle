@@ -5,7 +5,7 @@ import com.reststyle.framework.common.exception.BaseException;
 /**
  * 文件信息异常类
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class FileException extends BaseException
 {

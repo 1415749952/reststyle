@@ -2,15 +2,12 @@ package com.reststyle.framework.service.manager.factory;
 
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
-import com.ruoyi.common.constant.Constants;
-import com.ruoyi.common.utils.ServletUtils;
-import com.ruoyi.common.utils.ip.AddressUtils;
-import com.ruoyi.common.utils.ip.IpUtils;
-import com.ruoyi.common.utils.spring.SpringUtils;
-import com.ruoyi.system.domain.SysLogininfor;
-import com.ruoyi.system.domain.SysOperLog;
-import com.ruoyi.system.service.ISysLogininforService;
-import com.ruoyi.system.service.ISysOperLogService;
+import com.reststyle.framework.common.constant.Constants;
+import com.reststyle.framework.common.utils.ServletUtils;
+import com.reststyle.framework.common.utils.ip.AddressUtils;
+import com.reststyle.framework.common.utils.ip.IpUtils;
+import com.reststyle.framework.common.utils.spring.SpringUtils;
+import com.reststyle.framework.domain.table.SysOperLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +16,7 @@ import java.util.TimerTask;
 /**
  * 异步工厂（产生任务用）
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class AsyncFactory
 {

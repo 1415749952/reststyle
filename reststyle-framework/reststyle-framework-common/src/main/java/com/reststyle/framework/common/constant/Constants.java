@@ -3,7 +3,7 @@ package com.reststyle.framework.common.constant;
 /**
  * 通用常量信息
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class Constants
 {

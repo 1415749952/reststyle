@@ -21,7 +21,7 @@ import org.springframework.web.filter.CorsFilter;
 /**
  * spring security配置
  * 
- * @author ruoyi
+ * @author TheFei
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter

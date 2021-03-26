@@ -3,7 +3,7 @@ package com.reststyle.framework.common.enums;
 /**
  * 用户状态
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public enum UserStatus
 {

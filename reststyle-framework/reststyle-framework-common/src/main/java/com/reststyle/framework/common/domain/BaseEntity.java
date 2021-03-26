@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Entity基类
  * 
- * @author ruoyi
+ * @author TheFei
  */
 @Data
 public class BaseEntity implements Serializable

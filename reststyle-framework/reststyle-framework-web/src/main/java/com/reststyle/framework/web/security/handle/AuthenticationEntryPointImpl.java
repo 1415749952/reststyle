@@ -17,7 +17,7 @@ import java.util.Objects;
 /**
  * 认证失败处理类 返回未授权
  * 
- * @author ruoyi
+ * @author TheFei
  */
 @Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, Serializable

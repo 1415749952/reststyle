@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 角色表 sys_role
  *
- * @author ruoyi
+ * @author TheFei
  */
 @Data
 public class SysRole extends BaseEntity

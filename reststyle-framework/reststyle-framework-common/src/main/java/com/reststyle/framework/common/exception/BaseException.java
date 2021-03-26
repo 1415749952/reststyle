@@ -6,7 +6,7 @@ import com.reststyle.framework.common.utils.MessageUtils;
 /**
  * 基础异常
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class BaseException extends RuntimeException
 {

@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * 自定义退出处理类 返回成功
  * 
- * @author ruoyi
+ * @author TheFei
  */
 @Configuration
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler

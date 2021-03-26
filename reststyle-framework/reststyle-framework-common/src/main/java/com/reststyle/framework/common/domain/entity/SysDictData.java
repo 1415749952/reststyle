@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 字典数据表 sys_dict_data
  *
- * @author ruoyi
+ * @author TheFei
  */
 @Data
 public class SysDictData extends BaseEntity

@@ -5,7 +5,7 @@ import com.reststyle.framework.common.domain.BaseEntity;
 /**
  * 字典类型表 sys_dict_type
  *
- * @author ruoyi
+ * @author TheFei
  */
 public class SysDictType extends BaseEntity
 {
