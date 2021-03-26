@@ -1,8 +1,8 @@
 package com.reststyle.framework.web.security.filter;
 
 import cn.hutool.core.lang.Validator;
-import com.reststyle.framework.common.domain.model.LoginUser;
-import com.reststyle.framework.common.utils.security.SecurityUtils;
+import com.reststyle.framework.common.security.model.LoginUser;
+import com.reststyle.framework.common.security.SecurityUtils;
 import com.reststyle.framework.service.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

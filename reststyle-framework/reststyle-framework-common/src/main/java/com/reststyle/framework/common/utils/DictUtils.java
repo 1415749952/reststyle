@@ -5,7 +5,7 @@ import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import com.reststyle.framework.common.constant.Constants;
 import com.reststyle.framework.common.core.redis.RedisCache;
-import com.reststyle.framework.common.domain.entity.SysDictData;
+import com.reststyle.framework.common.security.entity.SysDictData;
 import com.reststyle.framework.common.utils.spring.SpringUtils;
 
 import java.util.Collection;

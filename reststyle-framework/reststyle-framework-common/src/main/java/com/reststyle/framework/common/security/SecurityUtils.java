@@ -1,7 +1,7 @@
-package com.reststyle.framework.common.utils.security;
+package com.reststyle.framework.common.security;
 
 import cn.hutool.http.HttpStatus;
-import com.reststyle.framework.common.domain.model.LoginUser;
+import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.exception.CustomException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

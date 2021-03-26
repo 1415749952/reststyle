@@ -2,8 +2,8 @@ package com.reststyle.framework.service.security;
 
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
-import com.reststyle.framework.common.domain.entity.SysRole;
-import com.reststyle.framework.common.domain.model.LoginUser;
+import com.reststyle.framework.common.security.entity.SysRole;
+import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

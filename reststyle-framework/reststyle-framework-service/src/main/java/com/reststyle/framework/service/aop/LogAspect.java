@@ -2,8 +2,8 @@ package com.reststyle.framework.service.aop;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.reststyle.framework.common.domain.entity.SysUser;
-import com.reststyle.framework.common.domain.model.LoginUser;
+import com.reststyle.framework.common.security.entity.SysUser;
+import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.oper_log.OperStatus;
 import com.reststyle.framework.common.oper_log.OperLog;
 import com.reststyle.framework.common.utils.DateUtils;

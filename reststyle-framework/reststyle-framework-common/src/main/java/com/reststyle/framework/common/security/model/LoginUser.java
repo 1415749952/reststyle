@@ -1,6 +1,6 @@
-package com.reststyle.framework.common.domain.model;
+package com.reststyle.framework.common.security.model;
 
-import com.reststyle.framework.common.domain.entity.SysUser;
+import com.reststyle.framework.common.security.entity.SysUser;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 /**
  * 登录用户身份权限
- * 
+ *
  * @author TheFei
  */
 @Data

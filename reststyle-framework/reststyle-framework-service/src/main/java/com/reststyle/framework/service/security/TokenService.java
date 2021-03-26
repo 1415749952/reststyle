@@ -6,7 +6,7 @@ import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.reststyle.framework.common.constant.Constants;
 import com.reststyle.framework.common.core.redis.RedisCache;
-import com.reststyle.framework.common.domain.model.LoginUser;
+import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.ip.AddressUtils;
 import com.reststyle.framework.common.utils.ip.IpUtils;

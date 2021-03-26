@@ -2,7 +2,7 @@ package com.reststyle.framework.web.security.handle;
 
 import cn.hutool.core.lang.Validator;
 import com.reststyle.framework.common.constant.Constants;
-import com.reststyle.framework.common.domain.model.LoginUser;
+import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.unite_response.ResultUtil;
 import com.reststyle.framework.common.utils.json.JacksonUtils;
 import com.reststyle.framework.service.manager.AsyncManager;

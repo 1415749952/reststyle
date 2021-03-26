@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.domain.entity;
+package com.reststyle.framework.common.security.entity;
 
 import com.reststyle.framework.common.domain.BaseEntity;
 

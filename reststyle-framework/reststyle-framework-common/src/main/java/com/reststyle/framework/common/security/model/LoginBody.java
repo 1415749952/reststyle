@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.domain.model;
+package com.reststyle.framework.common.security.model;
 
 import lombok.Data;
 

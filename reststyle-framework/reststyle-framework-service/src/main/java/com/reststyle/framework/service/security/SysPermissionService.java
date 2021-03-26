@@ -1,6 +1,6 @@
 package com.reststyle.framework.service.security;
 
-import com.reststyle.framework.common.domain.entity.SysUser;
+import com.reststyle.framework.common.security.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

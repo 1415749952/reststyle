@@ -1,13 +1,11 @@
 package com.reststyle.framework.service.security;
 
 import cn.hutool.core.lang.Validator;
-import com.reststyle.framework.common.domain.entity.SysUser;
-import com.reststyle.framework.common.domain.model.LoginUser;
+import com.reststyle.framework.common.security.entity.SysUser;
+import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.enums.UserStatus;
 import com.reststyle.framework.common.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

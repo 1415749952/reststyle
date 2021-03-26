@@ -3,7 +3,7 @@ package com.reststyle.framework.service.security;
 
 import com.reststyle.framework.common.constant.Constants;
 import com.reststyle.framework.common.core.redis.RedisCache;
-import com.reststyle.framework.common.domain.model.LoginUser;
+import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.exception.CustomException;
 import com.reststyle.framework.common.exception.user.CaptchaException;
 import com.reststyle.framework.common.exception.user.CaptchaExpireException;
