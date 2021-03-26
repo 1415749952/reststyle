@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.operation_log;
+package com.reststyle.framework.common.oper_log;
 
 /**
  * Created with IntelliJ IDEA.

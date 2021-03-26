@@ -4,8 +4,8 @@ package com.reststyle.framework.service.aop;
 import cn.hutool.core.util.StrUtil;
 import com.reststyle.framework.common.domain.entity.SysUser;
 import com.reststyle.framework.common.domain.model.LoginUser;
-import com.reststyle.framework.common.operation_log.OperStatus;
-import com.reststyle.framework.common.operation_log.OperLog;
+import com.reststyle.framework.common.oper_log.OperStatus;
+import com.reststyle.framework.common.oper_log.OperLog;
 import com.reststyle.framework.common.utils.DateUtils;
 import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.SnowFlakeUtils;
@@ -52,7 +52,7 @@ public class LogAspect
     /**
      * 设置操作日志切入点 记录操作日志 在注解的位置切入代码
      */
-    @Pointcut("@annotation(com.reststyle.framework.common.operation_log.OperLog)")
+    @Pointcut("@annotation(com.reststyle.framework.common.oper_log.OperLog)")
     public void operLogPoinCut()
     {
     }

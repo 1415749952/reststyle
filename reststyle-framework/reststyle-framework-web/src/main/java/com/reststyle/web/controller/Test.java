@@ -1,8 +1,8 @@
 package com.reststyle.web.controller;
 
-import com.reststyle.framework.common.operation_log.BusinessType;
-import com.reststyle.framework.common.operation_log.OperLog;
-import com.reststyle.framework.common.operation_log.OperUnit;
+import com.reststyle.framework.common.oper_log.BusinessType;
+import com.reststyle.framework.common.oper_log.OperLog;
+import com.reststyle.framework.common.oper_log.OperUnit;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
