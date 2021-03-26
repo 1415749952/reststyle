@@ -1,4 +1,4 @@
-package com.reststyle.web.controller;
+package com.reststyle.framework.web.controller;
 
 import com.reststyle.framework.common.oper_log.BusinessType;
 import com.reststyle.framework.common.oper_log.OperLog;

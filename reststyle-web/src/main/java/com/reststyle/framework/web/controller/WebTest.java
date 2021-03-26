@@ -1,4 +1,4 @@
-package com.reststyle.web.controller;
+package com.reststyle.framework.web.controller;
 
 import com.reststyle.framework.service.WebTestService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.reststyle.framework.service.token;
+package com.reststyle.framework.service.security;
 
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.IdUtil;
