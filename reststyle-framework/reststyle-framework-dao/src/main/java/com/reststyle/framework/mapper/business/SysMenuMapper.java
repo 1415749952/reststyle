@@ -1,4 +1,4 @@
-package com.reststyle.framework.mapper;
+package com.reststyle.framework.mapper.business;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.reststyle.framework.domain.table.SysMenu;

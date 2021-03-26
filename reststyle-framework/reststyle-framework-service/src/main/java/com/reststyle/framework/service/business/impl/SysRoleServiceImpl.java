@@ -2,7 +2,7 @@ package com.reststyle.framework.service.business.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.reststyle.framework.domain.table.SysRole;
-import com.reststyle.framework.mapper.SysRoleMapper;
+import com.reststyle.framework.mapper.business.SysRoleMapper;
 import com.reststyle.framework.service.business.SysRoleService;
 import org.springframework.stereotype.Service;
 /**

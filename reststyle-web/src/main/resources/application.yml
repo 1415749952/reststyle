@@ -53,3 +53,8 @@ token:
   header: Authorization #令牌自定义标识
   secret: abcdefghijklmnopqrstuvwxyz  #令牌密钥
   expireTime: 30 #令牌有效期（默认30分钟）
+
+# 雪花算法配置，多节点部署的时候datacenterId取值范围（0~31），和workerId取值范围（0~31）。每个节点的datacenterId和workerId要不同
+snowflake:
+  datacenterId: 1 #数据中心id
+  workerId: 1 #机器id

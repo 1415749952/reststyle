@@ -2,7 +2,7 @@ package com.reststyle.framework.service.business.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.reststyle.framework.domain.table.SysOperLog;
-import com.reststyle.framework.mapper.SysOperLogMapper;
+import com.reststyle.framework.mapper.business.SysOperLogMapper;
 import com.reststyle.framework.service.business.SysOperLogService;
 
 import org.springframework.stereotype.Service;

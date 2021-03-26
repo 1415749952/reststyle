@@ -44,7 +44,7 @@ public class SecurityUser extends BaseEntity
     /**
      * 手机号码
      */
-    private String phonenumber;
+    private String phoneNumber;
 
     /**
      * 用户性别
@@ -67,24 +67,39 @@ public class SecurityUser extends BaseEntity
     private String salt;
 
     /**
-     * 帐号状态（0正常 1停用）
-     */
-    private String status;
-
-    /**
      * 删除标志（0代表存在 2代表删除）
      */
     private String delFlag;
 
     /**
+     * 帐号是否启用
+     */
+    private Boolean isEnabled;
+
+    /**
+     * 凭证未过期
+     */
+    private Boolean isCredentialsNonExpired;
+
+    /**
+     * 帐户未锁定
+     */
+    private Boolean isAccountNonLocked;
+
+    /**
+     * 帐户未过期
+     */
+    private Boolean isAccountNonExpired;
+
+    /**
      * 最后登录IP
      */
-    private String loginIp;
+    private String lastLoginIp;
 
     /**
      * 最后登录时间
      */
-    private Date loginDate;
+    private Date lastLoginDate;
 
     /**
      * 部门对象
@@ -106,4 +121,13 @@ public class SecurityUser extends BaseEntity
      */
     private Long[] postIds;
 
+    public boolean isAdmin()
+    {
+        return isAdmin(this.userId);
+    }
+
+    public static boolean isAdmin(Long userId)
+    {
+        return userId != null && 1L == userId;
+    }
 }

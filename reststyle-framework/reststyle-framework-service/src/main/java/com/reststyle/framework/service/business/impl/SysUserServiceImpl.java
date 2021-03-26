@@ -2,7 +2,7 @@ package com.reststyle.framework.service.business.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.reststyle.framework.domain.table.SysUser;
-import com.reststyle.framework.mapper.SysUserMapper;
+import com.reststyle.framework.mapper.business.SysUserMapper;
 import com.reststyle.framework.service.business.SysUserService;
 import org.springframework.stereotype.Service;
 
