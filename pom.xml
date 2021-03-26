@@ -29,6 +29,7 @@
         <hutool.version>5.5.8</hutool.version>
         <feign.version>2.2.6.RELEASE</feign.version>
         <feign-okhttp.version>11.0</feign-okhttp.version>
+        <oracle.version>11.2.0.3</oracle.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -50,7 +51,12 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
-
+            <!-- oracle驱动包 -->
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>${oracle.version}</version>
+            </dependency>
             <!-- pagehelper 分页插件 -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
