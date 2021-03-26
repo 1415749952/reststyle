@@ -1,7 +1,7 @@
 package com.reststyle.framework.service.security;
 
 import cn.hutool.core.lang.Validator;
-import com.reststyle.framework.common.security.entity.SysUser;
+import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.enums.UserStatus;
 import com.reststyle.framework.common.exception.BaseException;
@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
-        SysUser user = userService.selectUserByUserName(username);
+        SecurityUser user = userService.selectUserByUserName(username);
         if (Validator.isNull(user))
         {
             log.info("登录用户：{} 不存在.", username);
@@ -50,7 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
         return createLoginUser(user);
     }
 
-    public UserDetails createLoginUser(SysUser user)
+    public UserDetails createLoginUser(SecurityUser user)
     {
         return new LoginUser(user, permissionService.getMenuPermission(user));
     }

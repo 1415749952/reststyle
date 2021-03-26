@@ -12,7 +12,7 @@ import java.util.List;
  * @author TheFei
  */
 @Data
-public class SysMenu extends BaseEntity
+public class SecurityMenu extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
@@ -89,5 +89,5 @@ public class SysMenu extends BaseEntity
     /**
      * 子菜单
      */
-    private List<SysMenu> children = new ArrayList<SysMenu>();
+    private List<SecurityMenu> children = new ArrayList<SecurityMenu>();
 }

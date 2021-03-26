@@ -9,7 +9,7 @@ import lombok.Data;
  * @author TheFei
  */
 @Data
-public class SysRole extends BaseEntity
+public class SecurityRole extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 

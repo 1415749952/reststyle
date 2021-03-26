@@ -12,7 +12,7 @@ import java.util.List;
  * @author TheFei
  */
 @Data
-public class SysUser extends BaseEntity
+public class SecurityUser extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
@@ -89,12 +89,12 @@ public class SysUser extends BaseEntity
     /**
      * 部门对象
      */
-    private SysDept dept;
+    private SecurityDept dept;
 
     /**
      * 角色对象
      */
-    private List<SysRole> roles;
+    private List<SecurityRole> roles;
 
     /**
      * 角色组

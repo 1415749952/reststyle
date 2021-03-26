@@ -12,7 +12,7 @@ import java.util.List;
  * @author TheFei
  */
 @Data
-public class SysDept extends BaseEntity
+public class SecurityDept extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
@@ -74,6 +74,6 @@ public class SysDept extends BaseEntity
     /**
      * 子部门
      */
-    private List<SysDept> children = new ArrayList<SysDept>();
+    private List<SecurityDept> children = new ArrayList<SecurityDept>();
 
 }

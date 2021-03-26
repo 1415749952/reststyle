@@ -1,7 +1,7 @@
 package com.reststyle.framework.common.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.reststyle.framework.common.security.entity.SysUser;
+import com.reststyle.framework.common.security.entity.SecurityUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -60,7 +60,7 @@ public class LoginUser implements UserDetails
     /**
      * 用户信息
      */
-    private SysUser user;
+    private SecurityUser user;
 
     public String getToken()
     {
@@ -76,7 +76,7 @@ public class LoginUser implements UserDetails
     {
     }
 
-    public LoginUser(SysUser user, Set<String> permissions)
+    public LoginUser(SecurityUser user, Set<String> permissions)
     {
         this.user = user;
         this.permissions = permissions;
@@ -211,12 +211,12 @@ public class LoginUser implements UserDetails
         this.permissions = permissions;
     }
 
-    public SysUser getUser()
+    public SecurityUser getUser()
     {
         return user;
     }
 
-    public void setUser(SysUser user)
+    public void setUser(SecurityUser user)
     {
         this.user = user;
     }

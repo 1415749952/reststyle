@@ -1,6 +1,8 @@
 package com.reststyle.framework.service.security;
 
-import com.reststyle.framework.common.security.entity.SysUser;
+import com.reststyle.framework.common.security.entity.SecurityUser;
+import com.reststyle.framework.service.business.SysMenuService;
+import com.reststyle.framework.service.business.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +18,10 @@ import java.util.Set;
 public class SysPermissionService
 {
     @Autowired
-    private ISysRoleService roleService;
+    private SysRoleService roleService;
 
     @Autowired
-    private ISysMenuService menuService;
+    private SysMenuService menuService;
 
     /**
      * 获取角色数据权限
@@ -27,7 +29,7 @@ public class SysPermissionService
      * @param user 用户信息
      * @return 角色权限信息
      */
-    public Set<String> getRolePermission(SysUser user)
+    public Set<String> getRolePermission(SecurityUser user)
     {
         Set<String> roles = new HashSet<String>();
         // 管理员拥有所有权限
@@ -48,7 +50,7 @@ public class SysPermissionService
      * @param user 用户信息
      * @return 菜单权限信息
      */
-    public Set<String> getMenuPermission(SysUser user)
+    public Set<String> getMenuPermission(SecurityUser user)
     {
         Set<String> perms = new HashSet<String>();
         // 管理员拥有所有权限

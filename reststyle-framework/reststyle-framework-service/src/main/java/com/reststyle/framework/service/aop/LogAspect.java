@@ -2,7 +2,7 @@ package com.reststyle.framework.service.aop;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.reststyle.framework.common.security.entity.SysUser;
+import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.oper_log.OperStatus;
 import com.reststyle.framework.common.oper_log.OperLog;
@@ -95,7 +95,7 @@ public class LogAspect
             // 获取当前的用户
             //LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
             LoginUser loginUser = new LoginUser();
-            SysUser sysUser = new SysUser();
+            SecurityUser sysUser = new SecurityUser();
             sysUser.setUserId(111L);
             sysUser.setUserName("loginUser-zhangshan");
             loginUser.setUser(sysUser);

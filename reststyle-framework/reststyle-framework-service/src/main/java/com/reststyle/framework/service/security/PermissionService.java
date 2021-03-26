@@ -2,7 +2,7 @@ package com.reststyle.framework.service.security;
 
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
-import com.reststyle.framework.common.security.entity.SysRole;
+import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.utils.ServletUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +107,7 @@ public class PermissionService
         {
             return false;
         }
-        for (SysRole sysRole : loginUser.getUser().getRoles())
+        for (SecurityRole sysRole : loginUser.getUser().getRoles())
         {
             String roleKey = sysRole.getRoleKey();
             if (SUPER_ADMIN.equals(roleKey) || roleKey.equals(StrUtil.trim(role)))
