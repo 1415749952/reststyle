@@ -1,5 +1,8 @@
 package com.reststyle.web.controller;
 
+import com.reststyle.framework.common.operation_log.BusinessType;
+import com.reststyle.framework.common.operation_log.OperLog;
+import com.reststyle.framework.common.operation_log.OperUnit;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,12 +24,17 @@ import java.util.Map;
 public class Test
 {
     @GetMapping
-    public Map test()
+    @OperLog(methodDetail = "framework-web模块测试方法",businessType = BusinessType.SELECT,operUnit = OperUnit.USER)
+    public Map test(String userName) throws Exception
     {
         HashMap<String, String> map = new HashMap<>();
         map.put("userName","zhangsan");
-        map.put("name","张三");
+        map.put("name",userName);
         map.put("password","123456");
+        if (userName.equals("张山"))
+        {
+            throw new Exception("出错了");
+        }
         return map;
     }
 }

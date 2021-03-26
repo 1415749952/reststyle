@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 public @interface OperLog
 {
     /**
-     * 方法描述
+     * 接口描述
      */
     String methodDetail() default "";
 

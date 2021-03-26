@@ -35,7 +35,7 @@ public class SysOperLog
      * 业务类型(其他other,删除delete,查询select,修改update,新增INSERT("insert,生成代码generate,下载download,导出export,授权grant,导入import,强退force,清空数据clean
      */
     @TableField(value = "business_type")
-    private String businessType;
+    private Integer businessType;
 
     /**
      * 方法名称

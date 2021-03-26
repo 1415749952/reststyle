@@ -2,17 +2,16 @@ package com.reststyle.framework.service.aop;
 
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSON;
+import com.reststyle.framework.common.domain.entity.SysUser;
 import com.reststyle.framework.common.domain.model.LoginUser;
-import com.reststyle.framework.common.enums.BusinessStatus;
-import com.reststyle.framework.common.enums.HttpMethod;
+import com.reststyle.framework.common.operation_log.OperStatus;
 import com.reststyle.framework.common.operation_log.OperLog;
+import com.reststyle.framework.common.utils.DateUtils;
 import com.reststyle.framework.common.utils.ServletUtils;
+import com.reststyle.framework.common.utils.SnowFlakeUtils;
 import com.reststyle.framework.common.utils.ip.IpUtils;
 import com.reststyle.framework.common.utils.json.JacksonUtils;
-import com.reststyle.framework.common.utils.spring.SpringUtils;
 import com.reststyle.framework.domain.table.SysOperLog;
-import com.reststyle.framework.service.token.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
@@ -23,13 +22,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -96,41 +92,59 @@ public class LogAspect
             {
                 return;
             }
-
             // 获取当前的用户
-            LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
+            //LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
+            LoginUser loginUser = new LoginUser();
+            SysUser sysUser = new SysUser();
+            sysUser.setUserId(111L);
+            sysUser.setUserName("loginUser-zhangshan");
+            loginUser.setUser(sysUser);
 
-            // *========数据库日志=========*//
+
             SysOperLog operLog = new SysOperLog();
-            operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
-            // 请求的地址
-            String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
-            operLog.setOperIp(ip);
+            operLog.setOperId(SnowFlakeUtils.getId());
+            operLog.setStatus(OperStatus.SUCCESS.getStatus());
+            // 请求的IP地址
+            operLog.setOperIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
+            //请求的URL地址
+            operLog.setRequestUrl(ServletUtils.getRequest().getRequestURI());
+            // 设置请求方式
+            operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
+            //设置请求时间
+            operLog.setOperTime(DateUtils.getNowDate());
+            // 是否保存请求参数和值
+            if (controllerLog.isSaveRequestData())
+            {
+                // 设置请求参数和值
+                operLog.setRequestParam(getRequestParam(ServletUtils.getRequest(), joinPoint));
+            }
             // 返回参数
             operLog.setResposeResult(JacksonUtils.object2Json(jsonResult));
-
-            operLog.setRequestUrl(ServletUtils.getRequest().getRequestURI());
-            if (loginUser != null)
-            {
-                operLog.setOperName(loginUser.getUsername());
-            }
-
-            if (e != null)
-            {
-                operLog.setStatus(BusinessStatus.FAIL.ordinal());
-                operLog.setErrorMsg(StrUtil.sub(e.getMessage(), 0, 2000));
-            }
+            // 设置业务类型
+            operLog.setBusinessType(controllerLog.businessType().getKey());
+            // 设置接口描述
+            operLog.setMethodDetail(controllerLog.methodDetail());
             // 设置方法名称
             String className = joinPoint.getTarget().getClass().getName();
             String methodName = joinPoint.getSignature().getName();
             operLog.setMethod(className + "." + methodName + "()");
-            // 设置请求方式
-            operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
-            // 处理设置注解上的参数
-            getControllerMethodDescription(joinPoint, controllerLog, operLog);
+            // 设置操作的对象
+            operLog.setOperUnit(controllerLog.operUnit().getValue());
+            if (null != loginUser)
+            {
+                operLog.setOperName(loginUser.getUsername());
+                operLog.setOperClient(loginUser.getOs());
+                operLog.setOperAddress(loginUser.getLoginLocation());
+            }
+            if (null != e)
+            {
+                operLog.setStatus(OperStatus.FAIL.getStatus());
+                operLog.setErrorMsg(StrUtil.sub(e.toString(), 0, 2000));
+            }
+
             // 保存数据库
-            //AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
-            System.out.println(operLog);
+            System.out.println(JacksonUtils.object2Json(operLog));
+            //SpringUtils.getBean(SysOperLogServiceImpl.class).save(operLog);
         }
         catch (Exception exp)
         {
@@ -142,28 +156,6 @@ public class LogAspect
     }
 
 
-    /**
-     * 获取注解中对方法的描述信息 用于Controller层注解
-     *
-     * @param log 日志
-     * @param operLog 操作日志
-     * @throws Exception
-     */
-    public void getControllerMethodDescription(JoinPoint joinPoint, OperLog log, SysOperLog operLog) throws Exception
-    {
-        // 设置action动作
-        operLog.setBusinessType(log.businessType().getValue());
-        // 设置标题
-        operLog.setMethodDetail(log.methodDetail());
-        // 设置操作人类别
-        operLog.setOperUnit(log.operUnit().getValue());
-        // 是否需要保存request，参数和值
-        if (log.isSaveRequestData())
-        {
-            // 获取参数的信息，传入到数据库中。
-            setRequestValue(joinPoint, operLog);
-        }
-    }
 
     /**
      * 是否存在注解，如果存在就获取
@@ -183,75 +175,34 @@ public class LogAspect
 
     /**
      * 获取请求的参数，放到log中
-     *
-     * @param operLog 操作日志
-     * @throws Exception 异常
      */
-    private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog) throws Exception
+    public String getRequestParam(HttpServletRequest request, JoinPoint joinPoint)
     {
-        String requestMethod = operLog.getRequestMethod();
-        if (HttpMethod.PUT.name().equals(requestMethod) || HttpMethod.POST.name().equals(requestMethod))
+        Map<String, String[]> paramMap = request.getParameterMap();
+        String requestParam = "";
+        //如果请求数据不在body里面
+        if (paramMap.size() != 0)
         {
-            String params = argsArrayToString(joinPoint.getArgs());
-            operLog.setRequestParam(StrUtil.sub(params, 0, 2000));
+            Map<String, String> rtnMap = new HashMap<String, String>();
+            for (String key : paramMap.keySet())
+            {
+                rtnMap.put(key, paramMap.get(key)[0]);
+            }
+            requestParam = JacksonUtils.object2Json(rtnMap);
         }
         else
         {
-            Map<?, ?> paramsMap = (Map<?, ?>) ServletUtils.getRequest().getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-            operLog.setRequestParam(StrUtil.sub(paramsMap.toString(), 0, 2000));
-        }
-    }
-
-    /**
-     * 参数拼装
-     */
-    private String argsArrayToString(Object[] paramsArray)
-    {
-        String params = "";
-        if (paramsArray != null && paramsArray.length > 0)
-        {
-            for (int i = 0; i < paramsArray.length; i++)
+            Object[] args = joinPoint.getArgs();
+            if (args.length > 0 && args[0] instanceof MultipartFile)
             {
-                if (!isFilterObject(paramsArray[i]))
-                {
-                    params += JacksonUtils.object2Json(paramsArray[i]) + " ";
-                }
+                MultipartFile file = (MultipartFile) joinPoint.getArgs()[0];
+                HashMap<String, String> data = new HashMap<>();
+                data.put("fileName", file.getName());
+                return JacksonUtils.object2Json(data);
             }
+            requestParam = JacksonUtils.object2Json(joinPoint.getArgs());
         }
-        return params.trim();
-    }
-    /**
-     * 判断是否需要过滤的对象。
-     *
-     * @param o 对象信息。
-     * @return 如果是需要过滤的对象，则返回true；否则返回false。
-     */
-    @SuppressWarnings("rawtypes")
-    public boolean isFilterObject(final Object o)
-    {
-        Class<?> clazz = o.getClass();
-        if (clazz.isArray())
-        {
-            return clazz.getComponentType().isAssignableFrom(MultipartFile.class);
-        }
-        else if (Collection.class.isAssignableFrom(clazz))
-        {
-            Collection collection = (Collection) o;
-            for (Iterator iter = collection.iterator(); iter.hasNext();)
-            {
-                return iter.next() instanceof MultipartFile;
-            }
-        }
-        else if (Map.class.isAssignableFrom(clazz))
-        {
-            Map map = (Map) o;
-            for (Iterator iter = map.entrySet().iterator(); iter.hasNext();)
-            {
-                Map.Entry entry = (Map.Entry) iter.next();
-                return entry.getValue() instanceof MultipartFile;
-            }
-        }
-        return o instanceof MultipartFile || o instanceof HttpServletRequest || o instanceof HttpServletResponse;
+        return requestParam;
     }
 
 }

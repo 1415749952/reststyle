@@ -5,7 +5,7 @@
     <!--@mbg.generated-->
     <!--@Table sys_oper_log-->
     <id column="oper_id" jdbcType="BIGINT" property="operId" />
-    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="business_type" jdbcType="INTEGER" property="businessType" />
     <result column="method" jdbcType="VARCHAR" property="method" />
     <result column="method_detail" jdbcType="VARCHAR" property="methodDetail" />
     <result column="request_url" jdbcType="VARCHAR" property="requestUrl" />
