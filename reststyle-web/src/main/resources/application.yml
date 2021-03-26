@@ -1,9 +1,11 @@
-# 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8089
   port: 8089
 spring:
+  profiles:
+    active: dev #开发环境配置
   autoconfigure:
+    #整合多数据源就要排除druid的DruidDataSourceAutoConfigure类
     exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   datasource:
     druid:
@@ -26,12 +28,11 @@ spring:
       test-while-idle: true
       time-between-eviction-runs-millis: 20000
       use-global-data-source-stat: true
-  profiles:
-    active: dev
   jackson:
     serialization:
-      write-dates-as-timestamps: true
-
+      write-dates-as-timestamps: true #统一返回时间格式为时间戳
+    generator:
+      writeNumbersAsStrings: true #所有数字都变成字符串,包括long和int类型,防止前端数字类型精度丢失
 
 mybatis-plus:
   configuration:
@@ -49,9 +50,6 @@ mybatis-plus:
 
 # token配置
 token:
-  # 令牌自定义标识
-  header: Authorization
-  # 令牌密钥
-  secret: abcdefghijklmnopqrstuvwxyz
-  # 令牌有效期（默认30分钟）
-  expireTime: 30
+  header: Authorization #令牌自定义标识
+  secret: abcdefghijklmnopqrstuvwxyz  #令牌密钥
+  expireTime: 30 #令牌有效期（默认30分钟）
