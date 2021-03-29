@@ -1,7 +1,6 @@
 package com.reststyle.framework.common.exception.unite_exception;
 
 import com.reststyle.framework.common.unite_response.RestResult;
-import com.reststyle.framework.common.unite_response.ResultCode;
 import com.reststyle.framework.common.unite_response.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -44,7 +43,7 @@ public class GlobalExceptionHandler
     public RestResult handleException(Exception exception)
     {
         log.error(exception.toString());
-        return ResultUtil.error(ResultCode.INTERNAL_SERVER_ERROR, exception.getMessage());
+        return ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     /**
@@ -55,7 +54,7 @@ public class GlobalExceptionHandler
     public RestResult handlerNoHandlerFoundException(NoHandlerFoundException exception)
     {
         log.error(exception.toString());
-        return ResultUtil.error(ResultCode.NOT_FOUND, exception.getMessage());
+        return ResultUtil.error(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
     /**
@@ -77,10 +76,10 @@ public class GlobalExceptionHandler
         }
         if (CollectionUtils.isEmpty(validationErrorEntities))
         {
-            return ResultUtil.error(ResultCode.PARAM_IS_INVALID, validationErrorEntities, ResultCode.PARAM_IS_INVALID.getMessage());
+            return ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, validationErrorEntities, "校验参数异常!");
         }
         String message = validationErrorEntities.get(0).get("message");
-        return ResultUtil.error(ResultCode.PARAM_IS_INVALID, validationErrorEntities, message);
+        return ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, validationErrorEntities, message);
     }
 
     /**
@@ -91,7 +90,7 @@ public class GlobalExceptionHandler
     public RestResult handlerFormRepeatException(FormRepeatException exception)
     {
         log.error(exception.toString());
-        return ResultUtil.error(ResultCode.FORM_SAME_SUBMIT, exception.getMessage());
+        return ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     /**
@@ -102,7 +101,7 @@ public class GlobalExceptionHandler
     public RestResult httpRequestMethodNotSupportedExceptionException(HttpRequestMethodNotSupportedException exception)
     {
         log.error(exception.toString());
-        return ResultUtil.error(ResultCode.METHOD_NOT_ALLOWED, exception.getMessage());
+        return ResultUtil.error(HttpStatus.METHOD_NOT_ALLOWED, exception.getMessage());
     }
 
     /**
@@ -115,6 +114,6 @@ public class GlobalExceptionHandler
     public RestResult sqlException(SQLException exception)
     {
         log.error(exception.toString());
-        return ResultUtil.error(ResultCode.METHOD_NOT_ALLOWED, exception.getMessage());
+        return ResultUtil.error(HttpStatus.METHOD_NOT_ALLOWED, exception.getMessage());
     }
 }
