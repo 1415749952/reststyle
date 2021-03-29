@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -26,7 +25,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
     private static final long serialVersionUID = -8970718410437077606L;
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e)
     {
         RestResult restResult = ResultUtil.error(HttpStatus.UNAUTHORIZED, StrUtil.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI()));
         ServletUtils.renderString(response,JacksonUtils.object2Json(restResult),HttpStatus.UNAUTHORIZED);
