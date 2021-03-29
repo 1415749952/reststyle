@@ -1,6 +1,5 @@
 package com.reststyle.framework.common.security.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -82,7 +81,6 @@ public class LoginUser implements UserDetails
         this.permissions = permissions;
     }
 
-    @JsonIgnore
     @Override
     public String getPassword()
     {
@@ -98,11 +96,10 @@ public class LoginUser implements UserDetails
     /**
      * 账户是否未过期,过期无法验证
      */
-    @JsonIgnore
     @Override
     public boolean isAccountNonExpired()
     {
-        return true;
+        return user.getIsAccountNonExpired();
     }
 
     /**
@@ -110,11 +107,10 @@ public class LoginUser implements UserDetails
      *
      * @return
      */
-    @JsonIgnore
     @Override
     public boolean isAccountNonLocked()
     {
-        return true;
+        return user.getIsAccountNonLocked();
     }
 
     /**
@@ -122,11 +118,10 @@ public class LoginUser implements UserDetails
      *
      * @return
      */
-    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired()
     {
-        return true;
+        return user.getIsCredentialsNonExpired();
     }
 
     /**
@@ -134,11 +129,10 @@ public class LoginUser implements UserDetails
      *
      * @return
      */
-    @JsonIgnore
     @Override
     public boolean isEnabled()
     {
-        return true;
+        return user.getIsEnabled();
     }
 
     public Long getLoginTime()

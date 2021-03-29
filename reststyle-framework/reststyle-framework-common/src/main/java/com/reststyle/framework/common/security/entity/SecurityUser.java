@@ -105,16 +105,4 @@ public class SecurityUser extends BaseEntity
      * 角色对象
      */
     private List<SecurityRole> roles;
-
-
-
-    public boolean isAdmin()
-    {
-        return isAdmin(this.userId);
-    }
-
-    public static boolean isAdmin(Long userId)
-    {
-        return userId != null && 1L == userId;
-    }
 }

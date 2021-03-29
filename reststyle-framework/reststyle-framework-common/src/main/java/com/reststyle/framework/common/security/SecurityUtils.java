@@ -1,11 +1,19 @@
 package com.reststyle.framework.common.security;
 
 import cn.hutool.http.HttpStatus;
-import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.exception.CustomException;
+import com.reststyle.framework.common.security.entity.SecurityRole;
+import com.reststyle.framework.common.security.entity.SecurityUser;
+import com.reststyle.framework.common.security.model.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 安全服务工具类
@@ -83,8 +91,21 @@ public class SecurityUtils
      * @param userId 用户ID
      * @return 结果
      */
-    public static boolean isAdmin(Long userId)
+    public static boolean isAdmin(SecurityUser user)
     {
-        return userId != null && 1L == userId;
+        if (null == user)
+        {
+            return false;
+        }
+        if (CollectionUtils.isEmpty(user.getRoles()))
+        {
+            return false;
+        }
+        List<String> roleKeys = Optional.ofNullable(user.getRoles()).orElse(new ArrayList<>()).stream().map(SecurityRole::getRoleKey).collect(Collectors.toList());
+        if (roleKeys.contains("admin"))
+        {
+            return true;
+        }
+        return false;
     }
 }

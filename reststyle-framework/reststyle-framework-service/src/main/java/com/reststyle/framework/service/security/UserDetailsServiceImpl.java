@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 用户验证处理
@@ -28,9 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService
 {
     @Autowired
     private SecurityService securityService;
-
-    @Autowired
-    private SysPermissionService permissionService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
@@ -73,6 +71,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
 
     public UserDetails createLoginUser(SecurityUser user)
     {
-        return new LoginUser(user, permissionService.getMenuPermission(user));
+        Set<String> menuPermission = securityService.getMenuPermission(user);
+        return new LoginUser(user, menuPermission);
     }
 }

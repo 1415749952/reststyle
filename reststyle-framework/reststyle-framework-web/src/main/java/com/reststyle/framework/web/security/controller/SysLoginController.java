@@ -5,10 +5,7 @@ import com.reststyle.framework.common.constant.Constants;
 import com.reststyle.framework.common.security.model.LoginBody;
 import com.reststyle.framework.common.unite_response.RestResult;
 import com.reststyle.framework.common.unite_response.ResultUtil;
-import com.reststyle.framework.service.business.SysMenuService;
 import com.reststyle.framework.service.security.SysLoginService;
-import com.reststyle.framework.service.security.SysPermissionService;
-import com.reststyle.framework.service.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,15 +23,7 @@ public class SysLoginController
 {
     @Autowired
     private SysLoginService loginService;
-
-    @Autowired
-    private SysMenuService menuService;
-
-    @Autowired
-    private SysPermissionService permissionService;
-
-    @Autowired
-    private TokenService tokenService;
+    
 
     /**
      * 登录方法
