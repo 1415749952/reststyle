@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.exception.unite_exception;
+package com.reststyle.framework.common.exception;
 
 /**
  * Created with IntelliJ IDEA.

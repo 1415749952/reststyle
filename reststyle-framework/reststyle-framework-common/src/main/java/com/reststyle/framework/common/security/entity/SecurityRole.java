@@ -1,7 +1,8 @@
 package com.reststyle.framework.common.security.entity;
 
-import com.reststyle.framework.common.domain.BaseEntity;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 角色表 sys_role
@@ -9,7 +10,7 @@ import lombok.Data;
  * @author TheFei
  */
 @Data
-public class SecurityRole extends BaseEntity
+public class SecurityRole implements Serializable
 {
     private static final long serialVersionUID = 1L;
 

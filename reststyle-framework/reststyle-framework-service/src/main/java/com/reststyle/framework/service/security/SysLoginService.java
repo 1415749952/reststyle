@@ -2,13 +2,9 @@ package com.reststyle.framework.service.security;
 
 
 import com.reststyle.framework.common.constant.Constants;
-import com.reststyle.framework.common.utils.redis.RedisUtils;
+import com.reststyle.framework.common.exception.BusinessException;
 import com.reststyle.framework.common.security.model.LoginUser;
-import com.reststyle.framework.common.exception.CustomException;
-import com.reststyle.framework.common.exception.user.CaptchaException;
-import com.reststyle.framework.common.exception.user.CaptchaExpireException;
-import com.reststyle.framework.common.exception.user.UserPasswordNotMatchException;
-import com.reststyle.framework.common.utils.MessageUtils;
+import com.reststyle.framework.common.utils.redis.RedisUtils;
 import com.reststyle.framework.service.manager.AsyncManager;
 import com.reststyle.framework.service.manager.factory.AsyncFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,38 +47,38 @@ public class SysLoginService
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
         String captcha = redisCache.getCacheObject(verifyKey);
         redisCache.deleteObject(verifyKey);
-        if (captcha == null)
+        if (null == captcha)
         {
-            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));
-            throw new CaptchaExpireException();
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "验证码已失效"));
+            throw new BusinessException("验证码已失效");
         }
         if (!code.equalsIgnoreCase(captcha))
         {
-            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error")));
-            throw new CaptchaException();
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL,"验证码错误"));
+            throw new BusinessException("验证码错误");
         }
         // 用户验证
         Authentication authentication = null;
         try
         {
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-            authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         }
         catch (Exception e)
         {
+            String message = null;
             if (e instanceof BadCredentialsException)
             {
-                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
-                throw new UserPasswordNotMatchException();
+                message = "密码错误";
             }
             else
             {
-                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, e.getMessage()));
-                throw new CustomException(e.getMessage());
+                message = e.getMessage();
             }
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, message));
+            throw new BadCredentialsException(message);
         }
-        AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, "登陆成功"));
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         // 生成token
         return tokenService.createToken(loginUser);

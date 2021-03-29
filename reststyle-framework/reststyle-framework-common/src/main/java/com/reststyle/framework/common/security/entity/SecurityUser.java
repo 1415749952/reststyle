@@ -1,8 +1,8 @@
 package com.reststyle.framework.common.security.entity;
 
-import com.reststyle.framework.common.domain.BaseEntity;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @author TheFei
  */
 @Data
-public class SecurityUser extends BaseEntity
+public class SecurityUser implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -20,11 +20,6 @@ public class SecurityUser extends BaseEntity
      * 用户ID
      */
     private Long userId;
-
-    /**
-     * 部门ID
-     */
-    private Long deptId;
 
     /**
      * 用户账号
@@ -110,24 +105,4 @@ public class SecurityUser extends BaseEntity
      * 角色对象
      */
     private List<SecurityRole> roles;
-
-    /**
-     * 角色组
-     */
-    private Long[] roleIds;
-
-    /**
-     * 岗位组
-     */
-    private Long[] postIds;
-
-    public boolean isAdmin()
-    {
-        return isAdmin(this.userId);
-    }
-
-    public static boolean isAdmin(Long userId)
-    {
-        return userId != null && 1L == userId;
-    }
 }

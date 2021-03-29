@@ -18,29 +18,24 @@
         <result column="is_account_non_expired" jdbcType="BOOLEAN" property="isAccountNonExpired"/>
         <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
         <result column="last_login_date" jdbcType="TIMESTAMP" property="lastLoginDate"/>
-        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
     <resultMap id="SecurityDeptResult" type="com.reststyle.framework.common.security.entity.SecurityDept">
         <id property="deptId" column="dept_id"/>
         <result property="parentId" column="parent_id"/>
         <result property="deptName" column="dept_name"/>
         <result property="orderNum" column="order_num"/>
-        <result property="leader"   column="leader"/>
-        <result property="status"   column="status"/>
-	</resultMap>
-	<resultMap id="SecurityRoleResult" type="com.reststyle.framework.common.security.entity.SecurityRole">
+        <result property="leader" column="leader"/>
+        <result property="status" column="status"/>
+    </resultMap>
+    <resultMap id="SecurityRoleResult" type="com.reststyle.framework.common.security.entity.SecurityRole">
         <id property="roleId" column="role_id"/>
-        <result property="roleName"  column="role_name"/>
-        <result property="roleKey"   column="role_key"/>
-        <result property="roleSort"  column="role_sort"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleKey" column="role_key"/>
+        <result property="roleSort" column="role_sort"/>
         <result property="dataScope" column="data_scope"/>
-        <result property="status"    column="status"/>
-	</resultMap>
+        <result property="status" column="status"/>
+    </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         user_id, user_name, `password`, nick_name, user_type, email, phone_number, sex, avatar,
@@ -52,13 +47,31 @@
         select *
         from sys_user
         where user_name = #{username}
+        and del_flag = '0'
         limit 1
     </select>
     <select id="selectSecurityDeptByUserId" resultMap="SecurityDeptResult">
         select sd.*
-        from sys_dept sd, sys_user_dept sud
+        from sys_dept sd,
+             sys_user_dept sud
         where sud.user_id = #{userId}
-        and sud.dept_id = sd.dept_id
-        limit 1
+          and sud.dept_id = sd.dept_id limit 1
+    </select>
+    <select id="selectSecurityRoleByUserId" resultMap="SecurityRoleResult">
+        select *
+        from sys_user_role ur
+                     left join sys_role r on r.role_id = ur.role_id
+        where ur.user_id = #{userId} and r.status = '0' and r.del_flag = '0'
+    </select>
+
+    <select id="selectMenuPermsByRoleIds" resultType="java.lang.String">
+        select distinct m.perms
+        from sys_menu m,sys_role_menu srm
+        where srm.menu_id = m.menu_id
+        and m.status = '0'
+        and srm.role_id in
+        <foreach item="roleId" index="index" collection="roleIds" open="(" separator="," close=")">
+        #{roleId}
+        </foreach>
     </select>
 </mapper>

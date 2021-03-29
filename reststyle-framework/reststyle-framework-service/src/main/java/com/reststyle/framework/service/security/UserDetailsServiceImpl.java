@@ -3,6 +3,7 @@ package com.reststyle.framework.service.security;
 import cn.hutool.core.lang.Validator;
 import com.reststyle.framework.common.enums.DelFlag;
 import com.reststyle.framework.common.security.entity.SecurityDept;
+import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.service.security.service.SecurityService;
@@ -13,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * 用户验证处理
@@ -25,9 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService
 {
     @Autowired
     private SecurityService securityService;
-
-    @Autowired
-    private SysPermissionService permissionService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
@@ -62,11 +63,15 @@ public class UserDetailsServiceImpl implements UserDetailsService
         SecurityDept dept = securityService.selectSecurityDeptByUserId(user.getUserId());
         user.setDept(dept);
 
+        List<SecurityRole> roles = securityService.selectSecurityRoleByUserId(user.getUserId());
+        user.setRoles(roles);
+
         return createLoginUser(user);
     }
 
     public UserDetails createLoginUser(SecurityUser user)
     {
-        return new LoginUser(user, permissionService.getMenuPermission(user));
+        Set<String> menuPermission = securityService.getMenuPermission(user);
+        return new LoginUser(user, menuPermission);
     }
 }

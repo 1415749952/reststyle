@@ -1,11 +1,18 @@
 package com.reststyle.framework.common.security;
 
-import cn.hutool.http.HttpStatus;
+import com.reststyle.framework.common.exception.BusinessException;
+import com.reststyle.framework.common.security.entity.SecurityRole;
+import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.security.model.LoginUser;
-import com.reststyle.framework.common.exception.CustomException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 安全服务工具类
@@ -25,7 +32,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new CustomException("获取用户账户异常", HttpStatus.HTTP_UNAUTHORIZED);
+            throw new BusinessException("获取用户账户异常");
         }
     }
 
@@ -40,7 +47,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new CustomException("获取用户信息异常", HttpStatus.HTTP_UNAUTHORIZED);
+            throw new BusinessException("获取用户信息异常");
         }
     }
 
@@ -80,11 +87,24 @@ public class SecurityUtils
     /**
      * 是否为管理员
      * 
-     * @param userId 用户ID
+     * @param user 用户ID
      * @return 结果
      */
-    public static boolean isAdmin(Long userId)
+    public static boolean isAdmin(SecurityUser user)
     {
-        return userId != null && 1L == userId;
+        if (null == user)
+        {
+            return false;
+        }
+        if (CollectionUtils.isEmpty(user.getRoles()))
+        {
+            return false;
+        }
+        List<String> roleKeys = Optional.ofNullable(user.getRoles()).orElse(new ArrayList<>()).stream().map(SecurityRole::getRoleKey).collect(Collectors.toList());
+        if (roleKeys.contains("admin"))
+        {
+            return true;
+        }
+        return false;
     }
 }

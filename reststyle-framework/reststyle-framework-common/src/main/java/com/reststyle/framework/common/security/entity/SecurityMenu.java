@@ -1,8 +1,8 @@
 package com.reststyle.framework.common.security.entity;
 
-import com.reststyle.framework.common.domain.BaseEntity;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @author TheFei
  */
 @Data
-public class SecurityMenu extends BaseEntity
+public class SecurityMenu implements Serializable
 {
     private static final long serialVersionUID = 1L;
 

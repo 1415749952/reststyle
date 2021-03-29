@@ -122,6 +122,7 @@ public class CaptchaController
         redisCache.setCacheObject(verifyKey, code, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
 
         HashMap<String, String> captchaMap = new HashMap<>(2);
+        captchaMap.put("code", code);
         captchaMap.put("uuid", uuid);
         captchaMap.put("img", captcha.getImageBase64());
         return ResultUtil.success(captchaMap, "获取验证码成功！");
@@ -144,7 +145,6 @@ public class CaptchaController
                 return "";
         }
     }
-
 
 
 }

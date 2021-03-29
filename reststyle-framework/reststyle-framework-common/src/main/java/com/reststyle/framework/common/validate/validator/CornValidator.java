@@ -1,6 +1,6 @@
 package com.reststyle.framework.common.validate.validator;
 
-import com.reststyle.framework.common.utils.CronExpression;
+import com.reststyle.framework.common.utils.cron.CronExpression;
 import com.reststyle.framework.common.validate.validator.enums.ValidCorn;
 
 import javax.validation.ConstraintValidator;

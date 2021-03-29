@@ -1,6 +1,6 @@
 package com.reststyle.framework.service.manager;
 
-import com.reststyle.framework.common.utils.Threads;
+import com.reststyle.framework.common.utils.thread.ThreadsUtils;
 import com.reststyle.framework.common.utils.spring.SpringUtils;
 
 import java.util.TimerTask;
@@ -51,6 +51,6 @@ public class AsyncManager
      */
     public void shutdown()
     {
-        Threads.shutdownAndAwaitTermination(executor);
+        ThreadsUtils.shutdownAndAwaitTermination(executor);
     }
 }
