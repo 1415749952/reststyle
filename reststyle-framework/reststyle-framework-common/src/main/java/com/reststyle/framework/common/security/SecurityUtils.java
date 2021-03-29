@@ -1,7 +1,6 @@
 package com.reststyle.framework.common.security;
 
-import cn.hutool.http.HttpStatus;
-import com.reststyle.framework.common.exception.CustomException;
+import com.reststyle.framework.common.exception.BusinessException;
 import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.security.model.LoginUser;
@@ -33,7 +32,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new CustomException("获取用户账户异常", HttpStatus.HTTP_UNAUTHORIZED);
+            throw new BusinessException("获取用户账户异常");
         }
     }
 
@@ -48,7 +47,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new CustomException("获取用户信息异常", HttpStatus.HTTP_UNAUTHORIZED);
+            throw new BusinessException("获取用户信息异常");
         }
     }
 
@@ -88,7 +87,7 @@ public class SecurityUtils
     /**
      * 是否为管理员
      * 
-     * @param userId 用户ID
+     * @param user 用户ID
      * @return 结果
      */
     public static boolean isAdmin(SecurityUser user)

@@ -1,8 +1,6 @@
 package com.reststyle.framework.common.utils.ip;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONObject;
-import com.reststyle.framework.common.config.RuoYiConfig;
 import com.reststyle.framework.common.constant.Constants;
 import com.reststyle.framework.common.utils.http.HttpUtils;
 import com.reststyle.framework.common.utils.json.JacksonUtils;
@@ -34,25 +32,22 @@ public class AddressUtils
         {
             return "内网IP";
         }
-        if (RuoYiConfig.isAddressEnabled())
+        try
         {
-            try
-            {
-                String rspStr = HttpUtils.sendGet(IP_URL, "ip=" + ip + "&json=true", Constants.GBK);
-                if (StrUtil.isEmpty(rspStr))
-                {
-                    log.error("获取地理位置异常 {}", ip);
-                    return UNKNOWN;
-                }
-                Map<String, Object> stringObjectMap = JacksonUtils.convertJson2Map(rspStr);
-                String region = stringObjectMap.get("pro").toString();
-                String city = stringObjectMap.get("city").toString();
-                return String.format("%s %s", region, city);
-            }
-            catch (Exception e)
+            String rspStr = HttpUtils.sendGet(IP_URL, "ip=" + ip + "&json=true", Constants.GBK);
+            if (StrUtil.isEmpty(rspStr))
             {
                 log.error("获取地理位置异常 {}", ip);
+                return UNKNOWN;
             }
+            Map<String, Object> stringObjectMap = JacksonUtils.convertJson2Map(rspStr);
+            String region = stringObjectMap.get("pro").toString();
+            String city = stringObjectMap.get("city").toString();
+            return String.format("%s %s", region, city);
+        }
+        catch (Exception e)
+        {
+            log.error("获取地理位置异常 {}", ip);
         }
         return address;
     }

@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.exception.unite_exception;
+package com.reststyle.framework.common.exception;
 
 import com.reststyle.framework.common.unite_response.RestResult;
 import com.reststyle.framework.common.unite_response.ResultUtil;

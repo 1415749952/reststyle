@@ -31,6 +31,7 @@
         <feign-okhttp.version>11.0</feign-okhttp.version>
         <oracle.version>11.2.0.3</oracle.version>
         <dynamic-datasource.version>3.3.2</dynamic-datasource.version>
+        <jaxb-api.version>2.3.0</jaxb-api.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -156,7 +157,11 @@
                  <artifactId>reststyle-quartz</artifactId>
                  <version>${reststyle.version}</version>
              </dependency>
-
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb-api.version}</version>
+            </dependency>
             <!-- 代码生成-->
              <dependency>
                  <groupId>com.reststyle</groupId>

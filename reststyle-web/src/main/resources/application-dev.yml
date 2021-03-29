@@ -9,13 +9,13 @@ spring:
           password: 12345678
           url: jdbc:mysql://localhost:3306/reststyle?serverTimezone=UTC
           username: root
-        oracle:
-          driver-class-name: oracle.jdbc.driver.OracleDriver
-          druid:
-            validation-query: select * from dual
-          password: HLHTCDA
-          url: jdbc:oracle:thin:@localhost:1521/orcl
-          username: HLHTCDA
+      #  oracle:
+      #    driver-class-name: oracle.jdbc.driver.OracleDriver
+      #    druid:
+      #      validation-query: select * from dual
+      #    password: HLHTCDA
+      #    url: jdbc:oracle:thin:@localhost:1521/orcl
+      #    username: HLHTCDA
       primary: mysql
       strict: false
 mybatis-plus:
