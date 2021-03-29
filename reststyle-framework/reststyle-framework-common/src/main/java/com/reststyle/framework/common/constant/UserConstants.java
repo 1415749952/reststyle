@@ -3,7 +3,7 @@ package com.reststyle.framework.common.constant;
 /**
  * 用户常量信息
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class UserConstants
 {

@@ -1,7 +1,7 @@
 package com.reststyle.framework.common.utils;
 
 import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.StrUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -81,17 +81,17 @@ public class ServletUtils
     }
 
     /**
-     * 将字符串渲染到客户端
+     * 将请求状态为200，将字符串渲染到客户端
      * 
      * @param response 渲染对象
      * @param string 待渲染的字符串
      * @return null
      */
-    public static String renderString(HttpServletResponse response, String string)
+    public static String renderOkString(HttpServletResponse response, String string)
     {
         try
         {
-            response.setStatus(200);
+            response.setStatus(HttpStatus.OK.value());
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(string);
@@ -103,36 +103,50 @@ public class ServletUtils
         return null;
     }
 
+
     /**
-     * 是否是Ajax异步请求
-     * 
-     * @param request
+     * 将请求状态为500，将字符串渲染到客户端
+     *
+     * @param response 渲染对象
+     * @param string 待渲染的字符串
+     * @return null
      */
-    public static boolean isAjaxRequest(HttpServletRequest request)
+    public static String renderErrorString(HttpServletResponse response, String string)
     {
-        String accept = request.getHeader("accept");
-        if (accept != null && accept.indexOf("application/json") != -1)
+        try
         {
-            return true;
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().print(string);
         }
-
-        String xRequestedWith = request.getHeader("X-Requested-With");
-        if (xRequestedWith != null && xRequestedWith.indexOf("XMLHttpRequest") != -1)
+        catch (IOException e)
         {
-            return true;
+            e.printStackTrace();
         }
-
-        String uri = request.getRequestURI();
-        if (StrUtil.equalsAnyIgnoreCase(uri, ".json", ".xml"))
+        return null;
+    }
+    /**
+     * 将请求状态为500，将字符串渲染到客户端
+     *
+     * @param response 渲染对象
+     * @param string 待渲染的字符串
+     * @param httpStatus http 状态码
+     * @return null
+     */
+    public static String renderString(HttpServletResponse response, String string, HttpStatus httpStatus)
+    {
+        try
         {
-            return true;
+            response.setStatus(httpStatus.value());
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().print(string);
         }
-
-        String ajax = request.getParameter("__ajax");
-        if (StrUtil.equalsAnyIgnoreCase(ajax, "json", "xml"))
+        catch (IOException e)
         {
-            return true;
+            e.printStackTrace();
         }
-        return false;
+        return null;
     }
 }

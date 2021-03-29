@@ -1,4 +1,75 @@
-# 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8089
   port: 8089
+spring:
+  profiles:
+    active: dev #开发环境配置
+  autoconfigure:
+    #整合多数据源就要排除druid的DruidDataSourceAutoConfigure类
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  mvc:
+    throw-exception-if-no-handler-found: true # 处理404在全局异常处理
+  resources:
+    add-mappings: false # 处理404在全局异常处理
+  datasource:
+    druid:
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      exception-sorter: true
+      filters: stat,wall,log4j
+      initial-size: 10
+      max-active: 100
+      max-pool-prepared-statement-per-connection-size: 20
+      max-wait: 20000
+      min-evictable-idle-time-millis: 30000
+      min-idle: 10
+      pool-prepared-statements: true
+      stat-view-servlet:
+        enabled: true
+        login-password: 123456
+        login-username: admin
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 20000
+      use-global-data-source-stat: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true #统一返回时间格式为时间戳
+    generator:
+      writeNumbersAsStrings: true #所有数字都变成字符串,包括long和int类型,防止前端数字类型精度丢失
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+    jdbc-type-for-null: 'null'
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-value: 2
+      logic-not-delete-value: 0
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  #type-aliases-package: com.example.demo.domain
+
+
+
+# token配置
+token:
+  header: Authorization #令牌自定义标识
+  secret: abcdefghijklmnopqrstuvwxyz  #令牌密钥
+  expireTime: 30 #令牌有效期（默认30分钟）
+
+# 雪花算法配置，多节点部署的时候datacenterId取值范围（0~31），和workerId取值范围（0~31）。每个节点的datacenterId和workerId要不同
+snowflake:
+  datacenterId: 1 #数据中心id
+  workerId: 1 #机器id
+
+# 验证码相关
+captcha:
+  # 验证码类型 math 数组计算 char 字符验证
+  captchaType: math
+  # line 线段干扰 circle 圆圈干扰 shear 扭曲干扰
+  captchaCategory: circle
+  # 数字验证码位数
+  captchaNumberLength: 1
+  # 字符验证码长度
+  captchaCharLength: 4

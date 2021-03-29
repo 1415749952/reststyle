@@ -3,7 +3,7 @@ package com.reststyle.framework.common.exception.user;
 /**
  * 用户密码不正确或不符合规范异常类
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class UserPasswordNotMatchException extends UserException
 {

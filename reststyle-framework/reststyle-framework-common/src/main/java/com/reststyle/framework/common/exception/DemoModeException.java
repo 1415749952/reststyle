@@ -3,7 +3,7 @@ package com.reststyle.framework.common.exception;
 /**
  * 演示模式异常
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class DemoModeException extends RuntimeException
 {

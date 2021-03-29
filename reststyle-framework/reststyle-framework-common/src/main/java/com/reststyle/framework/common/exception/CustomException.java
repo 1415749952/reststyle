@@ -3,7 +3,7 @@ package com.reststyle.framework.common.exception;
 /**
  * 自定义异常
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class CustomException extends RuntimeException
 {

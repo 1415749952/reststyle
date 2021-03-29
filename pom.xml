@@ -29,6 +29,8 @@
         <hutool.version>5.5.8</hutool.version>
         <feign.version>2.2.6.RELEASE</feign.version>
         <feign-okhttp.version>11.0</feign-okhttp.version>
+        <oracle.version>11.2.0.3</oracle.version>
+        <dynamic-datasource.version>3.3.2</dynamic-datasource.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -50,7 +52,12 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
-
+            <!-- oracle驱动包 -->
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>${oracle.version}</version>
+            </dependency>
             <!-- pagehelper 分页插件 -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
@@ -119,6 +126,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
@@ -280,16 +292,16 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <profiles>
+  <!--  <profiles>
         <profile>
             <id>dev</id>
             <properties>
-                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                &lt;!&ndash; 环境标识，需要与配置文件的名称相对应 &ndash;&gt;
                 <profiles.active>dev</profiles.active>
                 <logging.level>debug</logging.level>
             </properties>
             <activation>
-                <!-- 默认环境 -->
+                &lt;!&ndash; 默认环境 &ndash;&gt;
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
@@ -300,6 +312,6 @@
                 <logging.level>warn</logging.level>
             </properties>
         </profile>
-    </profiles>
+    </profiles>-->
 
 </project>

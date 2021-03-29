@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reststyle.framework.mapper.security.SecurityMapper">
+    <resultMap id="BaseResultMap" type="com.reststyle.framework.common.security.entity.SecurityUser">
+        <!--@mbg.generated-->
+        <!--@Table sys_user-->
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="sex" jdbcType="CHAR" property="sex"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="is_enabled" jdbcType="BOOLEAN" property="isEnabled"/>
+        <result column="is_credentials_non_expired" jdbcType="BOOLEAN" property="isCredentialsNonExpired"/>
+        <result column="is_account_non_locked" jdbcType="BOOLEAN" property="isAccountNonLocked"/>
+        <result column="is_account_non_expired" jdbcType="BOOLEAN" property="isAccountNonExpired"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="last_login_date" jdbcType="TIMESTAMP" property="lastLoginDate"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <resultMap id="SecurityDeptResult" type="com.reststyle.framework.common.security.entity.SecurityDept">
+        <id property="deptId" column="dept_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="leader"   column="leader"/>
+        <result property="status"   column="status"/>
+	</resultMap>
+	<resultMap id="SecurityRoleResult" type="com.reststyle.framework.common.security.entity.SecurityRole">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName"  column="role_name"/>
+        <result property="roleKey"   column="role_key"/>
+        <result property="roleSort"  column="role_sort"/>
+        <result property="dataScope" column="data_scope"/>
+        <result property="status"    column="status"/>
+	</resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        user_id, user_name, `password`, nick_name, user_type, email, phone_number, sex, avatar,
+        is_enabled, is_credentials_non_expired, is_account_non_locked, is_account_non_expired,
+        last_login_ip, last_login_date, create_by, create_time, update_by, update_time, del_flag,
+        remark
+    </sql>
+    <select id="selectSecurityUserByUserName" resultMap="BaseResultMap">
+        select *
+        from sys_user
+        where user_name = #{username}
+        limit 1
+    </select>
+    <select id="selectSecurityDeptByUserId" resultMap="SecurityDeptResult">
+        select sd.*
+        from sys_dept sd, sys_user_dept sud
+        where sud.user_id = #{userId}
+        and sud.dept_id = sd.dept_id
+        limit 1
+    </select>
+</mapper>

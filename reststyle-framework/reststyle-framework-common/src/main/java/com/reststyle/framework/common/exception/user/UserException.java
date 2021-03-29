@@ -6,7 +6,7 @@ import com.reststyle.framework.common.exception.BaseException;
 /**
  * 用户信息异常类
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class UserException extends BaseException
 {

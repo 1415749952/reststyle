@@ -3,7 +3,7 @@ package com.reststyle.framework.common.exception.user;
 /**
  * 验证码错误异常类
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class CaptchaException extends UserException
 {

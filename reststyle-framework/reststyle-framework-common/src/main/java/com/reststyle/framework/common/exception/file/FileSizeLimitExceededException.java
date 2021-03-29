@@ -3,7 +3,7 @@ package com.reststyle.framework.common.exception.file;
 /**
  * 文件名大小限制异常类
  * 
- * @author ruoyi
+ * @author TheFei
  */
 public class FileSizeLimitExceededException extends FileException
 {
