@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.utils;
+package com.reststyle.framework.common.utils.cron;
 
 import java.io.Serializable;
 import java.text.ParseException;
