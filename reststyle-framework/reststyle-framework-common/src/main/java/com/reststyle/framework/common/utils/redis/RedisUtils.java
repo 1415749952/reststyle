@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.core.redis;
+package com.reststyle.framework.common.utils.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
@@ -15,9 +15,10 @@ import java.util.concurrent.TimeUnit;
  *
  * @author TheFei
  **/
+//java文件去掉警告的注解告警
 @SuppressWarnings(value = { "unchecked", "rawtypes" })
 @Component
-public class RedisCache
+public class RedisUtils
 {
     @Autowired
     public RedisTemplate redisTemplate;

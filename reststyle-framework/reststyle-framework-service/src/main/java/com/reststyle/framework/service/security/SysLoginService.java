@@ -2,7 +2,7 @@ package com.reststyle.framework.service.security;
 
 
 import com.reststyle.framework.common.constant.Constants;
-import com.reststyle.framework.common.core.redis.RedisCache;
+import com.reststyle.framework.common.utils.redis.RedisUtils;
 import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.exception.CustomException;
 import com.reststyle.framework.common.exception.user.CaptchaException;
@@ -35,7 +35,7 @@ public class SysLoginService
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private RedisCache redisCache;
+    private RedisUtils redisCache;
 
     /**
      * 登录验证

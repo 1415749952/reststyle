@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import com.reststyle.framework.common.constant.Constants;
-import com.reststyle.framework.common.core.redis.RedisCache;
+import com.reststyle.framework.common.utils.redis.RedisUtils;
 import com.reststyle.framework.common.security.entity.SysDictData;
 import com.reststyle.framework.common.utils.spring.SpringUtils;
 
@@ -31,7 +31,7 @@ public class DictUtils
      */
     public static void setDictCache(String key, List<SysDictData> dictDatas)
     {
-        SpringUtils.getBean(RedisCache.class).setCacheObject(getCacheKey(key), dictDatas);
+        SpringUtils.getBean(RedisUtils.class).setCacheObject(getCacheKey(key), dictDatas);
     }
 
     /**
@@ -42,7 +42,7 @@ public class DictUtils
      */
     public static List<SysDictData> getDictCache(String key)
     {
-        Object cacheObj = SpringUtils.getBean(RedisCache.class).getCacheObject(getCacheKey(key));
+        Object cacheObj = SpringUtils.getBean(RedisUtils.class).getCacheObject(getCacheKey(key));
         if (Validator.isNotNull(cacheObj))
         {
             List<SysDictData> dictDatas = (List<SysDictData>)cacheObj;
@@ -160,8 +160,8 @@ public class DictUtils
      */
     public static void clearDictCache()
     {
-        Collection<String> keys = SpringUtils.getBean(RedisCache.class).keys(Constants.SYS_DICT_KEY + "*");
-        SpringUtils.getBean(RedisCache.class).deleteObject(keys);
+        Collection<String> keys = SpringUtils.getBean(RedisUtils.class).keys(Constants.SYS_DICT_KEY + "*");
+        SpringUtils.getBean(RedisUtils.class).deleteObject(keys);
     }
 
     /**

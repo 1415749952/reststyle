@@ -11,7 +11,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.reststyle.framework.common.constant.Constants;
-import com.reststyle.framework.common.core.redis.RedisCache;
+import com.reststyle.framework.common.utils.redis.RedisUtils;
 import com.reststyle.framework.common.unite_response.RestResult;
 import com.reststyle.framework.common.unite_response.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class CaptchaController
     private ShearCaptcha shearCaptcha;
 
     @Autowired
-    private RedisCache redisCache;
+    private RedisUtils redisCache;
 
     /**
      * 验证码类型

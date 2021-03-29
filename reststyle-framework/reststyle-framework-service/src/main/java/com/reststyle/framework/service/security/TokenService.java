@@ -5,7 +5,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.reststyle.framework.common.constant.Constants;
-import com.reststyle.framework.common.core.redis.RedisCache;
+import com.reststyle.framework.common.utils.redis.RedisUtils;
 import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.ip.AddressUtils;
@@ -49,7 +49,7 @@ public class TokenService
     private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L;
 
     @Autowired
-    private RedisCache redisCache;
+    private RedisUtils redisCache;
 
     /**
      * 获取用户身份信息
