@@ -8,6 +8,8 @@ import com.reststyle.framework.common.utils.ip.AddressUtils;
 import com.reststyle.framework.common.utils.ip.IpUtils;
 import com.reststyle.framework.common.utils.spring.SpringUtils;
 import com.reststyle.framework.domain.table.SysOperLog;
+import com.reststyle.framework.service.business.SysOperLogService;
+import com.reststyle.framework.service.business.impl.SysOperLogServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,8 +93,8 @@ public class AsyncFactory
             public void run()
             {
                 // 远程查询操作地点
-                operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
-                SpringUtils.getBean(ISysOperLogService.class).insertOperlog(operLog);
+                operLog.setOperAddress(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+                SpringUtils.getBean(SysOperLogServiceImpl.class).save(operLog);
             }
         };
     }

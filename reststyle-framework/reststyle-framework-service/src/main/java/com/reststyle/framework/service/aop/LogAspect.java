@@ -144,7 +144,7 @@ public class LogAspect
 
             // 保存数据库
             System.out.println(JacksonUtils.object2Json(operLog));
-            //SpringUtils.getBean(SysOperLogServiceImpl.class).save(operLog);
+
         }
         catch (Exception exp)
         {
