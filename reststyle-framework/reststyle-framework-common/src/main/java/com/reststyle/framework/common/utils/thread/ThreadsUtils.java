@@ -1,4 +1,4 @@
-package com.reststyle.framework.common.utils;
+package com.reststyle.framework.common.utils.thread;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +10,9 @@ import java.util.concurrent.*;
  * 
  * @author TheFei
  */
-public class Threads
+public class ThreadsUtils
 {
-    private static final Logger logger = LoggerFactory.getLogger(Threads.class);
+    private static final Logger logger = LoggerFactory.getLogger(ThreadsUtils.class);
 
     /**
      * sleep等待,单位为毫秒
