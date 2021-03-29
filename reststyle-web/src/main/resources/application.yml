@@ -7,6 +7,10 @@ spring:
   autoconfigure:
     #整合多数据源就要排除druid的DruidDataSourceAutoConfigure类
     exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  mvc:
+    throw-exception-if-no-handler-found: true # 处理404在全局异常处理
+  resources:
+    add-mappings: false # 处理404在全局异常处理
   datasource:
     druid:
       connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
@@ -58,3 +62,14 @@ token:
 snowflake:
   datacenterId: 1 #数据中心id
   workerId: 1 #机器id
+
+# 验证码相关
+captcha:
+  # 验证码类型 math 数组计算 char 字符验证
+  captchaType: math
+  # line 线段干扰 circle 圆圈干扰 shear 扭曲干扰
+  captchaCategory: circle
+  # 数字验证码位数
+  captchaNumberLength: 1
+  # 字符验证码长度
+  captchaCharLength: 4

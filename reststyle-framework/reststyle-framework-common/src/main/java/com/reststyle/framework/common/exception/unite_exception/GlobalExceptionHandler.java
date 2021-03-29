@@ -42,7 +42,6 @@ public class GlobalExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public RestResult handleException(Exception exception)
     {
-        log.error(exception.toString());
         return ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
@@ -53,7 +52,6 @@ public class GlobalExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public RestResult handlerNoHandlerFoundException(NoHandlerFoundException exception)
     {
-        log.error(exception.toString());
         return ResultUtil.error(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
@@ -64,7 +62,6 @@ public class GlobalExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public RestResult handlerMethodArgumentNotValidException(MethodArgumentNotValidException exception)
     {
-        log.error(exception.toString());
         //解析原错误信息，封装后返回，此处返回非法的字段名称，错误信息
         List<Map<String,String>> validationErrorEntities = new ArrayList<>();
         for (FieldError error : exception.getBindingResult().getFieldErrors())
