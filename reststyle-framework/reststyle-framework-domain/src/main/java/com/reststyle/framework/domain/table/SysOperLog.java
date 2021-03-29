@@ -10,16 +10,12 @@ import java.util.Date;
 
 /**
  *  Created with IntelliJ IDEA.
- *  Description:
+ *  Description:操作日志记录
  *  @version 1.0
  *  @author: TheFei
  *  @Date: 2021-03-25
  *  @Time: 22:04
  * 
- */
-
-/**
- * 操作日志记录
  */
 @Data
 @TableName(value = "sys_oper_log")

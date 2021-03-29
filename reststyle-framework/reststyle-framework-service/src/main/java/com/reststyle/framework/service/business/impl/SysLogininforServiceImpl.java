@@ -1,0 +1,22 @@
+package com.reststyle.framework.service.business.impl;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.reststyle.framework.domain.table.SysLogininfor;
+import com.reststyle.framework.mapper.business.SysLogininforMapper;
+import com.reststyle.framework.service.business.SysLogininforService;
+import org.springframework.stereotype.Service;
+
+/**
+ *  Created with IntelliJ IDEA.
+ *  Description:
+ *  @version 1.0
+ *  @author: TheFei
+ *  @Date: 2021-03-29
+ *  @Time: 9:25
+ * 
+ */
+@Service
+public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, SysLogininfor> implements SysLogininforService
+{
+
+}

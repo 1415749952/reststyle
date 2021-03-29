@@ -7,8 +7,9 @@ import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.ip.AddressUtils;
 import com.reststyle.framework.common.utils.ip.IpUtils;
 import com.reststyle.framework.common.utils.spring.SpringUtils;
+import com.reststyle.framework.domain.table.SysLogininfor;
 import com.reststyle.framework.domain.table.SysOperLog;
-import com.reststyle.framework.service.business.SysOperLogService;
+import com.reststyle.framework.service.business.impl.SysLogininforServiceImpl;
 import com.reststyle.framework.service.business.impl.SysOperLogServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ import java.util.TimerTask;
 
 /**
  * 异步工厂（产生任务用）
- * 
+ *
  * @author TheFei
  */
 public class AsyncFactory
@@ -26,15 +27,14 @@ public class AsyncFactory
 
     /**
      * 记录登录信息
-     * 
+     *
      * @param username 用户名
-     * @param status 状态
-     * @param message 消息
-     * @param args 列表
+     * @param status   状态
+     * @param message  消息
+     * @param args     列表
      * @return 任务task
      */
-    public static TimerTask recordLogininfor(final String username, final String status, final String message,
-            final Object... args)
+    public static TimerTask recordLogininfor(final String username, final String status, final String message, final Object... args)
     {
         final UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
         final String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
@@ -74,14 +74,14 @@ public class AsyncFactory
                     logininfor.setStatus(Constants.FAIL);
                 }
                 // 插入数据
-                SpringUtils.getBean(ISysLogininforService.class).insertLogininfor(logininfor);
+                SpringUtils.getBean(SysLogininforServiceImpl.class).save(logininfor);
             }
         };
     }
 
     /**
      * 操作日志记录
-     * 
+     *
      * @param operLog 操作日志信息
      * @return 任务task
      */

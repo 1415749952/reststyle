@@ -4,24 +4,19 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import lombok.Data;
-
 /**
  * Created with IntelliJ IDEA.
- * Description:
+ * Description:角色信息表
  *
  * @version 1.0
  * @author: TheFei
  * @Date: 2021-03-26
  * @Time: 19:09
- */
-
-/**
- * 角色信息表
  */
 @Data
 @TableName(value = "sys_role")

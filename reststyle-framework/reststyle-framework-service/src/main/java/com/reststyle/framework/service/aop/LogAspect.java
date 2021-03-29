@@ -2,16 +2,19 @@ package com.reststyle.framework.service.aop;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.reststyle.framework.common.security.entity.SecurityUser;
-import com.reststyle.framework.common.security.model.LoginUser;
-import com.reststyle.framework.common.oper_log.OperStatus;
 import com.reststyle.framework.common.oper_log.OperLog;
+import com.reststyle.framework.common.oper_log.OperStatus;
+import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.utils.DateUtils;
 import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.id.IdWorker;
 import com.reststyle.framework.common.utils.ip.IpUtils;
 import com.reststyle.framework.common.utils.json.JacksonUtils;
+import com.reststyle.framework.common.utils.spring.SpringUtils;
 import com.reststyle.framework.domain.table.SysOperLog;
+import com.reststyle.framework.service.manager.AsyncManager;
+import com.reststyle.framework.service.manager.factory.AsyncFactory;
+import com.reststyle.framework.service.security.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
@@ -93,14 +96,7 @@ public class LogAspect
                 return;
             }
             // 获取当前的用户
-            //LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
-            LoginUser loginUser = new LoginUser();
-            SecurityUser sysUser = new SecurityUser();
-            sysUser.setUserId(111L);
-            sysUser.setUserName("loginUser-zhangshan");
-            loginUser.setUser(sysUser);
-
-
+            LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
             SysOperLog operLog = new SysOperLog();
             operLog.setOperId(IdWorker.getId());
             operLog.setStatus(OperStatus.SUCCESS.getStatus());
@@ -143,8 +139,7 @@ public class LogAspect
             }
 
             // 保存数据库
-            System.out.println(JacksonUtils.object2Json(operLog));
-
+            AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
         }
         catch (Exception exp)
         {
