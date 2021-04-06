@@ -1,6 +1,17 @@
 package com.reststyle.framework.web.config.mybatis_plus;
 
+/**
+ * Created with IntelliJ IDEA.
+ * Description:
+ *
+ * @version 1.0
+ * @author: TheFei
+ * @Date: 2021-04-06
+ * @Time: 17:50
+ */
+
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.reststyle.framework.common.enums.DelFlag;
 import com.reststyle.framework.common.security.SecurityUtils;
 import com.reststyle.framework.common.security.model.LoginUser;
 import com.reststyle.framework.common.utils.DateUtils;
@@ -33,6 +44,7 @@ public class MetaHandler implements MetaObjectHandler
     public void insertFill(MetaObject metaObject)
     {
         LoginUser loginUser = SecurityUtils.getLoginUser();
+        this.setFieldValByName("delFlag", DelFlag.LOGIC_NOT_DELETE_VALUE.getValue(), metaObject);
         this.setFieldValByName("createTime", DateUtils.getNowDate(), metaObject);
         this.setFieldValByName("createBy", loginUser.getUsername(), metaObject);
         this.setFieldValByName("updateTime", DateUtils.getNowDate(), metaObject);
@@ -51,5 +63,4 @@ public class MetaHandler implements MetaObjectHandler
         this.setFieldValByName("updateTime", DateUtils.getNowDate(), metaObject);
         this.setFieldValByName("updateBy", loginUser.getUsername(), metaObject);
     }
-
 }
