@@ -101,18 +101,6 @@ public class SysUser implements Serializable
     private Boolean isAccountNonExpired;
 
     /**
-     * 最后登录IP
-     */
-    @TableField(value = "last_login_ip")
-    private String lastLoginIp;
-
-    /**
-     * 最后登录时间
-     */
-    @TableField(value = "last_login_date")
-    private Date lastLoginDate;
-
-    /**
      * 创建者
      */
     @TableField(value = "create_by")

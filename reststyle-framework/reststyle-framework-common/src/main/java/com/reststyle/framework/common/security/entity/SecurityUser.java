@@ -3,7 +3,6 @@ package com.reststyle.framework.common.security.entity;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,16 +84,6 @@ public class SecurityUser implements Serializable
      * 帐户未过期
      */
     private Boolean isAccountNonExpired;
-
-    /**
-     * 最后登录IP
-     */
-    private String lastLoginIp;
-
-    /**
-     * 最后登录时间
-     */
-    private Date lastLoginDate;
 
     /**
      * 部门对象

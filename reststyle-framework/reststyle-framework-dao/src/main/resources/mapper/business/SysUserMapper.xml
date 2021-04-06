@@ -17,8 +17,6 @@
     <result column="is_credentials_non_expired" jdbcType="BOOLEAN" property="isCredentialsNonExpired" />
     <result column="is_account_non_locked" jdbcType="BOOLEAN" property="isAccountNonLocked" />
     <result column="is_account_non_expired" jdbcType="BOOLEAN" property="isAccountNonExpired" />
-    <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
-    <result column="last_login_date" jdbcType="TIMESTAMP" property="lastLoginDate" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
@@ -29,8 +27,8 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     user_id, user_name, `password`, nick_name, user_type, email, phone_number, sex, avatar, 
-    is_enabled, is_credentials_non_expired, is_account_non_locked, is_account_non_expired, 
-    last_login_ip, last_login_date, create_by, create_time, update_by, update_time, del_flag, 
+    is_enabled, is_credentials_non_expired, is_account_non_locked, is_account_non_expired,
+    create_by, create_time, update_by, update_time, del_flag,
     remark
   </sql>
 </mapper>
