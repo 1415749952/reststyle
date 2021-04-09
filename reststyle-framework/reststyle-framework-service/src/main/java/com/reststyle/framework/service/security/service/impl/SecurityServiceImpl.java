@@ -1,7 +1,6 @@
 package com.reststyle.framework.service.security.service.impl;
 
 import com.reststyle.framework.common.security.SecurityUtils;
-import com.reststyle.framework.common.security.entity.SecurityDept;
 import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.mapper.security.SecurityMapper;
@@ -9,7 +8,10 @@ import com.reststyle.framework.service.security.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -34,12 +36,6 @@ public class SecurityServiceImpl implements SecurityService
     }
 
     @Override
-    public SecurityDept selectSecurityDeptByUserId(Long userId)
-    {
-        return securityMapper.selectSecurityDeptByUserId(userId);
-    }
-
-    @Override
     public List<SecurityRole> selectSecurityRoleByUserId(Long userId)
     {
         return securityMapper.selectSecurityRoleByUserId(userId);
@@ -54,16 +50,16 @@ public class SecurityServiceImpl implements SecurityService
     @Override
     public Set<String> getMenuPermission(SecurityUser user)
     {
-        Set<String> perms = new HashSet<String>();
+        Set<String> perms;
         // 管理员拥有所有权限
         if (SecurityUtils.isAdmin(user))
         {
-            perms.add("*:*:*");
+            perms = securityMapper.selectAllMenuPerms();
         }
         else
         {
             Set<Long> roleIds = Optional.ofNullable(user.getRoles()).orElse(new ArrayList<>()).stream().map(SecurityRole::getRoleId).collect(Collectors.toSet());
-            perms.addAll(securityMapper.selectMenuPermsByRoleIds(roleIds));
+            perms = securityMapper.selectMenuPermsByRoleIds(roleIds);
         }
         return perms;
     }

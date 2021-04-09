@@ -39,11 +39,6 @@ public class UserDetailsServiceImpl implements UserDetailsService
             log.info("登录用户：{} 不存在.", username);
             throw new UsernameNotFoundException("登录用户：" + username + " 不存在");
         }
-        if (DelFlag.LOGIC_DELETE_VALUE.getValue().equals(user.getDelFlag()))
-        {
-            log.info("登录用户：{} 已被删除.", username);
-            throw new UsernameNotFoundException("对不起，您的账号：" + username + " 已被删除");
-        }
         if (user.getIsEnabled().equals(false))
         {
             throw new BadCredentialsException("对不起，您的账号：" + username + " 已被停用");

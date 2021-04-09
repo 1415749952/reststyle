@@ -1,6 +1,5 @@
 package com.reststyle.framework.service.security.service;
 
-import com.reststyle.framework.common.security.entity.SecurityDept;
 import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 
@@ -20,8 +19,7 @@ public interface SecurityService
 {
     SecurityUser selectUserByUserName(String username);
 
-    SecurityDept selectSecurityDeptByUserId(Long userId);
-
     List<SecurityRole> selectSecurityRoleByUserId(Long userId);
+
     Set<String> getMenuPermission(SecurityUser user);
 }
