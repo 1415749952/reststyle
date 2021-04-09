@@ -2,6 +2,8 @@ package com.reststyle.framework.service.aop;
 
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import com.reststyle.framework.common.oper_log.OperLog;
 import com.reststyle.framework.common.oper_log.OperStatus;
 import com.reststyle.framework.common.security.model.LoginUser;
@@ -106,6 +108,9 @@ public class LogAspect
             operLog.setRequestUrl(ServletUtils.getRequest().getRequestURI());
             // 设置请求方式
             operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
+            final UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
+            operLog.setOperClient(userAgent.getBrowser().getName());
+            //operLog.setOperAddress(loginUser.getLoginLocation());
             //设置请求时间
             operLog.setOperTime(DateUtils.getNowDate());
             // 是否保存请求参数和值
@@ -129,8 +134,6 @@ public class LogAspect
             if (null != loginUser)
             {
                 operLog.setOperName(loginUser.getUsername());
-                operLog.setOperClient(loginUser.getOs());
-                operLog.setOperAddress(loginUser.getLoginLocation());
             }
             if (null != e)
             {
