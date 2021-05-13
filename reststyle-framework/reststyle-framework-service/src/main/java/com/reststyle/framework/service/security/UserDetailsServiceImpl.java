@@ -55,8 +55,8 @@ public class UserDetailsServiceImpl implements UserDetailsService
         {
             throw new BadCredentialsException("对不起，您的账号：" + username + " 凭证已过期");
         }
-        SecurityDept dept = securityService.selectSecurityDeptByUserId(user.getUserId());
-        user.setDept(dept);
+        //SecurityDept dept = securityService.selectSecurityDeptByUserId(user.getUserId());
+        //user.setDept(dept);
 
         List<SecurityRole> roles = securityService.selectSecurityRoleByUserId(user.getUserId());
         user.setRoles(roles);
@@ -67,6 +67,6 @@ public class UserDetailsServiceImpl implements UserDetailsService
     public UserDetails createLoginUser(SecurityUser user)
     {
         Set<String> menuPermission = securityService.getMenuPermission(user);
-        return new LoginUser(user, menuPermission);
+        return new LoginUser();
     }
 }

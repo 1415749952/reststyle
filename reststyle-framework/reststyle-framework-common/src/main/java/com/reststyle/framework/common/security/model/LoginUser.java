@@ -30,10 +30,11 @@ public class LoginUser implements UserDetails
         this.user = user;
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        return user.getPermissions();
+        return null;
     }
 
     @Override
