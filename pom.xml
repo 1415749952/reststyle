@@ -17,6 +17,7 @@
         <reststyle.version>1.0.0</reststyle.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
+        <!--<java.version>1.8</java.version>-->
         <druid.version>1.2.4</druid.version>
         <knife4j.version>2.0.8</knife4j.version>
         <pagehelper.boot.version>1.3.0</pagehelper.boot.version>
@@ -32,6 +33,8 @@
         <oracle.version>11.2.0.3</oracle.version>
         <dynamic-datasource.version>3.3.2</dynamic-datasource.version>
         <jaxb-api.version>2.3.0</jaxb-api.version>
+        <maven-compiler.version>3.8.1</maven-compiler.version>
+        <maven-assembly.version>3.3.0</maven-assembly.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -244,32 +247,113 @@
         <module>reststyle-generator</module>
     </modules>
 
-    <dependencies>
-
-    </dependencies>
 
     <build>
         <plugins>
+            <!-- java编译插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven-compiler.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <!--suppress UnresolvedMavenProperty -->
+                    <!--字符集 -->
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
+
+            </plugin>
+
+            <!-- 打jar包的插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <!--maven中的自动默认打包war包和jar的路径是项目中的target目录 ，现在我想将它的输出到我想输出的地方-->
+                    <outputDirectory>${project.build.directory}/package/restStyle</outputDirectory>
+                    <archive>
+                        <!-- 生成的jar中，不要包含pom.xml和pom.properties这两个文件 -->
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                        <manifest>
+                            <!-- 是否要把第三方jar放到manifest的classpath中 -->
+                            <addClasspath>true</addClasspath>
+                            <!-- 生成的manifest中classpath的前缀，因为要把第三方jar放到lib目录下，所以classpath的前缀是lib -->
+                            <classpathPrefix>lib</classpathPrefix>
+                            <!-- 程序启动入口 -->
+                            <mainClass>com/reststyle/RestStyleApplication</mainClass>
+                        </manifest>
+                        <!--将资源文件目录添加到classpath中，打包后运行项目时则会在该目录下加载配置文件-->
+                        <manifestEntries>
+                            <!--填写配置文件相对于项目jar包的路径-->
+                            <Class-Path>./</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                    <!-- 过滤掉不希望包含在jar中的文件  -->
+                    <excludes>
+                        <!--设置不打进jar包的文件-->
+                        <exclude>*.properties</exclude>
+                        <exclude>*.xml</exclude>
+                        <exclude>*.bat</exclude>
+                        <exclude>*.yml</exclude>
+                        <exclude>bin</exclude>
+                        <exclude>bin/**/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/package/restStyle</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <includes>
+                                        <!--<include>**/*/*.xml</include>-->
+                                        <include>static/**</include>
+                                        <include>**/*/*.conf</include>
+                                        <include>**/*/*.properties</include>
+                                        <include>**/*/*.sh</include>
+                                        <include>**/*/*.bat</include>
+                                        <include>*.yml</include>
+                                        <include>*.xml</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/package/restStyle/lib</outputDirectory>
+                            <excludeTransitive>false</excludeTransitive>
+                            <stripVersion>false</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <!--打包该目录下的 application.yml -->
-                <directory>src/main/resources</directory>
-                <!-- 启用过滤 即该资源中的变量将会被过滤器中的值替换 -->
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 
     <repositories>

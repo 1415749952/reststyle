@@ -3,6 +3,7 @@ package com.reststyle.framework.service.manager.factory;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.reststyle.framework.common.constant.Constants;
+import com.reststyle.framework.common.utils.DateUtils;
 import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.ip.AddressUtils;
 import com.reststyle.framework.common.utils.ip.IpUtils;
@@ -63,6 +64,7 @@ public class AsyncFactory
                 logininfor.setLoginLocation(address);
                 logininfor.setBrowser(browser);
                 logininfor.setOs(os);
+                logininfor.setLoginTime(DateUtils.getNowDate());
                 logininfor.setMsg(message);
                 // 日志状态
                 if (Constants.LOGIN_SUCCESS.equals(status) || Constants.LOGOUT.equals(status))

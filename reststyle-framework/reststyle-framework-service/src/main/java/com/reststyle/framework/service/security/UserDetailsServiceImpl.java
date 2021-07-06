@@ -39,11 +39,6 @@ public class UserDetailsServiceImpl implements UserDetailsService
             log.info("登录用户：{} 不存在.", username);
             throw new UsernameNotFoundException("登录用户：" + username + " 不存在");
         }
-        if (DelFlag.LOGIC_DELETE_VALUE.getValue().equals(user.getDelFlag()))
-        {
-            log.info("登录用户：{} 已被删除.", username);
-            throw new UsernameNotFoundException("对不起，您的账号：" + username + " 已被删除");
-        }
         if (user.getIsEnabled().equals(false))
         {
             throw new BadCredentialsException("对不起，您的账号：" + username + " 已被停用");
@@ -60,8 +55,8 @@ public class UserDetailsServiceImpl implements UserDetailsService
         {
             throw new BadCredentialsException("对不起，您的账号：" + username + " 凭证已过期");
         }
-        SecurityDept dept = securityService.selectSecurityDeptByUserId(user.getUserId());
-        user.setDept(dept);
+        //SecurityDept dept = securityService.selectSecurityDeptByUserId(user.getUserId());
+        //user.setDept(dept);
 
         List<SecurityRole> roles = securityService.selectSecurityRoleByUserId(user.getUserId());
         user.setRoles(roles);
@@ -72,6 +67,6 @@ public class UserDetailsServiceImpl implements UserDetailsService
     public UserDetails createLoginUser(SecurityUser user)
     {
         Set<String> menuPermission = securityService.getMenuPermission(user);
-        return new LoginUser(user, menuPermission);
+        return new LoginUser();
     }
 }

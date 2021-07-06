@@ -3,8 +3,8 @@ package com.reststyle.framework.common.security.entity;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 用户对象 sys_user
@@ -56,15 +56,6 @@ public class SecurityUser implements Serializable
      */
     private String password;
 
-    /**
-     * 盐加密
-     */
-    private String salt;
-
-    /**
-     * 删除标志（0代表存在 2代表删除）
-     */
-    private String delFlag;
 
     /**
      * 帐号是否启用
@@ -87,22 +78,12 @@ public class SecurityUser implements Serializable
     private Boolean isAccountNonExpired;
 
     /**
-     * 最后登录IP
-     */
-    private String lastLoginIp;
-
-    /**
-     * 最后登录时间
-     */
-    private Date lastLoginDate;
-
-    /**
-     * 部门对象
-     */
-    private SecurityDept dept;
-
-    /**
      * 角色对象
      */
     private List<SecurityRole> roles;
+
+    /**
+     * 权限列表
+     */
+    private Set<String> permissions;
 }

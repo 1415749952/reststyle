@@ -77,10 +77,10 @@ public class TokenService
      */
     public void setLoginUser(LoginUser loginUser)
     {
-        if (Validator.isNotNull(loginUser) && Validator.isNotEmpty(loginUser.getToken()))
+        /*if (Validator.isNotNull(loginUser) && Validator.isNotEmpty(loginUser.getToken()))
         {
             refreshToken(loginUser);
-        }
+        }*/
     }
 
     /**
@@ -104,7 +104,7 @@ public class TokenService
     public String createToken(LoginUser loginUser)
     {
         String token = IdUtil.fastUUID();
-        loginUser.setToken(token);
+        //loginUser.setToken(token);
         setUserAgent(loginUser);
         refreshToken(loginUser);
 
@@ -121,7 +121,7 @@ public class TokenService
      */
     public void verifyToken(LoginUser loginUser)
     {
-        long expireTime = loginUser.getExpireTime();
+        //long expireTime = loginUser.getExpireTime();
         long currentTime = System.currentTimeMillis();
         if (expireTime - currentTime <= MILLIS_MINUTE_TEN)
         {
@@ -136,11 +136,11 @@ public class TokenService
      */
     public void refreshToken(LoginUser loginUser)
     {
-        loginUser.setLoginTime(System.currentTimeMillis());
-        loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
+        //loginUser.setLoginTime(System.currentTimeMillis());
+        //loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
-        String userKey = getTokenKey(loginUser.getToken());
-        redisCache.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
+        //String userKey = getTokenKey(loginUser.getToken());
+        //redisCache.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
     }
 
     /**
@@ -152,10 +152,10 @@ public class TokenService
     {
         UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
         String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
-        loginUser.setIpaddr(ip);
-        loginUser.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
-        loginUser.setBrowser(userAgent.getBrowser().getName());
-        loginUser.setOs(userAgent.getOs().getName());
+        //loginUser.setIpaddr(ip);
+        //loginUser.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
+        //loginUser.setBrowser(userAgent.getBrowser().getName());
+        //loginUser.setOs(userAgent.getOs().getName());
     }
 
     /**

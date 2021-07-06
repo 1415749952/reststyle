@@ -16,8 +16,6 @@
         <result column="is_credentials_non_expired" jdbcType="BOOLEAN" property="isCredentialsNonExpired"/>
         <result column="is_account_non_locked" jdbcType="BOOLEAN" property="isAccountNonLocked"/>
         <result column="is_account_non_expired" jdbcType="BOOLEAN" property="isAccountNonExpired"/>
-        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
-        <result column="last_login_date" jdbcType="TIMESTAMP" property="lastLoginDate"/>
         <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
     </resultMap>
     <resultMap id="SecurityDeptResult" type="com.reststyle.framework.common.security.entity.SecurityDept">
@@ -40,7 +38,7 @@
         <!--@mbg.generated-->
         user_id, user_name, `password`, nick_name, user_type, email, phone_number, sex, avatar,
         is_enabled, is_credentials_non_expired, is_account_non_locked, is_account_non_expired,
-        last_login_ip, last_login_date, create_by, create_time, update_by, update_time, del_flag,
+        create_by, create_time, update_by, update_time, del_flag,
         remark
     </sql>
     <select id="selectSecurityUserByUserName" resultMap="BaseResultMap">
@@ -50,18 +48,13 @@
         and del_flag = '0'
         limit 1
     </select>
-    <select id="selectSecurityDeptByUserId" resultMap="SecurityDeptResult">
-        select sd.*
-        from sys_dept sd,
-             sys_user_dept sud
-        where sud.user_id = #{userId}
-          and sud.dept_id = sd.dept_id limit 1
-    </select>
     <select id="selectSecurityRoleByUserId" resultMap="SecurityRoleResult">
         select *
         from sys_user_role ur
-                     left join sys_role r on r.role_id = ur.role_id
-        where ur.user_id = #{userId} and r.status = '0' and r.del_flag = '0'
+        left join sys_role r on r.role_id = ur.role_id
+        where ur.user_id = #{userId}
+        and r.status = '0'
+        and r.del_flag = '0'
     </select>
 
     <select id="selectMenuPermsByRoleIds" resultType="java.lang.String">
@@ -73,5 +66,15 @@
         <foreach item="roleId" index="index" collection="roleIds" open="(" separator="," close=")">
         #{roleId}
         </foreach>
+        and m.perms is not null
+        and m.perms != ''
+    </select>
+
+    <select id="selectAllMenuPerms" resultType="java.lang.String">
+        select distinct m.perms
+        from sys_menu m
+        and m.status = '0'
+        and m.perms is not null
+        and m.perms != ''
     </select>
 </mapper>
