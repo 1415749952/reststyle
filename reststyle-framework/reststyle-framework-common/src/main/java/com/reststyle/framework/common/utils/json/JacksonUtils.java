@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -113,6 +114,36 @@ public class JacksonUtils
         }
         return null;
     }
+
+    /**
+     * 反序列化json，将流变成对象
+     *
+     * @param inputStream
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T json2Object(InputStream inputStream, Class<T> clazz)
+    {
+        try
+        {
+            return objectMapper.readValue(inputStream, clazz);
+        }
+        catch (JsonParseException e)
+        {
+            log.error(e.getMessage(), e);
+        }
+        catch (JsonMappingException e)
+        {
+            log.error(e.getMessage(), e);
+        }
+        catch (IOException e)
+        {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
 
     /**
      * 序列化java对象

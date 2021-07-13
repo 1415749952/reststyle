@@ -1,8 +1,11 @@
 package com.reststyle.framework.web.security;
 
+import com.reststyle.framework.common.constant.Constants;
 import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.service.business.SysUserService;
+import com.reststyle.framework.service.manager.AsyncManager;
+import com.reststyle.framework.service.manager.factory.AsyncFactory;
 import com.reststyle.framework.service.security.UserDetailsServiceImpl;
 import com.reststyle.framework.service.security.service.SecurityService;
 import lombok.extern.slf4j.Slf4j;
@@ -53,28 +56,33 @@ public class UserAuthenticationProvider implements AuthenticationProvider
 
         if (null == user)
         {
-            log.info("登录用户：{} 不存在.", username);
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "登录用户："+username+" 不存在"));
             throw new UsernameNotFoundException("登录用户：" + username + " 不存在");
         }
         // 我们还要判断密码是否正确，这里我们的密码使用BCryptPasswordEncoder进行加密的
         if (!new BCryptPasswordEncoder().matches(password, user.getPassword()))
         {
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "密码不正确"));
             throw new BadCredentialsException("密码不正确");
         }
         if (user.getIsEnabled().equals(false))
         {
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 已被停用"));
             throw new BadCredentialsException("对不起，您的账号：" + username + " 已被停用");
         }
         if (user.getIsAccountNonLocked().equals(false))
         {
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 已被锁定"));
             throw new BadCredentialsException("对不起，您的账号：" + username + " 已被锁定");
         }
         if (user.getIsAccountNonExpired().equals(false))
         {
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 已过期"));
             throw new BadCredentialsException("对不起，您的账号：" + username + " 已过期");
         }
         if (user.getIsCredentialsNonExpired().equals(false))
         {
+            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 凭证已过期"));
             throw new BadCredentialsException("对不起，您的账号：" + username + " 凭证已过期");
         }
 

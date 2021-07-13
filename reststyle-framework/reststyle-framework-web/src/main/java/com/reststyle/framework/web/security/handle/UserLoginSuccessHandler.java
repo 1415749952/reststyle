@@ -1,6 +1,7 @@
 package com.reststyle.framework.web.security.handle;
 
 import com.reststyle.framework.common.constant.Constants;
+import com.reststyle.framework.common.unite_response.ResultUtil;
 import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.json.JacksonUtils;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,6 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler
         String token = "token------写死的token";
         HashMap<String, String> tokenMap = new HashMap<>(1);
         tokenMap.put(Constants.TOKEN, token);
-        ServletUtils.renderString(response, JacksonUtils.object2Json(tokenMap), HttpStatus.OK);
+        ServletUtils.renderString(response, JacksonUtils.object2Json(ResultUtil.success(tokenMap)), HttpStatus.OK);
     }
 }

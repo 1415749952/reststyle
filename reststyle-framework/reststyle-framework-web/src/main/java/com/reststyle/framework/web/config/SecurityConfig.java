@@ -3,6 +3,7 @@ package com.reststyle.framework.web.config;
 import com.reststyle.framework.web.security.UserAuthenticationProvider;
 import com.reststyle.framework.web.security.UserPermissionEvaluator;
 import com.reststyle.framework.web.security.filter.JwtAuthenticationTokenFilter;
+import com.reststyle.framework.web.security.filter.UserAuthenticationFilter;
 import com.reststyle.framework.web.security.handle.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * SpringSecurity核心配置类
@@ -76,6 +78,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
+     * 注册自定义的UsernamePasswordAuthenticationFilter(采用json格式登录)
+     */
+    @Bean
+    UserAuthenticationFilter userAuthenticationFilter() throws Exception
+    {
+        UserAuthenticationFilter filter = new UserAuthenticationFilter();
+        filter.setAuthenticationSuccessHandler(userLoginSuccessHandler);
+        filter.setAuthenticationFailureHandler(userLoginFailureHandler);
+        filter.setFilterProcessesUrl("/login/userLogin");
+        //这句很关键，重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
+    }
+
+    /**
      * 配置登录验证逻辑
      */
     @Override
@@ -91,7 +108,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                // 配置验证码过滤器，使之在用户名密码过滤器之前生效
+                .addFilterAt(userAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
                 //不进行权限验证的请求或资源(从配置文件中读取)
                 //.antMatchers(JWTConfig.antMatchers.split(",")).permitAll()
                 .antMatchers(JWTConfig.antMatchers.split(",")).permitAll()
