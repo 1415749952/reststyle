@@ -6,6 +6,7 @@ import com.reststyle.framework.common.utils.json.JacksonUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import java.util.HashMap;
  * @Date: 2021-07-13
  * @Time: 15:40
  */
+@Component
 public class UserLoginSuccessHandler implements AuthenticationSuccessHandler
 {
     /**

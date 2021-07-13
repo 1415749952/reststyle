@@ -82,8 +82,8 @@ public class UserAuthenticationProvider implements AuthenticationProvider
         Set<GrantedAuthority> authorities = new HashSet<>();
         // 查询用户角色
         List<SecurityRole> securityRoles = securityService.selectSecurityRoleByUserId(user.getUserId());
-
         user.setSecurityRoles(securityRoles);
+
         for (SecurityRole sysRoleEntity : securityRoles)
         {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + sysRoleEntity.getRoleName()));

@@ -1,3 +1,4 @@
+/*
 package com.reststyle.framework.service.security;
 
 
@@ -16,11 +17,13 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
+*/
 /**
  * 登录校验方法
  * 
  * @author TheFei
- */
+ *//*
+
 @Component
 public class SysLoginService
 {
@@ -33,7 +36,8 @@ public class SysLoginService
     @Autowired
     private RedisUtils redisCache;
 
-    /**
+    */
+/**
      * 登录验证
      * 
      * @param username 用户名
@@ -41,7 +45,8 @@ public class SysLoginService
      * @param code 验证码
      * @param uuid 唯一标识
      * @return 结果
-     */
+     *//*
+
     public String login(String username, String password, String code, String uuid)
     {
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
@@ -84,3 +89,4 @@ public class SysLoginService
         return tokenService.createToken(loginUser);
     }
 }
+*/

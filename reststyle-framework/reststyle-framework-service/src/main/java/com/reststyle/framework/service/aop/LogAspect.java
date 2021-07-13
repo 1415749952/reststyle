@@ -97,7 +97,7 @@ public class LogAspect
                 return;
             }
             // 获取当前的用户
-            LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
+           // LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
             SysOperLog operLog = new SysOperLog();
             operLog.setOperId(IdWorker.getId());
             operLog.setStatus(OperStatus.SUCCESS.getStatus());
@@ -130,10 +130,10 @@ public class LogAspect
             operLog.setMethod(className + "." + methodName + "()");
             // 设置操作的对象
             operLog.setOperUnit(controllerLog.operUnit().getValue());
-            if (null != loginUser)
+            /*if (null != loginUser)
             {
                 operLog.setOperName(loginUser.getUsername());
-            }
+            }*/
             if (null != e)
             {
                 operLog.setStatus(OperStatus.FAIL.getStatus());

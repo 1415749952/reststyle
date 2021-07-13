@@ -34,6 +34,9 @@
         <dynamic-datasource.version>3.3.2</dynamic-datasource.version>
         <jaxb-api.version>2.3.0</jaxb-api.version>
         <maven-compiler.version>3.8.1</maven-compiler.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
         <maven-assembly.version>3.3.0</maven-assembly.version>
     </properties>
 
@@ -268,6 +271,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
                 <configuration>
                     <!--maven中的自动默认打包war包和jar的路径是项目中的target目录 ，现在我想将它的输出到我想输出的地方-->
                     <outputDirectory>${project.build.directory}/package/restStyle</outputDirectory>
@@ -305,6 +309,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
@@ -338,6 +343,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>

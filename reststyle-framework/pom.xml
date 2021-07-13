@@ -14,11 +14,6 @@
     <version>1.0.0</version>
     <description>reststyle后台管理系统 framework核心模块</description>
 
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <reststyle.version>1.0.0</reststyle.version>
-    </properties>
 
     <!-- 依赖声明 -->
     <dependencyManagement>

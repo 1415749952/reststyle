@@ -25,9 +25,9 @@ public class WebTest
     @Autowired
     private WebTestService webTestService;
 
-    @GetMapping
+   /* @GetMapping
     public Map test(@Validated TestDomain te)
     {
         return webTestService.test();
-    }
+    }*/
 }

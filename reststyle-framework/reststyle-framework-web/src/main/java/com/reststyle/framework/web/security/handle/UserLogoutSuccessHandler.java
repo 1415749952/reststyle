@@ -3,10 +3,10 @@ package com.reststyle.framework.web.security.handle;
 import com.reststyle.framework.common.unite_response.ResultUtil;
 import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.json.JacksonUtils;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2021-07-13
  * @Time: 15:22
  */
-@Configuration
+@Component
 public class UserLogoutSuccessHandler implements LogoutSuccessHandler
 {
   /*  @Autowired

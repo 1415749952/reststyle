@@ -7,10 +7,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -33,8 +35,12 @@ import java.util.Map;
  * @Time: 15:22
  */
 @Slf4j
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
+public class JwtAuthenticationTokenFilter extends BasicAuthenticationFilter
 {
+    public JwtAuthenticationTokenFilter(AuthenticationManager authenticationManager)
+    {
+        super(authenticationManager);
+    }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
