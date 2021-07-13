@@ -1,18 +1,24 @@
 package com.reststyle.framework.common.security.entity;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
- * 用户对象 sys_user
+ * Created with IntelliJ IDEA.
+ * Description:  SpringSecurity用户的实体。注意:这里必须要实现UserDetails接口
  *
- * @author TheFei
+ * @version 1.0
+ * @author: TheFei
+ * @Date: 2021-07-13
+ * @Time: 15:22
  */
 @Data
-public class SecurityUser implements Serializable
+public class SecurityUser implements Serializable, UserDetails
 {
     private static final long serialVersionUID = 1L;
 
@@ -24,32 +30,12 @@ public class SecurityUser implements Serializable
     /**
      * 用户账号
      */
-    private String userName;
+    private String username;
 
     /**
      * 用户昵称
      */
-    private String nickName;
-
-    /**
-     * 用户邮箱
-     */
-    private String email;
-
-    /**
-     * 手机号码
-     */
-    private String phoneNumber;
-
-    /**
-     * 用户性别
-     */
-    private String sex;
-
-    /**
-     * 用户头像
-     */
-    private String avatar;
+    private String nickname;
 
     /**
      * 密码
@@ -78,12 +64,54 @@ public class SecurityUser implements Serializable
     private Boolean isAccountNonExpired;
 
     /**
-     * 角色对象
+     * 用户角色
      */
-    private List<SecurityRole> roles;
+    private Collection<GrantedAuthority> authorities;
 
     /**
-     * 权限列表
+     * 用户角色
      */
-    private Set<String> permissions;
+    private List<SecurityRole> securityRoles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities()
+    {
+        return this.authorities;
+    }
+
+    @Override
+    public String getPassword()
+    {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername()
+    {
+        return this.username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired()
+    {
+        return this.isAccountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked()
+    {
+        return this.isAccountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired()
+    {
+        return this.isCredentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled()
+    {
+        return this.isEnabled;
+    }
 }

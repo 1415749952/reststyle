@@ -1,11 +1,15 @@
-package com.reststyle.framework.common.security.model;
+package com.reststyle.framework.common.security.entity;
 
 import lombok.Data;
 
 /**
- * 用户登录对象
- * 
- * @author TheFei
+ * Created with IntelliJ IDEA.
+ * Description: 用户登录实体类
+ *
+ * @version 1.0
+ * @author: TheFei
+ * @Date: 2021-07-13
+ * @Time: 15:22
  */
 @Data
 public class LoginBody

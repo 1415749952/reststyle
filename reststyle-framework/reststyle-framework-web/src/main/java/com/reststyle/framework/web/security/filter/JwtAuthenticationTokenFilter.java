@@ -1,14 +1,17 @@
 package com.reststyle.framework.web.security.filter;
 
-import cn.hutool.core.lang.Validator;
-import com.reststyle.framework.common.security.model.LoginUser;
-import com.reststyle.framework.common.security.SecurityUtils;
-import com.reststyle.framework.service.security.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.reststyle.framework.common.utils.json.JacksonUtils;
+import com.reststyle.framework.web.config.JWTConfig;
+import com.reststyle.framework.common.security.entity.SecurityUser;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -16,29 +19,75 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
- * token过滤器 验证token有效性
- * 
- * @author TheFei
+ * Created with IntelliJ IDEA.
+ * Description:JWT接口请求校验拦截器，请求接口时会进入这里验证Token是否合法和过期
+ *
+ * @version 1.0
+ * @author: TheFei
+ * @Date: 2021-07-13
+ * @Time: 15:22
  */
-@Component
+@Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
 {
-    @Autowired
-    private TokenService tokenService;
-
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
-        LoginUser loginUser = tokenService.getLoginUser(request);
-        if (Validator.isNotNull(loginUser) && Validator.isNull(SecurityUtils.getAuthentication()))
+        // 获取请求头中JWT的Token
+        String tokenHeader = request.getHeader(JWTConfig.tokenHeader);
+        if (null != tokenHeader && tokenHeader.startsWith(JWTConfig.tokenPrefix))
         {
-            tokenService.verifyToken(loginUser);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            try
+            {
+                // 截取JWT前缀
+                String token = tokenHeader.replace(JWTConfig.tokenPrefix, "");
+                // 解析JWT
+                Claims claims = Jwts.parser()
+                        .setSigningKey(JWTConfig.secret)
+                        .parseClaimsJws(token)
+                        .getBody();
+                // 获取用户名
+                String username = claims.getSubject();
+                String userId = claims.getId();
+                if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(userId))
+                {
+                    // 获取角色
+                    List<GrantedAuthority> authorities = new ArrayList<>();
+                    String authority = claims.get("authorities").toString();
+                    if (!StringUtils.isEmpty(authority))
+                    {
+                        List<Map<String, String>> authorityMap = (List<Map<String, String>>)JacksonUtils.convertJson2List(authority);
+                        for (Map<String, String> role : authorityMap)
+                        {
+                            if (!StringUtils.isEmpty(role))
+                            {
+                                authorities.add(new SimpleGrantedAuthority(role.get("authority")));
+                            }
+                        }
+                    }
+                    //组装参数
+                    SecurityUser SecurityUser = new SecurityUser();
+                    SecurityUser.setUsername(claims.getSubject());
+                    SecurityUser.setUserId(Long.parseLong(claims.getId()));
+                    SecurityUser.setAuthorities(authorities);
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(SecurityUser, userId, authorities);
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }
+            catch (ExpiredJwtException e)
+            {
+                log.info("Token过期");
+            }
+            catch (Exception e)
+            {
+                log.info("Token无效");
+            }
         }
-        chain.doFilter(request, response);
+        filterChain.doFilter(request, response);
     }
 }

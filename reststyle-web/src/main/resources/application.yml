@@ -52,11 +52,18 @@ mybatis-plus:
 
 
 
-# token配置
-token:
-  header: Authorization #令牌自定义标识
-  secret: abcdefghijklmnopqrstuvwxyz  #令牌密钥
-  expireTime: 30 #令牌有效期（默认30分钟）
+# JWT配置
+jwt:
+  # 密匙KEY
+  secret: JWTSecret
+  # HeaderKEY
+  tokenHeader: Authorization
+  # Token前缀字符
+  tokenPrefix: Sans-
+  # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
+  expiration: 86400
+  # 配置不需要认证的接口
+  antMatchers: /index/**,/login/**,/favicon.ico
 
 # 雪花算法配置，多节点部署的时候datacenterId取值范围（0~31），和workerId取值范围（0~31）。每个节点的datacenterId和workerId要不同
 snowflake:
