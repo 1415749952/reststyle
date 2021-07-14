@@ -1,5 +1,6 @@
 package com.reststyle.framework.swagger.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,8 +16,8 @@ import java.util.Map;
  * @Time: 16:19
  */
 @RestController
-@RequestMapping("/a")
-public class AController
+@RequestMapping("/b")
+public class BController
 {
     @GetMapping("/b")
     public Map test()

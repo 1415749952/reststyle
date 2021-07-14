@@ -17,6 +17,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,7 +83,8 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
         }
         else
         {
-            return super.attemptAuthentication(request, response);
+            throw new UsernameNotFoundException("请使用JSON格式来传参");
+            //return super.attemptAuthentication(request, response);
         }
     }
 

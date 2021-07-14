@@ -37,8 +37,6 @@
         <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
         <maven-assembly.version>3.3.0</maven-assembly.version>
-        <springfox-swagger-ui.version>3.0.0</springfox-swagger-ui.version>
-        <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
         <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
     </properties>
 

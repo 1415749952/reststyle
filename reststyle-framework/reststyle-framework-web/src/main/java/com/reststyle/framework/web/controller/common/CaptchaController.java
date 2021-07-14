@@ -14,9 +14,12 @@ import com.reststyle.framework.common.constant.Constants;
 import com.reststyle.framework.common.utils.redis.RedisUtils;
 import com.reststyle.framework.common.unite_response.RestResult;
 import com.reststyle.framework.common.unite_response.ResultUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -28,7 +31,9 @@ import java.util.concurrent.TimeUnit;
  *
  * @author TheFei
  */
+@Api(tags="登录模块")
 @RestController
+@RequestMapping("/login")
 public class CaptchaController
 {
     /**
@@ -74,6 +79,7 @@ public class CaptchaController
     /**
      * 生成验证码
      */
+    @ApiOperation(value="用户登陆前获取验证码")
     @GetMapping("/captchaImage")
     public RestResult getCode()
     {
