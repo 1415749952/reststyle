@@ -72,8 +72,8 @@ public class SysOperLog
     /**
      * 操作状态（0正常 1异常）
      */
-    @TableField(value = "status")
-    private Integer status;
+    @TableField(value = "state")
+    private String state;
 
     /**
      * 被操作的对象(此处使用enum):可以是任何对象，如表名(user)，或者是工具(redis)

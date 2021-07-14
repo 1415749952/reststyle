@@ -85,8 +85,8 @@ public class SysMenu implements Serializable
     /**
      * 菜单状态（0正常 1停用）
      */
-    @TableField(value = "status")
-    private String status;
+    @TableField(value = "state")
+    private String state;
 
     /**
      * 权限标识

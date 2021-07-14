@@ -61,8 +61,8 @@ public class SysLogininfor implements Serializable
     /**
      * 登录状态（0成功 1失败）
      */
-    @TableField(value = "status")
-    private String status;
+    @TableField(value = "state")
+    private String state;
 
     /**
      * 提示消息

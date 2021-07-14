@@ -14,19 +14,19 @@ public enum OperStatus
     /**
      * 成功
      */
-    SUCCESS(1,"成功"),
+    SUCCESS("1","成功"),
 
     /**
      * 失败
      */
-    FAIL(0,"失败");
+    FAIL("0","失败");
 
-    private final int status;
+    private final String state;
     private final String value;
 
-    OperStatus(int status, String value)
+    OperStatus(String state, String value)
     {
-        this.status = status;
+        this.state = state;
         this.value = value;
     }
 }

@@ -69,11 +69,11 @@ public class AsyncFactory
                 // 日志状态
                 if (Constants.LOGIN_SUCCESS.equals(status) || Constants.LOGOUT.equals(status))
                 {
-                    logininfor.setStatus(Constants.SUCCESS);
+                    logininfor.setState(Constants.SUCCESS);
                 }
                 else if (Constants.LOGIN_FAIL.equals(status))
                 {
-                    logininfor.setStatus(Constants.FAIL);
+                    logininfor.setState(Constants.FAIL);
                 }
                 // 插入数据
                 SpringUtils.getBean(SysLogininforServiceImpl.class).save(logininfor);

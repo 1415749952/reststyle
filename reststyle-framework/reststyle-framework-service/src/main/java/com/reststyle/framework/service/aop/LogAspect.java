@@ -6,6 +6,8 @@ import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.reststyle.framework.common.oper_log.OperLog;
 import com.reststyle.framework.common.oper_log.OperStatus;
+import com.reststyle.framework.common.security.SecurityUtils;
+import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.utils.DateUtils;
 import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.id.IdWorker;
@@ -97,10 +99,10 @@ public class LogAspect
                 return;
             }
             // 获取当前的用户
-           // LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
+            SecurityUser loginUser = SecurityUtils.getLoginUser();
             SysOperLog operLog = new SysOperLog();
             operLog.setOperId(IdWorker.getId());
-            operLog.setStatus(OperStatus.SUCCESS.getStatus());
+            operLog.setState(OperStatus.SUCCESS.getState());
             // 请求的IP地址
             operLog.setOperIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
             //请求的URL地址
@@ -130,13 +132,13 @@ public class LogAspect
             operLog.setMethod(className + "." + methodName + "()");
             // 设置操作的对象
             operLog.setOperUnit(controllerLog.operUnit().getValue());
-            /*if (null != loginUser)
+            if (null != loginUser)
             {
                 operLog.setOperName(loginUser.getUsername());
-            }*/
+            }
             if (null != e)
             {
-                operLog.setStatus(OperStatus.FAIL.getStatus());
+                operLog.setState(OperStatus.FAIL.getState());
                 operLog.setErrorMsg(StrUtil.sub(e.toString(), 0, 2000));
             }
 
