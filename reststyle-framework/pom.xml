@@ -43,6 +43,11 @@
                 <artifactId>reststyle-framework-commom</artifactId>
                 <version>${reststyle.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-swagger</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
@@ -54,6 +59,7 @@
         <module>reststyle-framework-dao</module>
         <module>reststyle-framework-domain</module>
         <module>reststyle-framework-common</module>
+        <module>reststyle-framework-swagger</module>
     </modules>
 
 </project>

@@ -69,7 +69,7 @@ jwt:
   # AccessToken过期时间 7天后过期  7*24*X60*60=604800 单位秒
   refreshTokenExpiration: 604800
   # 配置不需要认证的接口
-  antMatchers: /captchaImage,/login/**,/favicon.ico
+  antMatchers: /captchaImage,/login/**,/favicon.ico,/swagger-ui/**,/swagger-ui.html,/v2/api-docs,/v3/api-docs,/swagger-resources/**,/webjars/**,/druid/**
 
 # 雪花算法配置，多节点部署的时候datacenterId取值范围（0~31），和workerId取值范围（0~31）。每个节点的datacenterId和workerId要不同
 snowflake:

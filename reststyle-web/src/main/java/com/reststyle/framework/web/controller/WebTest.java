@@ -24,7 +24,7 @@ import java.util.Map;
  * @Time: 8:49
  */
 @RestController
-@RequestMapping("/web/test")
+@RequestMapping("/web")
 public class WebTest
 {
     @Autowired
@@ -34,7 +34,7 @@ public class WebTest
      * 测试权限
      * @return
      */
-    @GetMapping
+    @GetMapping("/test")
     //@PreAuthorize("hasAuthority('system:user:list')")
     @PreAuthorize("hasPermission('/web/test','system:user:list')")
     public Map test()
@@ -48,9 +48,9 @@ public class WebTest
      * @return
      * @throws Exception
      */
-    @GetMapping
+    @GetMapping("/test1")
     @OperLog(methodDetail = "framework-web模块测试方法",businessType = BusinessType.SELECT,operUnit = OperUnit.USER)
-    public Map test(String userName) throws Exception
+    public Map test1(String userName) throws Exception
     {
         HashMap<String, String> map = new HashMap<>();
         map.put("userName","zhangsan");

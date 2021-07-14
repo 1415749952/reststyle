@@ -2,6 +2,7 @@ package com.reststyle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date: 2021-03-24
  * @Time: 18:26
  */
+@EnableOpenApi
 @SpringBootApplication
 public class RestStyleApplication
 {
