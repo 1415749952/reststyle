@@ -1,7 +1,6 @@
 package com.reststyle.framework.service.security.service.impl;
 
 import com.reststyle.framework.common.security.SecurityUtils;
-import com.reststyle.framework.common.security.entity.SecurityMenu;
 import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.mapper.security.SecurityMapper;
@@ -45,10 +44,10 @@ public class SecurityServiceImpl implements SecurityService
 
 
     @Override
-    public List<SecurityMenu> selectSysMenuByUserId(SecurityUser user)
+    public List<String> selectPermissionByUserId(SecurityUser user)
     {
 
-        List<SecurityMenu> menuList;
+        List<String> menuList;
         // 管理员拥有所有权限
         if (SecurityUtils.isAdmin(user))
         {

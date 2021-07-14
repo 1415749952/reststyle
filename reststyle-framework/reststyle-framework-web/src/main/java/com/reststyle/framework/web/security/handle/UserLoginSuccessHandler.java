@@ -43,11 +43,11 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler
     {
         SecurityUser securityUser = (SecurityUser)authentication.getPrincipal();
         // 组装JWT - accessToken
-        String accessToken = SpringUtils.getBean(TokenService.class).createAccessToken(securityUser,JWTConfig.accessTokenExpiration,JWTConfig.secret);
+        String accessToken = SpringUtils.getBean(TokenService.class).createToken(securityUser,JWTConfig.accessTokenExpiration,JWTConfig.secret);
         accessToken = JWTConfig.accessTokenPrefix + accessToken;
 
          // 组装JWT - refreshToken
-        String refreshToken = SpringUtils.getBean(TokenService.class).createRefreshToken(securityUser,JWTConfig.refreshTokenExpiration,JWTConfig.secret);
+        String refreshToken = SpringUtils.getBean(TokenService.class).createToken(securityUser,JWTConfig.refreshTokenExpiration,JWTConfig.secret);
         refreshToken = JWTConfig.refreshTokenPrefix + refreshToken;
 
 

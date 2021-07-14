@@ -1,6 +1,5 @@
 package com.reststyle.framework.mapper.security;
 
-import com.reststyle.framework.common.security.entity.SecurityMenu;
 import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,7 +26,7 @@ public interface SecurityMapper
 
     List<SecurityRole> selectSecurityRoleByUserId(Long userId);
 
-    List<SecurityMenu> selectMenuPermsByRoleIds(@Param("roleIds") Set<Long> roleIds);
+    List<String> selectMenuPermsByRoleIds(@Param("roleIds") Set<Long> roleIds);
 
-    List<SecurityMenu> selectAllMenu();
+    List<String> selectAllMenu();
 }

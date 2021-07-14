@@ -19,14 +19,19 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * SpringSecurity核心配置类
- * @Author Sans
- * @CreateTime 2019/10/1 9:40
+ * Created with IntelliJ IDEA.
+ * Description:SpringSecurity核心配置类
+ *
+ * @version 1.0
+ * @author: TheFei
+ * @Date: 2021-07-13
+ * @Time: 15:22
  */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) //开启权限注解,默认是关闭的
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter
+{
     /**
      * 自定义登录成功处理器
      */
@@ -60,18 +65,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 加密方式
+     *
      * @Author Sans
      * @CreateTime 2019/10/1 14:00
      */
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder()
+    {
         return new BCryptPasswordEncoder();
     }
+
     /**
      * 注入自定义PermissionEvaluator
      */
     @Bean
-    public DefaultWebSecurityExpressionHandler userSecurityExpressionHandler(){
+    public DefaultWebSecurityExpressionHandler userSecurityExpressionHandler()
+    {
         DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
         handler.setPermissionEvaluator(new UserPermissionEvaluator());
         return handler;
@@ -96,18 +105,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 配置登录验证逻辑
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth){
+    protected void configure(AuthenticationManagerBuilder auth)
+    {
         //这里可启用我们自己的登陆验证逻辑
         auth.authenticationProvider(userAuthenticationProvider);
     }
+
     /**
      * 配置security的控制逻辑
-     * @Author Sans
-     * @CreateTime 2019/10/1 16:56
-     * @Param  http 请求
+     *
+     * @param http
+     * @throws Exception
      */
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception
+    {
         http
                 // 配置验证码过滤器，使之在用户名密码过滤器之前生效
                 .addFilterAt(userAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

@@ -3,7 +3,6 @@ package com.reststyle.framework.web.security;
 import com.reststyle.framework.common.constant.Constants;
 import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
-import com.reststyle.framework.service.business.SysUserService;
 import com.reststyle.framework.service.manager.AsyncManager;
 import com.reststyle.framework.service.manager.factory.AsyncFactory;
 import com.reststyle.framework.service.security.UserDetailsServiceImpl;
@@ -21,9 +20,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -92,9 +90,10 @@ public class UserAuthenticationProvider implements AuthenticationProvider
         List<SecurityRole> securityRoles = securityService.selectSecurityRoleByUserId(user.getUserId());
         user.setSecurityRoles(securityRoles);
 
-        for (SecurityRole sysRoleEntity : securityRoles)
+        List<String> permissions = securityService.selectPermissionByUserId(user);
+        for (String permission : permissions)
         {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + sysRoleEntity.getRoleName()));
+            authorities.add(new SimpleGrantedAuthority(permission));
         }
         user.setAuthorities(authorities);
         // 进行登录

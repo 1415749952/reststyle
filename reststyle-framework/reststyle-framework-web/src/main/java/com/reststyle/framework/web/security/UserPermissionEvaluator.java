@@ -1,21 +1,21 @@
 package com.reststyle.framework.web.security;
 
-import com.reststyle.framework.common.security.entity.SecurityMenu;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.service.security.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
  * Description:自定义权限注解验证
+ * 用法：在类上面加上注解@PreAuthorize("hasPermission('/web/test','system:user:list')")
  *
  * @version 1.0
  * @author: TheFei
@@ -44,17 +44,14 @@ public class UserPermissionEvaluator implements PermissionEvaluator
     @Override
     public boolean hasPermission(Authentication authentication, Object targetUrl, Object permission)
     {
-        // 获取用户信息
+        // 获取用户信息(这里的登录用户信息已经在JwtAuthenticationTokenFilter中从数据库查询出来了)
         SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
         // 查询用户权限(这里可以将权限放入缓存中提升效率)
-        Set<String> permissions = new HashSet<>();
-        List<SecurityMenu> securityMenus = securityService.selectSysMenuByUserId(securityUser);
-        for (SecurityMenu securityMenu : securityMenus)
-        {
-            permissions.add(securityMenu.getPerms());
-        }
+        //Set<String> permissions = new HashSet<>();
+        //List<String> dbPermissions = securityService.selectPermissionByUserId(securityUser);
         // 权限对比
-        return permissions.contains(permission.toString());
+        Set<GrantedAuthority> authorities = (Set<GrantedAuthority>) securityUser.getAuthorities();
+        return authorities.contains(new SimpleGrantedAuthority(permission.toString()));
     }
 
     @Override

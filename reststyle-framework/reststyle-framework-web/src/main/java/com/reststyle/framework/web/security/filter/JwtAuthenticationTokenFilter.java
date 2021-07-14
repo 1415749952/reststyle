@@ -1,6 +1,12 @@
 package com.reststyle.framework.web.security.filter;
 
-import com.reststyle.framework.common.utils.json.JacksonUtils;
+import com.reststyle.framework.common.constant.Constants;
+import com.reststyle.framework.common.security.entity.SecurityRole;
+import com.reststyle.framework.common.utils.spring.SpringUtils;
+import com.reststyle.framework.service.manager.AsyncManager;
+import com.reststyle.framework.service.manager.factory.AsyncFactory;
+import com.reststyle.framework.service.security.UserDetailsServiceImpl;
+import com.reststyle.framework.service.security.service.impl.SecurityServiceImpl;
 import com.reststyle.framework.web.config.JWTConfig;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import io.jsonwebtoken.Claims;
@@ -8,22 +14,20 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.util.StringUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -59,31 +63,52 @@ public class JwtAuthenticationTokenFilter extends BasicAuthenticationFilter
                         .getBody();
                 // 获取用户名
                 String username = claims.getSubject();
-                String userId = claims.getId();
-                if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(userId))
+
+                // 查询用户是否存在
+                SecurityUser securityUser = SpringUtils.getBean(UserDetailsServiceImpl.class).loadUserByUsername(username);
+
+                if (null == securityUser)
                 {
-                    // 获取角色
-                    List<GrantedAuthority> authorities = new ArrayList<>();
-                    String authority = claims.get("authorities").toString();
-                    if (!StringUtils.isEmpty(authority))
-                    {
-                        List<Map<String, String>> authorityMap = (List<Map<String, String>>)JacksonUtils.convertJson2List(authority);
-                        for (Map<String, String> role : authorityMap)
-                        {
-                            if (!StringUtils.isEmpty(role))
-                            {
-                                authorities.add(new SimpleGrantedAuthority(role.get("authority")));
-                            }
-                        }
-                    }
-                    //组装参数
-                    SecurityUser SecurityUser = new SecurityUser();
-                    SecurityUser.setUsername(claims.getSubject());
-                    SecurityUser.setUserId(Long.parseLong(claims.getId()));
-                    SecurityUser.setAuthorities(authorities);
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(SecurityUser, userId, authorities);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "登录用户："+username+" 不存在"));
+                    throw new UsernameNotFoundException("登录用户：" + username + " 不存在");
                 }
+
+                if (securityUser.getIsEnabled().equals(false))
+                {
+                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 已被停用"));
+                    throw new BadCredentialsException("对不起，您的账号：" + username + " 已被停用");
+                }
+                if (securityUser.getIsAccountNonLocked().equals(false))
+                {
+                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 已被锁定"));
+                    throw new BadCredentialsException("对不起，您的账号：" + username + " 已被锁定");
+                }
+                if (securityUser.getIsAccountNonExpired().equals(false))
+                {
+                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 已过期"));
+                    throw new BadCredentialsException("对不起，您的账号：" + username + " 已过期");
+                }
+                if (securityUser.getIsCredentialsNonExpired().equals(false))
+                {
+                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 凭证已过期"));
+                    throw new BadCredentialsException("对不起，您的账号：" + username + " 凭证已过期");
+                }
+
+                // 角色集合
+                Set<GrantedAuthority> authorities = new HashSet<>();
+                // 查询用户角色
+                List<SecurityRole> securityRoles = SpringUtils.getBean(SecurityServiceImpl.class).selectSecurityRoleByUserId(securityUser.getUserId());
+                securityUser.setSecurityRoles(securityRoles);
+
+                List<String> permissions = SpringUtils.getBean(SecurityServiceImpl.class).selectPermissionByUserId(securityUser);
+                for (String permission : permissions)
+                {
+                    authorities.add(new SimpleGrantedAuthority(permission));
+                }
+                securityUser.setAuthorities(authorities);
+
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(securityUser, securityUser.getUserId(), authorities);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             catch (ExpiredJwtException e)
             {

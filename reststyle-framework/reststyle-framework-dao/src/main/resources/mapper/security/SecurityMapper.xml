@@ -17,14 +17,6 @@
         <id property="roleId" column="role_id"/>
         <result property="roleName" column="role_name"/>
         <result property="roleKey" column="role_key"/>
-        <result property="roleSort" column="role_sort"/>
-        <result property="dataScope" column="data_scope"/>
-        <result property="status" column="status"/>
-    </resultMap>
-     <resultMap id="SecurityMenuResult" type="com.reststyle.framework.common.security.entity.SecurityMenu">
-        <id property="menuId" column="menu_id"/>
-        <result property="menuName" column="menu_name"/>
-        <result property="perms" column="perms"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
@@ -44,15 +36,15 @@
         from sys_user_role ur
                      left join sys_role r on r.role_id = ur.role_id
         where ur.user_id = #{userId}
-          and r.status = '0'
+          and r.state = '0'
           and r.del_flag = '0'
     </select>
 
-    <select id="selectMenuPermsByRoleIds" resultMap="SecurityMenuResult">
+    <select id="selectMenuPermsByRoleIds" resultType="java.lang.String">
         select distinct m.perms
         from sys_menu m,sys_role_menu srm
         where srm.menu_id = m.menu_id
-        and m.status = '0'
+        and m.state = '0'
         and srm.role_id in
         <foreach item="roleId" index="index" collection="roleIds" open="(" separator="," close=")">
             #{roleId}
@@ -60,9 +52,10 @@
         and m.perms is not null
         and m.perms != ''
     </select>
-    <select id="selectAllMenu" resultMap="SecurityMenuResult">
+    <select id="selectAllMenu" resultType="java.lang.String">
         select distinct m.perms
-        from sys_menu m and m.status = '0'
+        from sys_menu m
+        where m.state = '0'
         and m.perms is not null
         and m.perms != ''
     </select>

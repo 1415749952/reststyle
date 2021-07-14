@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created with IntelliJ IDEA.
  * Description:暂无权限处理类
+ * 项目中出现的问题： 自定义 AccessDeniedHandler 不生效
+ * 出现这种问题的原因一般都是因为项目中还配置了 GlobalExceptionHandler 。
+ * 由于GlobalExceptionHandler 全局异常处理器会比 AccessDeniedHandler 先捕获 AccessDeniedException 异常，
+ * 因此当配置了 GlobalExceptionHandler 后，会发现 AccessDeniedHandler 失效了。
+ *
+ * 解决方案：原有的 GlobalExceptionHandler 不用修改，只需要增加一个 自定义的 AccessDeniedExceptionHandler 即可
  *
  * @version 1.0
  * @author: TheFei
