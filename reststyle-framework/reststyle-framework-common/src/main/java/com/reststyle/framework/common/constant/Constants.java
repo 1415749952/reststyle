@@ -75,7 +75,11 @@ public class Constants
     /**
      * 令牌
      */
-    public static final String TOKEN = "token";
+    public static final String ACCESS_TOKEN = "accessToken";
+    /**
+     * 令牌
+     */
+    public static final String REFRESH_TOKEN = "refreshToken";
 
     /**
      * 令牌前缀

@@ -45,13 +45,13 @@ public class JwtAuthenticationTokenFilter extends BasicAuthenticationFilter
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
         // 获取请求头中JWT的Token
-        String tokenHeader = request.getHeader(JWTConfig.tokenHeader);
-        if (null != tokenHeader && tokenHeader.startsWith(JWTConfig.tokenPrefix))
+        String tokenHeader = request.getHeader(JWTConfig.accessTokenHeader);
+        if (null != tokenHeader && tokenHeader.startsWith(JWTConfig.accessTokenPrefix))
         {
             try
             {
                 // 截取JWT前缀
-                String token = tokenHeader.replace(JWTConfig.tokenPrefix, "");
+                String token = tokenHeader.replace(JWTConfig.accessTokenPrefix, "");
                 // 解析JWT
                 Claims claims = Jwts.parser()
                         .setSigningKey(JWTConfig.secret)

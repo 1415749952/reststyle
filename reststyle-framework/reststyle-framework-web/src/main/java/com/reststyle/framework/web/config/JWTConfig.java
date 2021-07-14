@@ -1,6 +1,5 @@
 package com.reststyle.framework.web.config;
 
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -17,46 +16,84 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 @ConfigurationProperties(prefix = "jwt")
-public class JWTConfig {
+public class JWTConfig
+{
     /**
      * 密钥KEY
      */
     public static String secret;
     /**
-     * TokenKey
+     * accessTokenKey
      */
-    public static String tokenHeader;
+    public static String accessTokenHeader;
+
     /**
-     * Token前缀字符
+     * refreshTokenKey
      */
-    public static String tokenPrefix;
+    public static String refreshTokenHeader;
+
     /**
-     * 过期时间
+     * accessToken前缀字符
      */
-    public static Integer expiration;
+    public static String accessTokenPrefix;
+    /**
+     * refreshToken前缀字符
+     */
+    public static String refreshTokenPrefix;
+    /**
+     * accessToken过期时间
+     */
+    public static Integer accessTokenExpiration;
+
+    /**
+     * refreshToken过期时间
+     */
+    public static Integer refreshTokenExpiration;
+
     /**
      * 不需要认证的接口
      */
     public static String antMatchers;
 
 
-    public void setSecret(String secret) {
+    public void setSecret(String secret)
+    {
         this.secret = secret;
     }
 
-    public void setTokenHeader(String tokenHeader) {
-        this.tokenHeader = tokenHeader;
+    public void setAccessTokenHeader(String accessTokenHeader)
+    {
+        this.accessTokenHeader = accessTokenHeader;
     }
 
-    public void setTokenPrefix(String tokenPrefix) {
-        this.tokenPrefix = tokenPrefix;
+    public void setRefreshTokenHeader(String refreshTokenHeader)
+    {
+        this.refreshTokenHeader = refreshTokenHeader;
     }
 
-    public void setExpiration(Integer expiration) {
-        this.expiration = expiration * 1000;
+    public void setRefreshTokenPrefix(String refreshTokenPrefix)
+    {
+        this.refreshTokenPrefix= refreshTokenPrefix;
     }
 
-    public void setAntMatchers(String antMatchers) {
+    public void setAccessTokenPrefix(String accessTokenPrefix)
+    {
+        this.accessTokenPrefix= accessTokenPrefix;
+    }
+
+    public void setAccessTokenExpiration(Integer accessTokenExpiration)
+    {
+        this.accessTokenExpiration = accessTokenExpiration * 1000;
+    }
+
+    public void setRefreshTokenExpiration(Integer refreshTokenExpiration)
+    {
+        this.refreshTokenExpiration = refreshTokenExpiration * 1000;
+    }
+
+
+    public void setAntMatchers(String antMatchers)
+    {
         this.antMatchers = antMatchers;
     }
 }

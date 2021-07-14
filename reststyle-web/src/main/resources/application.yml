@@ -56,12 +56,18 @@ mybatis-plus:
 jwt:
   # 密匙KEY
   secret: JWTSecret
-  # HeaderKEY
-  tokenHeader: Authorization
-  # Token前缀字符
-  tokenPrefix: Sans-
-  # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
-  expiration: 86400
+  # accessTokenHeaderKEY
+  accessTokenHeader: Authorization-Access
+  # accessTokenHeaderKEY
+  refreshTokenHeader: Authorization-Refresh
+  # AccessToken前缀字符
+  accessTokenPrefix: Access-
+  # RefreshToken前缀字符
+  refreshTokenPrefix: Refresh-
+  # AccessToken过期时间  2小时后过期 2X60X60=7200 单位秒
+  accessTokenExpiration: 7200
+  # AccessToken过期时间 7天后过期  7*24*X60*60=604800 单位秒
+  refreshTokenExpiration: 604800
   # 配置不需要认证的接口
   antMatchers: /captchaImage,/login/**,/favicon.ico
 
