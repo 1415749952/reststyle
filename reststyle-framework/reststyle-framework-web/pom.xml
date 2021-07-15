@@ -42,6 +42,10 @@
             <groupId>com.reststyle</groupId>
             <artifactId>reststyle-framework-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.reststyle</groupId>
+            <artifactId>reststyle-framework-swagger</artifactId>
+        </dependency>
     </dependencies>
 
 

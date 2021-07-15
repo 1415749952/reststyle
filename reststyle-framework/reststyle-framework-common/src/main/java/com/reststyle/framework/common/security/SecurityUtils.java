@@ -3,7 +3,6 @@ package com.reststyle.framework.common.security;
 import com.reststyle.framework.common.exception.BusinessException;
 import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
-import com.reststyle.framework.common.security.model.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,11 +38,11 @@ public class SecurityUtils
     /**
      * 获取用户
      **/
-    public static LoginUser getLoginUser()
+    public static SecurityUser getLoginUser()
     {
         try
         {
-            return (LoginUser) getAuthentication().getPrincipal();
+            return (SecurityUser) getAuthentication().getPrincipal();
         }
         catch (Exception e)
         {
@@ -96,11 +95,11 @@ public class SecurityUtils
         {
             return false;
         }
-        if (CollectionUtils.isEmpty(user.getRoles()))
+        if (CollectionUtils.isEmpty(user.getSecurityRoles()))
         {
             return false;
         }
-        List<String> roleKeys = Optional.ofNullable(user.getRoles()).orElse(new ArrayList<>()).stream().map(SecurityRole::getRoleKey).collect(Collectors.toList());
+        List<String> roleKeys = Optional.ofNullable(user.getSecurityRoles()).orElse(new ArrayList<>()).stream().map(SecurityRole::getRoleKey).collect(Collectors.toList());
         if (roleKeys.contains("admin"))
         {
             return true;

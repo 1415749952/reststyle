@@ -1,133 +1,73 @@
 package com.reststyle.framework.web.config;
 
+import com.reststyle.framework.web.security.UserAuthenticationProvider;
+import com.reststyle.framework.web.security.UserPermissionEvaluator;
 import com.reststyle.framework.web.security.filter.JwtAuthenticationTokenFilter;
-import com.reststyle.framework.web.security.handle.AuthenticationEntryPointImpl;
-import com.reststyle.framework.web.security.handle.LogoutSuccessHandlerImpl;
+import com.reststyle.framework.web.security.filter.UserAuthenticationFilter;
+import com.reststyle.framework.web.security.handle.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.web.filter.CorsFilter;
 
 /**
- * spring security配置
- * 
- * @author TheFei
+ * Created with IntelliJ IDEA.
+ * Description:SpringSecurity核心配置类
+ *
+ * @version 1.0
+ * @author: TheFei
+ * @Date: 2021-07-13
+ * @Time: 15:22
  */
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true) //开启权限注解,默认是关闭的
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     /**
-     * 自定义用户认证逻辑
+     * 自定义登录成功处理器
      */
     @Autowired
-    private UserDetailsService userDetailsService;
-    
+    private UserLoginSuccessHandler userLoginSuccessHandler;
     /**
-     * 认证失败处理类
+     * 自定义登录失败处理器
      */
     @Autowired
-    private AuthenticationEntryPointImpl unauthorizedHandler;
+    private UserLoginFailureHandler userLoginFailureHandler;
+    /**
+     * 自定义注销成功处理器
+     */
+    @Autowired
+    private UserLogoutSuccessHandler userLogoutSuccessHandler;
+    /**
+     * 自定义暂无权限处理器
+     */
+    @Autowired
+    private UserAuthAccessDeniedHandler userAuthAccessDeniedHandler;
+    /**
+     * 自定义未登录的处理器
+     */
+    @Autowired
+    private UserAuthenticationEntryPointHandler userAuthenticationEntryPointHandler;
+    /**
+     * 自定义登录逻辑验证器
+     */
+    @Autowired
+    private UserAuthenticationProvider userAuthenticationProvider;
 
     /**
-     * 退出处理类
-     */
-    @Autowired
-    private LogoutSuccessHandlerImpl logoutSuccessHandler;
-
-    /**
-     * token认证过滤器
-     */
-    @Autowired
-    private JwtAuthenticationTokenFilter authenticationTokenFilter;
-
-    /**
-     * 跨域过滤器
-     */
-    @Autowired
-    private CorsFilter corsFilter;
-    
-    /**
-     * 解决 无法直接注入 AuthenticationManager
+     * 加密方式
      *
-     * @return
-     * @throws Exception
-     */
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception
-    {
-        return super.authenticationManagerBean();
-    }
-
-    /**
-     * anyRequest          |   匹配所有请求路径
-     * access              |   SpringEl表达式结果为true时可以访问
-     * anonymous           |   匿名可以访问
-     * denyAll             |   用户不能访问
-     * fullyAuthenticated  |   用户完全认证可以访问（非remember-me下自动登录）
-     * hasAnyAuthority     |   如果有参数，参数表示权限，则其中任何一个权限可以访问
-     * hasAnyRole          |   如果有参数，参数表示角色，则其中任何一个角色可以访问
-     * hasAuthority        |   如果有参数，参数表示权限，则其权限可以访问
-     * hasIpAddress        |   如果有参数，参数表示IP地址，如果用户IP和参数匹配，则可以访问
-     * hasRole             |   如果有参数，参数表示角色，则其角色可以访问
-     * permitAll           |   用户可以任意访问
-     * rememberMe          |   允许通过remember-me登录的用户访问
-     * authenticated       |   用户登录后可访问
-     */
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception
-    {
-        httpSecurity
-                // CSRF禁用，因为不使用session
-                .csrf().disable()
-                // 认证失败处理类
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                // 基于token，所以不需要session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                // 过滤请求
-                .authorizeRequests()
-                // 对于登录login 验证码captchaImage 允许匿名访问
-                .antMatchers("/login", "/captchaImage").anonymous()
-                .antMatchers(
-                        HttpMethod.GET,
-                        "/*.html",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js"
-                ).permitAll()
-                .antMatchers("/profile/**").anonymous()
-                .antMatchers("/common/download**").anonymous()
-                .antMatchers("/common/download/resource**").anonymous()
-                .antMatchers("/swagger-ui.html").anonymous()
-                .antMatchers("/swagger-resources/**").anonymous()
-                .antMatchers("/webjars/**").anonymous()
-                .antMatchers("/*/api-docs").anonymous()
-                .antMatchers("/druid/**").anonymous()
-                // 除上面外的所有请求全部需要鉴权认证
-                .anyRequest().authenticated()
-                .and()
-                .headers().frameOptions().disable();
-        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
-        // 添加JWT filter
-        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-        // 添加CORS filter
-        httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
-        httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
-    }
-
-    
-    /**
-     * 强散列哈希加密实现
+     * @Author Sans
+     * @CreateTime 2019/10/1 14:00
      */
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder()
@@ -136,11 +76,90 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     }
 
     /**
-     * 身份认证接口
+     * 注入自定义PermissionEvaluator
+     */
+    @Bean
+    public DefaultWebSecurityExpressionHandler userSecurityExpressionHandler()
+    {
+        DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
+        handler.setPermissionEvaluator(new UserPermissionEvaluator());
+        return handler;
+    }
+
+    /**
+     * 注册自定义的UsernamePasswordAuthenticationFilter(采用json格式登录)
+     */
+    @Bean
+    UserAuthenticationFilter userAuthenticationFilter() throws Exception
+    {
+        UserAuthenticationFilter filter = new UserAuthenticationFilter();
+        filter.setAuthenticationSuccessHandler(userLoginSuccessHandler);
+        filter.setAuthenticationFailureHandler(userLoginFailureHandler);
+        filter.setFilterProcessesUrl("/login/userLogin");
+        //这句很关键，重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
+    }
+
+    /**
+     * 配置登录验证逻辑
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception
+    protected void configure(AuthenticationManagerBuilder auth)
     {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        //这里可启用我们自己的登陆验证逻辑
+        auth.authenticationProvider(userAuthenticationProvider);
+    }
+
+    /**
+     * 配置security的控制逻辑
+     *
+     * @param http
+     * @throws Exception
+     */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception
+    {
+        http
+                // 配置验证码过滤器，使之在用户名密码过滤器之前生效
+                .addFilterAt(userAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                //不进行权限验证的请求或资源(从配置文件中读取)
+                //.antMatchers(JWTConfig.antMatchers.split(",")).permitAll()
+                .antMatchers(JWTConfig.antMatchers.split(",")).permitAll()
+                //其他的需要登陆后才能访问
+                .anyRequest().authenticated()
+                .and()
+                //配置未登录自定义处理类
+                .httpBasic().authenticationEntryPoint(userAuthenticationEntryPointHandler)
+                .and()
+                //配置登录地址
+                .formLogin()
+                .loginProcessingUrl("/login/userLogin")
+                //配置登录成功自定义处理类
+                .successHandler(userLoginSuccessHandler)
+                //配置登录失败自定义处理类
+                .failureHandler(userLoginFailureHandler)
+                .and()
+                //配置登出地址
+                .logout()
+                .logoutUrl("/login/userLogout")
+                //配置用户登出自定义处理类
+                .logoutSuccessHandler(userLogoutSuccessHandler)
+                .and()
+                //配置没有权限自定义处理类
+                .exceptionHandling().accessDeniedHandler(userAuthAccessDeniedHandler)
+                .and()
+                // 开启跨域
+                .cors()
+                .and()
+                // 取消跨站请求伪造防护
+                .csrf().disable();
+        // 基于Token不需要session
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        // 禁用缓存
+        http.headers().cacheControl();
+        // 添加JWT过滤器
+        http.addFilter(new JwtAuthenticationTokenFilter(authenticationManager()));
     }
 }

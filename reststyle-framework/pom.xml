@@ -14,11 +14,6 @@
     <version>1.0.0</version>
     <description>reststyle后台管理系统 framework核心模块</description>
 
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <reststyle.version>1.0.0</reststyle.version>
-    </properties>
 
     <!-- 依赖声明 -->
     <dependencyManagement>
@@ -48,6 +43,16 @@
                 <artifactId>reststyle-framework-commom</artifactId>
                 <version>${reststyle.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.reststyle</groupId>
+                <artifactId>reststyle-framework-swagger</artifactId>
+                <version>${reststyle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-boot-starter.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
@@ -59,6 +64,7 @@
         <module>reststyle-framework-dao</module>
         <module>reststyle-framework-domain</module>
         <module>reststyle-framework-common</module>
+        <module>reststyle-framework-swagger</module>
     </modules>
 
 </project>

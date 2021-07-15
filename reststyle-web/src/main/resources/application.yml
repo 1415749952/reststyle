@@ -52,11 +52,24 @@ mybatis-plus:
 
 
 
-# token配置
-token:
-  header: Authorization #令牌自定义标识
-  secret: abcdefghijklmnopqrstuvwxyz  #令牌密钥
-  expireTime: 30 #令牌有效期（默认30分钟）
+# JWT配置
+jwt:
+  # 密匙KEY
+  secret: JWTSecret
+  # accessTokenHeaderKEY
+  accessTokenHeader: Authorization-Access
+  # accessTokenHeaderKEY
+  refreshTokenHeader: Authorization-Refresh
+  # AccessToken前缀字符
+  accessTokenPrefix: Access-
+  # RefreshToken前缀字符
+  refreshTokenPrefix: Refresh-
+  # AccessToken过期时间  2小时后过期 2X60X60=7200 单位秒
+  accessTokenExpiration: 7200
+  # AccessToken过期时间 7天后过期  7*24*X60*60=604800 单位秒
+  refreshTokenExpiration: 604800
+  # 配置不需要认证的接口
+  antMatchers: /captchaImage,/login/**,/favicon.ico,/swagger-ui/**,/swagger-ui.html,/v2/api-docs,/v3/api-docs,/swagger-resources/**,/webjars/**,/druid/**
 
 # 雪花算法配置，多节点部署的时候datacenterId取值范围（0~31），和workerId取值范围（0~31）。每个节点的datacenterId和workerId要不同
 snowflake:

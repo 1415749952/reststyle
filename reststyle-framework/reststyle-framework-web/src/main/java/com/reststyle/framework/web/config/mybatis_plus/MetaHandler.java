@@ -13,7 +13,7 @@ package com.reststyle.framework.web.config.mybatis_plus;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.reststyle.framework.common.enums.DelFlag;
 import com.reststyle.framework.common.security.SecurityUtils;
-import com.reststyle.framework.common.security.model.LoginUser;
+import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.utils.DateUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class MetaHandler implements MetaObjectHandler
     @Override
     public void insertFill(MetaObject metaObject)
     {
-        LoginUser loginUser = SecurityUtils.getLoginUser();
+        SecurityUser loginUser = SecurityUtils.getLoginUser();
         this.setFieldValByName("delFlag", DelFlag.LOGIC_NOT_DELETE_VALUE.getValue(), metaObject);
         this.setFieldValByName("createTime", DateUtils.getNowDate(), metaObject);
         this.setFieldValByName("createBy", loginUser.getUsername(), metaObject);
@@ -59,7 +59,7 @@ public class MetaHandler implements MetaObjectHandler
     @Override
     public void updateFill(MetaObject metaObject)
     {
-        LoginUser loginUser = SecurityUtils.getLoginUser();
+        SecurityUser loginUser = SecurityUtils.getLoginUser();
         this.setFieldValByName("updateTime", DateUtils.getNowDate(), metaObject);
         this.setFieldValByName("updateBy", loginUser.getUsername(), metaObject);
     }

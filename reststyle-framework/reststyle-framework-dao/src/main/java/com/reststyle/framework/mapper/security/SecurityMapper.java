@@ -26,7 +26,7 @@ public interface SecurityMapper
 
     List<SecurityRole> selectSecurityRoleByUserId(Long userId);
 
-    Set<String> selectMenuPermsByRoleIds(@Param("roleIds") Set<Long> roleIds);
+    List<String> selectMenuPermsByRoleIds(@Param("roleIds") Set<Long> roleIds);
 
-    Set<String> selectAllMenuPerms();
+    List<String> selectAllMenu();
 }

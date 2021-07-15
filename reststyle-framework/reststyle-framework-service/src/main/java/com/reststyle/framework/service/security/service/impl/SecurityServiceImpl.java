@@ -41,26 +41,23 @@ public class SecurityServiceImpl implements SecurityService
         return securityMapper.selectSecurityRoleByUserId(userId);
     }
 
-    /**
-     * 获取菜单数据权限
-     *
-     * @param user 用户信息
-     * @return 菜单权限信息
-     */
+
+
     @Override
-    public Set<String> getMenuPermission(SecurityUser user)
+    public List<String> selectPermissionByUserId(SecurityUser user)
     {
-        Set<String> perms;
+
+        List<String> menuList;
         // 管理员拥有所有权限
         if (SecurityUtils.isAdmin(user))
         {
-            perms = securityMapper.selectAllMenuPerms();
+            menuList = securityMapper.selectAllMenu();
         }
         else
         {
-            Set<Long> roleIds = Optional.ofNullable(user.getRoles()).orElse(new ArrayList<>()).stream().map(SecurityRole::getRoleId).collect(Collectors.toSet());
-            perms = securityMapper.selectMenuPermsByRoleIds(roleIds);
+            Set<Long> roleIds = Optional.ofNullable(user.getSecurityRoles()).orElse(new ArrayList<>()).stream().map(SecurityRole::getRoleId).collect(Collectors.toSet());
+            menuList = securityMapper.selectMenuPermsByRoleIds(roleIds);
         }
-        return perms;
+        return menuList;
     }
 }

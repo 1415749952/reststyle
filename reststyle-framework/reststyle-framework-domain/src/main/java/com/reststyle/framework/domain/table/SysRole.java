@@ -67,8 +67,8 @@ public class SysRole implements Serializable
     /**
      * 角色状态（0正常 1停用）
      */
-    @TableField(value = "status")
-    private String status;
+    @TableField(value = "state")
+    private String state;
 
     /**
      * 删除标志（0代表存在 2代表删除）

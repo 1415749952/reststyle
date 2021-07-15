@@ -4,7 +4,6 @@ import com.reststyle.framework.common.security.entity.SecurityRole;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,5 +20,5 @@ public interface SecurityService
 
     List<SecurityRole> selectSecurityRoleByUserId(Long userId);
 
-    Set<String> getMenuPermission(SecurityUser user);
+    List<String> selectPermissionByUserId(SecurityUser securityUser);
 }

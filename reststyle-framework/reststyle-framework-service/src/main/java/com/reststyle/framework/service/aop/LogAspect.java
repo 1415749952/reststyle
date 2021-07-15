@@ -6,7 +6,8 @@ import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.reststyle.framework.common.oper_log.OperLog;
 import com.reststyle.framework.common.oper_log.OperStatus;
-import com.reststyle.framework.common.security.model.LoginUser;
+import com.reststyle.framework.common.security.SecurityUtils;
+import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.utils.DateUtils;
 import com.reststyle.framework.common.utils.ServletUtils;
 import com.reststyle.framework.common.utils.id.IdWorker;
@@ -16,7 +17,6 @@ import com.reststyle.framework.common.utils.spring.SpringUtils;
 import com.reststyle.framework.domain.table.SysOperLog;
 import com.reststyle.framework.service.manager.AsyncManager;
 import com.reststyle.framework.service.manager.factory.AsyncFactory;
-import com.reststyle.framework.service.security.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
@@ -25,6 +25,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -98,10 +99,10 @@ public class LogAspect
                 return;
             }
             // 获取当前的用户
-            LoginUser loginUser = SpringUtils.getBean(TokenService.class).getLoginUser(ServletUtils.getRequest());
+            SecurityUser loginUser = SecurityUtils.getLoginUser();
             SysOperLog operLog = new SysOperLog();
             operLog.setOperId(IdWorker.getId());
-            operLog.setStatus(OperStatus.SUCCESS.getStatus());
+            operLog.setState(OperStatus.SUCCESS.getState());
             // 请求的IP地址
             operLog.setOperIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
             //请求的URL地址
@@ -137,7 +138,7 @@ public class LogAspect
             }
             if (null != e)
             {
-                operLog.setStatus(OperStatus.FAIL.getStatus());
+                operLog.setState(OperStatus.FAIL.getState());
                 operLog.setErrorMsg(StrUtil.sub(e.toString(), 0, 2000));
             }
 

@@ -4,6 +4,7 @@ import com.reststyle.framework.common.unite_response.RestResult;
 import com.reststyle.framework.common.unite_response.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -32,7 +33,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler
 {
-    /*
+    /**
      * 处理所有不可知的异常
      *
      * @param exception
@@ -43,6 +44,21 @@ public class GlobalExceptionHandler
     public RestResult handleException(Exception exception)
     {
         return ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+    }
+
+
+    /**
+     * 权限不足抛出AccessDeniedException异常
+     * 出现这种问题的原因一般都是因为项目中还配置了 GlobalExceptionHandler 。
+     *  由于GlobalExceptionHandler 全局异常处理器会比 AccessDeniedHandler 先捕获 AccessDeniedException 异常，因此当配置了 GlobalExceptionHandler 后，会发现 AccessDeniedHandler 失效了。
+     * @param exception
+     * @return
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public RestResult handleException(AccessDeniedException exception)
+    {
+        return ResultUtil.error(HttpStatus.FORBIDDEN, "没有权限访问系统资源");
     }
 
     /**
@@ -63,12 +79,12 @@ public class GlobalExceptionHandler
     public RestResult handlerMethodArgumentNotValidException(MethodArgumentNotValidException exception)
     {
         //解析原错误信息，封装后返回，此处返回非法的字段名称，错误信息
-        List<Map<String,String>> validationErrorEntities = new ArrayList<>();
+        List<Map<String, String>> validationErrorEntities = new ArrayList<>();
         for (FieldError error : exception.getBindingResult().getFieldErrors())
         {
-            Map<String,String> validationErrorEntity = new HashMap<>();
-            validationErrorEntity.put("param",error.getField());
-            validationErrorEntity.put("message",error.getDefaultMessage());
+            Map<String, String> validationErrorEntity = new HashMap<>();
+            validationErrorEntity.put("param", error.getField());
+            validationErrorEntity.put("message", error.getDefaultMessage());
             validationErrorEntities.add(validationErrorEntity);
         }
         if (CollectionUtils.isEmpty(validationErrorEntities))
@@ -103,6 +119,7 @@ public class GlobalExceptionHandler
 
     /**
      * sql语句异常
+     *
      * @param exception
      * @return
      */
