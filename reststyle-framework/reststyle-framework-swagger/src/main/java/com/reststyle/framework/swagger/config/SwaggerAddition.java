@@ -46,7 +46,7 @@ public class SwaggerAddition implements ApiListingScannerPlugin
                 new HashSet<>(Arrays.asList(new RepresentationBuilder()
                         .model(modelSpecificationBuilder -> modelSpecificationBuilder.facets(modelFacetsBuilder -> modelFacetsBuilder.examples(Arrays.asList(new ExampleBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE).value(loginJsonStr).build()))).scalarModel(ScalarType.OBJECT).build()).mediaType(MediaType.APPLICATION_JSON_VALUE).build())),
                 true,
-                Arrays.asList(new StringVendorExtension("name", "value"))
+                Arrays.asList(new StringVendorExtension("", ""))
         );
 
         List<ApiDescription> apiDescriptions = singletonList(new ApiDescription(
