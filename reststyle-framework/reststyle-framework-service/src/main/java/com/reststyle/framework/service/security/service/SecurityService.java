@@ -18,7 +18,7 @@ public interface SecurityService
 {
     SecurityUser selectUserByUserName(String username);
 
-    List<SecurityRole> selectSecurityRoleByUserId(Long userId);
+    List<SecurityRole> selectSecurityRoleByUserId(SecurityUser user);
 
     List<String> selectPermissionByUserId(SecurityUser securityUser);
 }

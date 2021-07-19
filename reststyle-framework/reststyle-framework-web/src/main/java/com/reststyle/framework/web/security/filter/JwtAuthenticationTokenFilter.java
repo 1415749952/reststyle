@@ -97,7 +97,7 @@ public class JwtAuthenticationTokenFilter extends BasicAuthenticationFilter
                 // 角色集合
                 Set<GrantedAuthority> authorities = new HashSet<>();
                 // 查询用户角色
-                List<SecurityRole> securityRoles = SpringUtils.getBean(SecurityServiceImpl.class).selectSecurityRoleByUserId(securityUser.getUserId());
+                List<SecurityRole> securityRoles = SpringUtils.getBean(SecurityServiceImpl.class).selectSecurityRoleByUserId(securityUser);
                 securityUser.setSecurityRoles(securityRoles);
 
                 List<String> permissions = SpringUtils.getBean(SecurityServiceImpl.class).selectPermissionByUserId(securityUser);

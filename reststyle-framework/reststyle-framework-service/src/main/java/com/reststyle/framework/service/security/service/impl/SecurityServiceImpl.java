@@ -6,6 +6,7 @@ import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.mapper.security.SecurityMapper;
 import com.reststyle.framework.service.security.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,20 +30,23 @@ public class SecurityServiceImpl implements SecurityService
     @Autowired
     private SecurityMapper securityMapper;
 
+
+    @Cacheable(value = "login", key = "'user:'+#username", unless = "#result==null")
     @Override
     public SecurityUser selectUserByUserName(String username)
     {
         return securityMapper.selectSecurityUserByUserName(username);
     }
 
+    @Cacheable(value = "login", key = "'role:'+#user.getUsername()", unless = "#result==null")
     @Override
-    public List<SecurityRole> selectSecurityRoleByUserId(Long userId)
+    public List<SecurityRole> selectSecurityRoleByUserId(SecurityUser user)
     {
-        return securityMapper.selectSecurityRoleByUserId(userId);
+        return securityMapper.selectSecurityRoleByUserId(user.getUserId());
     }
 
 
-
+    @Cacheable(value = "login", key = "'permission:'+#user.getUsername()", unless = "#result==null")
     @Override
     public List<String> selectPermissionByUserId(SecurityUser user)
     {
