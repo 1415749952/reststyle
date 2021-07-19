@@ -65,7 +65,7 @@ jwt:
   # RefreshToken前缀字符
   refreshTokenPrefix: Refresh-
   # AccessToken过期时间  2小时后过期 2X60X60=7200 单位秒
-  accessTokenExpiration: 7200
+  accessTokenExpiration: 14400
   # AccessToken过期时间 7天后过期  7*24*X60*60=604800 单位秒
   refreshTokenExpiration: 604800
   # 配置不需要认证的接口
