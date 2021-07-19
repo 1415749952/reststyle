@@ -34,8 +34,8 @@ public class TokenService
                 .setIssuedAt(new Date())
                 // 签发者
                 .setIssuer("restStyle")
-                // 自定义属性 放入用户拥有权限
-                //.claim("authorities", JacksonUtils.object2Json(securityUser.getAuthorities()))
+                // 自定义属性 放入用户密码
+                .claim("password", JacksonUtils.object2Json(securityUser.getPassword()))
                 // 失效时间
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 // 签名算法和密钥

@@ -5,6 +5,7 @@ import com.reststyle.framework.common.oper_log.OperLog;
 import com.reststyle.framework.common.oper_log.OperUnit;
 import com.reststyle.framework.service.WebTestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -69,6 +70,19 @@ public class WebTest
     @Cacheable(value = "ceshi", key = "'user:'+#id", unless = "#result==null")
     @GetMapping("{id}")
     public Map getUserById(@PathVariable("id") Long id) {
+        Map user = new HashMap();
+        user.put("id",id);
+        user.put("age",20);
+        user.put("username","张三");
+        user.put("password","123456");
+        user.put("token","2223334455:333:332");
+        user.put("id",id);
+        return user;
+    }
+
+    @CacheEvict(cacheNames = "login", key = "")
+    @GetMapping("test/{id}")
+    public Map getUserById1(@PathVariable("id") Long id) {
         Map user = new HashMap();
         user.put("id",id);
         user.put("age",20);

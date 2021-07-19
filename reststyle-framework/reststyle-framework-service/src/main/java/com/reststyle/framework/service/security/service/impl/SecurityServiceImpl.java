@@ -38,7 +38,7 @@ public class SecurityServiceImpl implements SecurityService
         return securityMapper.selectSecurityUserByUserName(username);
     }
 
-    @Cacheable(value = "login", key = "'role:'+#user.getUsername()", unless = "#result==null")
+    @Cacheable(value = "login", key = "'role:'+#user.getUsername()", unless = "#result?.size()<1")
     @Override
     public List<SecurityRole> selectSecurityRoleByUserId(SecurityUser user)
     {
@@ -46,7 +46,7 @@ public class SecurityServiceImpl implements SecurityService
     }
 
 
-    @Cacheable(value = "login", key = "'permission:'+#user.getUsername()", unless = "#result==null")
+    @Cacheable(value = "login", key = "'permission:'+#user.getUsername()", unless = "#result?.size()<1")
     @Override
     public List<String> selectPermissionByUserId(SecurityUser user)
     {

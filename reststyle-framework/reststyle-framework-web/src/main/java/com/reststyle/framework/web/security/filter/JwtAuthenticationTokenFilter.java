@@ -20,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -71,6 +72,14 @@ public class JwtAuthenticationTokenFilter extends BasicAuthenticationFilter
                 {
                     AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "登录用户："+username+" 不存在"));
                     throw new UsernameNotFoundException("登录用户：" + username + " 不存在");
+                }
+
+                String password = claims.get("password").toString();
+                // 我们还要判断密码是否正确，这里我们的密码使用BCryptPasswordEncoder进行加密的
+                if (!new BCryptPasswordEncoder().matches(password, securityUser.getPassword()))
+                {
+                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "密码不正确"));
+                    throw new BadCredentialsException("更改密码后，Token无效");
                 }
 
                 if (securityUser.getIsEnabled().equals(false))
