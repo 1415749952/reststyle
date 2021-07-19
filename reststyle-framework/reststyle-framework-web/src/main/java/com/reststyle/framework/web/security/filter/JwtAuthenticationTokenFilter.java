@@ -76,9 +76,8 @@ public class JwtAuthenticationTokenFilter extends BasicAuthenticationFilter
 
                 String password = claims.get("password").toString();
                 // 我们还要判断密码是否正确，这里我们的密码使用BCryptPasswordEncoder进行加密的
-                if (!new BCryptPasswordEncoder().matches(password, securityUser.getPassword()))
+                if (!password.equals(securityUser.getPassword()))
                 {
-                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "密码不正确"));
                     throw new BadCredentialsException("更改密码后，Token无效");
                 }
 
