@@ -25,14 +25,14 @@ public class SysUser implements Serializable
     /**
      * 用户ID
      */
-    @TableId(value = "user_id", type = IdType.AUTO)
+    @TableId(value = "user_id", type = IdType.INPUT)
     private Long userId;
 
     /**
      * 用户账号
      */
-    @TableField(value = "user_name")
-    private String userName;
+    @TableField(value = "username")
+    private String username;
 
     /**
      * 密码
