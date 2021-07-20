@@ -1,14 +1,11 @@
 package com.reststyle.framework.web.security.filter;
 
-import com.reststyle.framework.common.constant.Constants;
 import com.reststyle.framework.common.security.entity.SecurityRole;
+import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.utils.spring.SpringUtils;
-import com.reststyle.framework.service.manager.AsyncManager;
-import com.reststyle.framework.service.manager.factory.AsyncFactory;
 import com.reststyle.framework.service.security.UserDetailsServiceImpl;
 import com.reststyle.framework.service.security.service.impl.SecurityServiceImpl;
 import com.reststyle.framework.web.config.JWTConfig;
-import com.reststyle.framework.common.security.entity.SecurityUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -20,7 +17,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -28,7 +24,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -70,36 +68,36 @@ public class JwtAuthenticationTokenFilter extends BasicAuthenticationFilter
 
                 if (null == securityUser)
                 {
-                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "登录用户："+username+" 不存在"));
+                    log.info("Token验证时："+"登录用户：" + username + " 不存在");
                     throw new UsernameNotFoundException("登录用户：" + username + " 不存在");
                 }
 
                 String password = claims.get("password").toString();
                 // 我们还要判断密码是否正确，这里我们的密码使用BCryptPasswordEncoder进行加密的
-                if (!new BCryptPasswordEncoder().matches(password, securityUser.getPassword()))
+                if (!password.equals(securityUser.getPassword()))
                 {
-                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "密码不正确"));
-                    throw new BadCredentialsException("更改密码后，Token无效");
+                    log.info("Token验证时："+"更改密码后token失效");
+                    throw new BadCredentialsException("更改密码后token失效");
                 }
 
                 if (securityUser.getIsEnabled().equals(false))
                 {
-                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 已被停用"));
+                    log.info("Token验证时："+"对不起，您的账号：" + username + " 已被停用");
                     throw new BadCredentialsException("对不起，您的账号：" + username + " 已被停用");
                 }
                 if (securityUser.getIsAccountNonLocked().equals(false))
                 {
-                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 已被锁定"));
+                    log.info("Token验证时："+"对不起，您的账号：" + username + " 已被锁定");
                     throw new BadCredentialsException("对不起，您的账号：" + username + " 已被锁定");
                 }
                 if (securityUser.getIsAccountNonExpired().equals(false))
                 {
-                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 已过期"));
+                    log.info("Token验证时："+"对不起，您的账号：" + username + " 已过期");
                     throw new BadCredentialsException("对不起，您的账号：" + username + " 已过期");
                 }
                 if (securityUser.getIsCredentialsNonExpired().equals(false))
                 {
-                    AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, "对不起，您的账号：" + username + " 凭证已过期"));
+                    log.info("Token验证时："+"对不起，您的账号：" + username + " 凭证已过期");
                     throw new BadCredentialsException("对不起，您的账号：" + username + " 凭证已过期");
                 }
 
