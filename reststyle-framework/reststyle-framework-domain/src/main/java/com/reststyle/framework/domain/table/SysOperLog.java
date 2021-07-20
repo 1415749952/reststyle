@@ -24,7 +24,7 @@ public class SysOperLog
     /**
      * 日志主键
      */
-    @TableId(value = "oper_id", type = IdType.INPUT)
+    @TableId(value = "oper_id", type = IdType.ASSIGN_ID)
     private Long operId;
 
     /**

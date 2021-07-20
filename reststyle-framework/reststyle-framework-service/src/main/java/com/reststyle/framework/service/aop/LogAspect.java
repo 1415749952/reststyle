@@ -10,7 +10,6 @@ import com.reststyle.framework.common.security.SecurityUtils;
 import com.reststyle.framework.common.security.entity.SecurityUser;
 import com.reststyle.framework.common.utils.DateUtils;
 import com.reststyle.framework.common.utils.ServletUtils;
-import com.reststyle.framework.common.utils.id.IdWorker;
 import com.reststyle.framework.common.utils.ip.IpUtils;
 import com.reststyle.framework.common.utils.json.JacksonUtils;
 import com.reststyle.framework.common.utils.spring.SpringUtils;
@@ -101,7 +100,6 @@ public class LogAspect
             // 获取当前的用户
             SecurityUser loginUser = SecurityUtils.getLoginUser();
             SysOperLog operLog = new SysOperLog();
-            operLog.setOperId(IdWorker.getId());
             operLog.setState(OperStatus.SUCCESS.getState());
             // 请求的IP地址
             operLog.setOperIp(IpUtils.getIpAddr(ServletUtils.getRequest()));

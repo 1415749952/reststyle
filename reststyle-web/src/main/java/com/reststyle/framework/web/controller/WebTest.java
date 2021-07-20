@@ -125,8 +125,8 @@ public class WebTest
         return user;
     }
     /**
-     * 调用此接口去会去除redis缓存
-     * *  @CacheEvict(value = "login", key = "'user:'+#username")
+     * 测试mybatis自动添加create_time和Create_by字段值
+     * 例子com/reststyle/framework/domain/table/SysUser.java这个类
      *
      * @param sysUser
      * @return
@@ -136,8 +136,9 @@ public class WebTest
     public Map testMybatis(@RequestBody SysUser sysUser)
     {
         sysUserService.save(sysUser);
+        SysUser dbUser = sysUserService.getById(sysUser.getUserId());
         HashMap hashMap = new HashMap();
-        hashMap.put("sysUser",sysUser);
+        hashMap.put("sysUser",dbUser);
         return hashMap;
     }
 

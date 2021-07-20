@@ -25,7 +25,7 @@ public class SysLogininfor implements Serializable
     /**
      * 访问ID
      */
-    @TableId(value = "info_id", type = IdType.INPUT)
+    @TableId(value = "info_id", type = IdType.ASSIGN_ID)
     private Long infoId;
 
     /**

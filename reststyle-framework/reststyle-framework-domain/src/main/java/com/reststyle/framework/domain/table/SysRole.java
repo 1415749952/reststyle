@@ -1,9 +1,6 @@
 package com.reststyle.framework.domain.table;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,7 +22,7 @@ public class SysRole implements Serializable
     /**
      * 角色ID
      */
-    @TableId(value = "role_id", type = IdType.INPUT)
+    @TableId(value = "role_id", type = IdType.ASSIGN_ID)
     private Long roleId;
 
     /**
@@ -71,34 +68,37 @@ public class SysRole implements Serializable
     private String state;
 
     /**
-     * 删除标志（0代表存在 2代表删除）
-     */
-    @TableField(value = "del_flag")
-    private String delFlag;
-
-    /**
      * 创建者
+     * 注意！这里需要标记为填充字段        fill = FieldFill.INSERT
      */
-    @TableField(value = "create_by")
+    @TableField(value = "create_by",fill = FieldFill.INSERT)
     private String createBy;
 
     /**
      * 创建时间
+     * 注意！这里需要标记为填充字段        fill = FieldFill.INSERT
      */
-    @TableField(value = "create_time")
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 更新者
      */
-    @TableField(value = "update_by")
+    @TableField(value = "update_by",fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
     /**
      * 更新时间
      */
-    @TableField(value = "update_time")
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
+
+    /**
+     * 删除标志（0代表存在 2代表删除）
+     * 注意！这里需要标记为填充字段        fill = FieldFill.INSERT
+     */
+    @TableField(value = "del_flag",fill = FieldFill.INSERT)
+    private String delFlag;
 
     /**
      * 备注
