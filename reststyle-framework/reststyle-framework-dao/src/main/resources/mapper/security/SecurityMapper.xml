@@ -5,9 +5,9 @@
         <!--@mbg.generated-->
         <!--@Table sys_user-->
         <id column="user_id" jdbcType="BIGINT" property="userId"/>
-        <result column="user_name" jdbcType="VARCHAR" property="username"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
-        <result column="nick_name" jdbcType="VARCHAR" property="nickname"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="is_enabled" jdbcType="BOOLEAN" property="isEnabled"/>
         <result column="is_credentials_non_expired" jdbcType="BOOLEAN" property="isCredentialsNonExpired"/>
         <result column="is_account_non_locked" jdbcType="BOOLEAN" property="isAccountNonLocked"/>
@@ -20,7 +20,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        user_id, user_name, `password`, nick_name, user_type, email, phone_number, sex, avatar,
+        user_id, username, `password`, nick_name, user_type, email, phone_number, sex, avatar,
         is_enabled, is_credentials_non_expired, is_account_non_locked, is_account_non_expired,
         create_by, create_time, update_by, update_time, del_flag,
         remark
@@ -28,7 +28,7 @@
     <select id="selectSecurityUserByUserName" resultMap="BaseResultMap">
         select *
         from sys_user
-        where user_name = #{username}
+        where username = #{username}
           and del_flag = '0' limit 1
     </select>
     <select id="selectSecurityRoleByUserId" resultMap="SecurityRoleResult">

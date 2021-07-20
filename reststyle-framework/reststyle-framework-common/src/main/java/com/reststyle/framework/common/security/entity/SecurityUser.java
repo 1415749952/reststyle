@@ -36,7 +36,7 @@ public class SecurityUser implements Serializable, UserDetails
     /**
      * 用户昵称
      */
-    private String nickname;
+    private String nickName;
 
     /**
      * 密码
