@@ -1,4 +1,4 @@
-package com.reststyle.framework.domain.bo;
+package com.reststyle.framework.common.unite_response;
 
 import lombok.Data;
 

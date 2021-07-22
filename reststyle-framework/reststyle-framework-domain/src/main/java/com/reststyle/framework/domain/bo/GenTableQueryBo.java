@@ -1,6 +1,6 @@
 package com.reststyle.framework.domain.bo;
 
-import com.fasterxml.jackson.annotation.JsonView;
+import com.reststyle.framework.common.unite_response.BaseQueryBo;
 import lombok.Data;
 
 import java.util.Date;
