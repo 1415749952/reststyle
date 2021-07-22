@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
- * Description:
+ * Description: 查询数据时的父类，包含分页大小（默认为10），当前页数（默认为1），排序列，排序的方向等字段
  *
  * @version 1.0
  * @author: TheFei
