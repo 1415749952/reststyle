@@ -108,5 +108,11 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable> i
         genTableColumnService.deleteGenTableColumnByIds(tableIds);
     }
 
-
+    @Override
+    public PageInfo<GenTableVo> selectGenTableList(GenTableQueryBo genTableQueryBo)
+    {
+        PageHelper.startPage(genTableQueryBo.getPageNum(), genTableQueryBo.getPageSize());
+        List<GenTableVo> genTables = genTableMapper.selectGenTableList(genTableQueryBo);
+        return new PageInfo<>(genTables);
+    }
 }

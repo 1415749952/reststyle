@@ -28,11 +28,11 @@ public class GenTableVo implements Serializable
     /**
      * 不在列表中展示createTime和updateTime，返回列表JSON中就没有createTime和updateTime
      */
-    public interface GenTableListView extends GeneralViews.RestView
+    public interface DBTableListView extends GeneralViews.RestView
     {
     }
 
-    public interface GenTableDetailView extends GenTableListView
+    public interface GenTableView extends DBTableListView
     {
     }
 
@@ -41,18 +41,19 @@ public class GenTableVo implements Serializable
     /**
      * 编号
      */
+    @JsonView(GenTableView.class)
     private Long tableId;
 
     /**
      * 表名称
      */
-    @JsonView(GenTableListView.class)
+    @JsonView(DBTableListView.class)
     private String tableName;
 
     /**
      * 表描述
      */
-    @JsonView(GenTableListView.class)
+    @JsonView(DBTableListView.class)
     private String tableComment;
 
     /**
@@ -68,6 +69,7 @@ public class GenTableVo implements Serializable
     /**
      * 实体类名称
      */
+    @JsonView(GenTableView.class)
     private String className;
 
     /**
@@ -123,7 +125,7 @@ public class GenTableVo implements Serializable
     /**
      * 创建时间
      */
-    @JsonView(GenTableListView.class)
+    @JsonView(DBTableListView.class)
     private Date createTime;
 
     /**
@@ -134,7 +136,7 @@ public class GenTableVo implements Serializable
     /**
      * 更新时间
      */
-    @JsonView(GenTableListView.class)
+    @JsonView(DBTableListView.class)
     private Date updateTime;
 
     /**

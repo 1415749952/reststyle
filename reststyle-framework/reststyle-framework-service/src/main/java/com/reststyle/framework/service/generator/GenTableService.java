@@ -38,4 +38,6 @@ public interface GenTableService extends IService<GenTable>
      * @return 结果
      */
     void deleteGenTableByIds(Long[] tableIds);
+
+    PageInfo<GenTableVo> selectGenTableList(GenTableQueryBo genTableQueryBo);
 }

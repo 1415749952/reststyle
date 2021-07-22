@@ -49,13 +49,12 @@ public class GenController
      */
     @ApiOperation(value = "查询代码生成列表")
     @PreAuthorize("hasAuthority('tool:gen:list')")
+    @JsonView(GenTableVo.GenTableView.class)
     @GetMapping("/list")
-    public RestResult genList(GenTable genTable)
+    public RestResult genList(GenTableQueryBo genTableQueryBo)
     {
-       /* startPage();
-        List<GenTable> list = genTableService.selectGenTableList(genTable);
-        return getDataTable(list);*/
-        return null;
+        PageInfo<GenTableVo> list = genTableService.selectGenTableList(genTableQueryBo);
+        return ResultUtil.success(list);
     }
 
     /**
@@ -84,7 +83,7 @@ public class GenController
     @PreAuthorize("hasAuthority('tool:gen:list')")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/db/list")
-    @JsonView(GenTableVo.GenTableListView.class)
+    @JsonView(GenTableVo.DBTableListView.class)
     public RestResult dataList(GenTableQueryBo genTableQueryBo)
     {
         PageInfo<GenTableVo> list = genTableService.selectDbTableList(genTableQueryBo);
@@ -173,19 +172,7 @@ public class GenController
         genCode(response, data);*/
     }
 
-    /**
-     * 生成代码（自定义路径）
-     */
-    @ApiOperation(value = "生成代码（自定义路径）")
-    @PreAuthorize("hasAuthority('tool:gen:code')")
-    //@Log(title = "代码生成", businessType = BusinessType.GENCODE)
-    @GetMapping("/genCode/{tableName}")
-    public RestResult genCode(@PathVariable("tableName") String tableName)
-    {
-       /* genTableService.generatorCode(tableName);
-        return RestResult.success();*/
-        return null;
-    }
+
 
     /**
      * 同步数据库
