@@ -2,6 +2,7 @@ package com.reststyle.framework.mapper.business;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.reststyle.framework.domain.bo.GenTableQueryBo;
+import com.reststyle.framework.domain.dto.GenTableDto;
 import com.reststyle.framework.domain.table.GenTable;
 import com.reststyle.framework.domain.vo.GenTableVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,4 +28,8 @@ public interface GenTableMapper extends BaseMapper<GenTable>
     int deleteGenTableByIds(Long[] tableIds);
 
     List<GenTableVo> selectGenTableList(GenTableQueryBo genTableQueryBo);
+
+    GenTableDto selectGenTableById(Long tableId);
+
+    GenTableDto selectGenTableByName(String tableName);
 }

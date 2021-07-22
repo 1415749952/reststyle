@@ -1,0 +1,39 @@
+package ${packageName}.bo;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
+import com.reststyle.framework.common.unite_response.BaseQueryBo;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+
+/**
+ * Created with IntelliJ IDEA.
+ * Description:  ${functionName}分页查询对象 ${tableName}
+ *
+ * @version 1.0
+ * @author: TheFei
+ * @Date: ${datetime}
+ * @Time: 19:09
+ */
+@Data
+@ApiModel("${functionName}分页查询对象")
+public class ${ClassName}QueryBo extends BaseQueryBo
+{
+
+
+#foreach ($column in $columns)
+#if(!$table.isSuperColumn($column.javaField) && $column.query)
+	/**
+	 * $column.columnComment
+	 */
+	@ApiModelProperty("$column.columnComment")
+	private $column.javaType $column.javaField;
+#end
+#end
+}

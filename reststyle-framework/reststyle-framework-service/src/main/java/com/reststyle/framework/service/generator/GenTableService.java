@@ -7,6 +7,7 @@ import com.reststyle.framework.domain.table.GenTable;
 import com.reststyle.framework.domain.vo.GenTableVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 *  Created with IntelliJ IDEA.
@@ -40,4 +41,20 @@ public interface GenTableService extends IService<GenTable>
     void deleteGenTableByIds(Long[] tableIds);
 
     PageInfo<GenTableVo> selectGenTableList(GenTableQueryBo genTableQueryBo);
+    /**
+     * 预览代码
+     *
+     * @param tableId 表编号
+     * @return 预览数据列表
+     */
+    Map<String, String> previewCode(Long tableId);
+
+
+    /**
+     * 生成代码（下载方式）
+     *
+     * @param tableId 表id
+     * @return 数据
+     */
+    byte[] downloadCode(Long tableId);
 }

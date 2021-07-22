@@ -26,11 +26,6 @@
             <artifactId>reststyle-quartz</artifactId>
         </dependency>
 
-        <!-- 代码生成-->
-         <dependency>
-             <groupId>com.reststyle</groupId>
-             <artifactId>reststyle-generator</artifactId>
-         </dependency>
 
         <!--  reststyle-service模块  -->
          <dependency>

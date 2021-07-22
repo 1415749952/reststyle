@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -152,11 +153,10 @@ public class GenController
     @ApiOperation(value = "预览代码")
     @PreAuthorize("hasAuthority('tool:gen:preview')")
     @GetMapping("/preview/{tableId}")
-    public RestResult preview(@PathVariable("tableId") Long tableId) throws IOException
+    public RestResult preview(@PathVariable("tableId") Long tableId)
     {
-       /* Map<String, String> dataMap = genTableService.previewCode(tableId);
-        return RestResult.success(dataMap);*/
-        return null;
+        Map<String, String> dataMap = genTableService.previewCode(tableId);
+        return ResultUtil.success(dataMap);
     }
 
     /**
@@ -165,11 +165,11 @@ public class GenController
     @ApiOperation(value = "生成代码（下载方式）")
     @PreAuthorize("hasAuthority('tool:gen:code')")
     //@Log(title = "代码生成", businessType = BusinessType.GENCODE)
-    @GetMapping("/download/{tableName}")
-    public void download(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException
+    @GetMapping("/download/{tableId}")
+    public void download(HttpServletResponse response, @PathVariable("tableId") Long tableId) throws IOException
     {
-       /* byte[] data = genTableService.downloadCode(tableName);
-        genCode(response, data);*/
+        byte[] data = genTableService.downloadCode(tableId);
+        genCode(response, data);
     }
 
 
