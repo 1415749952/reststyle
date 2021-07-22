@@ -1,5 +1,7 @@
 package com.reststyle.framework.service.generator.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.reststyle.framework.domain.table.GenTableColumn;
 import com.reststyle.framework.mapper.business.GenTableColumnMapper;
@@ -30,4 +32,20 @@ public class GenTableColumnServiceImpl extends ServiceImpl<GenTableColumnMapper,
     {
         return genTableColumnMapper.selectDbTableColumnsByName(tableName);
     }
+
+    @Override
+    public List<GenTableColumn> selectGenTableColumnListByTableId(Long tableId)
+    {
+        LambdaQueryWrapper<GenTableColumn> queryWrapper = new QueryWrapper<GenTableColumn>().lambda()
+                .eq(GenTableColumn::getTableId, tableId);
+        return this.list(queryWrapper);
+    }
+
+    @Override
+    public int deleteGenTableColumnByIds(Long[] tableIds)
+    {
+        return genTableColumnMapper.deleteGenTableColumnByIds(tableIds);
+    }
+
+
 }

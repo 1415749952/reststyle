@@ -19,4 +19,8 @@ public interface GenTableColumnService extends IService<GenTableColumn>
 
 
     List<GenTableColumn> selectDbTableColumnsByName(String tableName);
+
+    List<GenTableColumn> selectGenTableColumnListByTableId(Long tableId);
+
+    int deleteGenTableColumnByIds(Long[] tableIds);
 }

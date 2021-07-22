@@ -31,4 +31,11 @@ public interface GenTableService extends IService<GenTable>
      * @return 数据库表集合
      */
     List<GenTable> selectDbTableListByNames(String[] tableNames);
+    /**
+     * 删除业务对象
+     *
+     * @param tableIds 需要删除的数据ID
+     * @return 结果
+     */
+    void deleteGenTableByIds(Long[] tableIds);
 }

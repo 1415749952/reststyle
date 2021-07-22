@@ -19,4 +19,6 @@ import java.util.List;
 public interface GenTableColumnMapper extends BaseMapper<GenTableColumn>
 {
     List<GenTableColumn> selectDbTableColumnsByName(String tableName);
+
+    int deleteGenTableColumnByIds(Long[] tableIds);
 }

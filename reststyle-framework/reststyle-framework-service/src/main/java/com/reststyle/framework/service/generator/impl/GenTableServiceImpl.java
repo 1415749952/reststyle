@@ -94,10 +94,19 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable> i
     {
         return genTableMapper.selectDbTableListByNames(tableNames);
     }
-
-
-
-
+    /**
+     * 删除业务对象
+     *
+     * @param tableIds 需要删除的数据ID
+     * @return 结果
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteGenTableByIds(Long[] tableIds)
+    {
+        genTableMapper.deleteGenTableByIds(tableIds);
+        genTableColumnService.deleteGenTableColumnByIds(tableIds);
+    }
 
 
 }

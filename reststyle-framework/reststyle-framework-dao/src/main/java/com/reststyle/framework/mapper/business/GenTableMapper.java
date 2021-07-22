@@ -23,4 +23,6 @@ public interface GenTableMapper extends BaseMapper<GenTable>
     List<GenTableVo> selectDbTableList(GenTableQueryBo genTableQueryBo);
 
     List<GenTable> selectDbTableListByNames(String[] tableNames);
+
+    int deleteGenTableByIds(Long[] tableIds);
 }

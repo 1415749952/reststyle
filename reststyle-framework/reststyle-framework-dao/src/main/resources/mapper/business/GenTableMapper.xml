@@ -76,4 +76,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
 
 	</select>
+	<delete id="deleteGenTableByIds" parameterType="Long">
+	  delete from gen_table where table_id in
+        <foreach collection="array" item="tableId" open="(" separator="," close=")">
+            #{tableId}
+        </foreach>
+	</delete>
 </mapper>

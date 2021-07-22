@@ -6,6 +6,7 @@ import com.reststyle.framework.common.unite_response.RestResult;
 import com.reststyle.framework.common.unite_response.ResultUtil;
 import com.reststyle.framework.domain.bo.GenTableQueryBo;
 import com.reststyle.framework.domain.table.GenTable;
+import com.reststyle.framework.domain.table.GenTableColumn;
 import com.reststyle.framework.domain.vo.GenTableVo;
 import com.reststyle.framework.service.generator.GenTableColumnService;
 import com.reststyle.framework.service.generator.GenTableService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -94,15 +96,12 @@ public class GenController
      */
     @ApiOperation(value = "查询数据表字段列表")
     @PreAuthorize("hasAuthority('tool:gen:list')")
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/column/{talbleId}")
     public RestResult columnList(Long tableId)
     {
-       /* RestResult dataInfo = new RestResult();
         List<GenTableColumn> list = genTableColumnService.selectGenTableColumnListByTableId(tableId);
-        dataInfo.setRows(list);
-        dataInfo.setTotal(list.size());
-        return dataInfo;*/
-        return null;
+        return ResultUtil.success(list);
     }
 
     /**
@@ -111,6 +110,7 @@ public class GenController
     @ApiOperation(value = "导入表结构（保存）")
     @PreAuthorize("hasAuthority('tool:gen:list')")
     //@Log(title = "代码生成", businessType = BusinessType.IMPORT)
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/importTable")
     public RestResult importTableSave(String tables)
     {
@@ -139,12 +139,12 @@ public class GenController
     @ApiOperation(value = "删除代码生成")
     @PreAuthorize("hasAuthority('tool:gen:remove')")
     //@Log(title = "代码生成", businessType = BusinessType.DELETE)
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{tableIds}")
     public RestResult remove(@PathVariable Long[] tableIds)
     {
-       /* genTableService.deleteGenTableByIds(tableIds);
-        return RestResult.success();*/
-        return null;
+        genTableService.deleteGenTableByIds(tableIds);
+        return ResultUtil.success();
     }
 
     /**
