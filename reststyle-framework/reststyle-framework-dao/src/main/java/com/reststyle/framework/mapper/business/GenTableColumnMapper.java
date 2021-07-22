@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.reststyle.framework.domain.table.GenTableColumn;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * Description:
@@ -16,4 +18,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface GenTableColumnMapper extends BaseMapper<GenTableColumn>
 {
+    List<GenTableColumn> selectDbTableColumnsByName(String tableName);
 }

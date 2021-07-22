@@ -29,7 +29,7 @@ public class GenTableColumn implements Serializable
      * 归属表编号
      */
     @TableField(value = "table_id")
-    private String tableId;
+    private Long tableId;
 
     /**
      * 列名称
@@ -154,4 +154,15 @@ public class GenTableColumn implements Serializable
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
+
+
+    public boolean isPk()
+    {
+        return isPk(this.isPk);
+    }
+
+    public boolean isPk(String isPk)
+    {
+        return isPk != null && "1".equals(isPk);
+    }
 }

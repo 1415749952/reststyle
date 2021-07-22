@@ -21,4 +21,14 @@ public interface GenTableService extends IService<GenTable>
 {
 
     PageInfo<GenTableVo> selectDbTableList(GenTableQueryBo genTableQueryBo);
+
+    void importTableSave(String tables);
+
+    /**
+     * 查询据库列表
+     *
+     * @param tableNames 表名称组
+     * @return 数据库表集合
+     */
+    List<GenTable> selectDbTableListByNames(String[] tableNames);
 }

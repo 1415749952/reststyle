@@ -3,6 +3,8 @@ package com.reststyle.framework.service.generator;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.reststyle.framework.domain.table.GenTableColumn;
 
+import java.util.List;
+
 /**
 *  Created with IntelliJ IDEA.
 *  Description:
@@ -16,4 +18,5 @@ public interface GenTableColumnService extends IService<GenTableColumn>
 {
 
 
+    List<GenTableColumn> selectDbTableColumnsByName(String tableName);
 }

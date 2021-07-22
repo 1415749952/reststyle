@@ -114,12 +114,8 @@ public class GenController
     @PostMapping("/importTable")
     public RestResult importTableSave(String tables)
     {
-      /*  String[] tableNames = Convert.toStrArray(tables);
-        // 查询表信息
-        List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames);
-        genTableService.importGenTable(tableList);
-        return RestResult.success();*/
-        return null;
+        genTableService.importTableSave(tables);
+        return ResultUtil.success();
     }
 
     /**
