@@ -90,3 +90,14 @@ captcha:
 # 日志配置文件
 logging:
   config: classpath:logback-spring.xml
+
+
+pagehelper:
+  #  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+  # 默认false,当为true时，自动检验适合的数据库
+  auto-dialect: true
+  # 这个一定要加上，不然mysql和oracle分页两个只能用一个，另一个会报错，加上后，两中数据库分页都可以用了
+  auto-runtime-dialect: true

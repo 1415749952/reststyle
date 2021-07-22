@@ -14,7 +14,7 @@
     <result column="is_cache" jdbcType="INTEGER" property="isCache" />
     <result column="menu_type" jdbcType="CHAR" property="menuType" />
     <result column="visible" jdbcType="CHAR" property="visible" />
-    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="state" jdbcType="CHAR" property="state" />
     <result column="perms" jdbcType="VARCHAR" property="perms" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
@@ -26,7 +26,7 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     menu_id, menu_name, parent_id, order_num, `path`, component, is_frame, is_cache, 
-    menu_type, visible, `status`, perms, icon, create_by, create_time, update_by, update_time, 
+    menu_type, visible, state, perms, icon, create_by, create_time, update_by, update_time,
     remark
   </sql>
 </mapper>

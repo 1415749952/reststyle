@@ -1,8 +1,12 @@
 package com.reststyle.framework.mapper.business;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.reststyle.framework.domain.bo.GenTableQueryBo;
 import com.reststyle.framework.domain.table.GenTable;
+import com.reststyle.framework.domain.vo.GenTableVo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,4 +20,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface GenTableMapper extends BaseMapper<GenTable>
 {
+    List<GenTableVo> selectDbTableList(GenTableQueryBo genTableQueryBo);
 }

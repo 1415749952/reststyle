@@ -1,10 +1,16 @@
 package com.reststyle.framework.web.controller.generator;
 
 import cn.hutool.core.convert.Convert;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.github.pagehelper.PageInfo;
 import com.reststyle.framework.common.oper_log.BusinessType;
 import com.reststyle.framework.common.unite_response.RestResult;
+import com.reststyle.framework.common.unite_response.ResultUtil;
+import com.reststyle.framework.domain.bo.BaseQueryBo;
+import com.reststyle.framework.domain.bo.GenTableQueryBo;
 import com.reststyle.framework.domain.table.GenTable;
 import com.reststyle.framework.domain.table.GenTableColumn;
+import com.reststyle.framework.domain.vo.GenTableVo;
 import com.reststyle.framework.service.generator.GenTableColumnService;
 import com.reststyle.framework.service.generator.GenTableService;
 import io.swagger.annotations.Api;
@@ -12,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.java.Log;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -81,11 +88,13 @@ public class GenController
      */
     @ApiOperation(value = "查询数据库已有数据表的列表集合")
     @PreAuthorize("hasAuthority('tool:gen:list')")
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/db/list")
-    public RestResult dataList(GenTable genTable)
+    @JsonView(GenTableVo.GenTableListView.class)
+    public RestResult dataList(GenTableQueryBo genTableQueryBo)
     {
-        List<GenTable> list = genTableService.selectDbTableList(genTable);
-        return getDataTable(list);
+        PageInfo<GenTableVo> list = genTableService.selectDbTableList(genTableQueryBo);
+        return ResultUtil.success(list);
     }
 
     /**

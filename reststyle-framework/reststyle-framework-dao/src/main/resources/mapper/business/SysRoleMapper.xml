@@ -11,7 +11,7 @@
     <result column="data_scope" jdbcType="CHAR" property="dataScope" />
     <result column="menu_check_strictly" jdbcType="BOOLEAN" property="menuCheckStrictly" />
     <result column="dept_check_strictly" jdbcType="BOOLEAN" property="deptCheckStrictly" />
-    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="state" jdbcType="CHAR" property="state" />
     <result column="del_flag" jdbcType="CHAR" property="delFlag" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -22,6 +22,6 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     role_id, role_name, role_key, role_sort, data_scope, menu_check_strictly, dept_check_strictly, 
-    `status`, del_flag, create_by, create_time, update_by, update_time, remark
+    state, del_flag, create_by, create_time, update_by, update_time, remark
   </sql>
 </mapper>

@@ -12,7 +12,7 @@
     <result column="request_method" jdbcType="VARCHAR" property="requestMethod" />
     <result column="request_param" jdbcType="VARCHAR" property="requestParam" />
     <result column="respose_result" jdbcType="VARCHAR" property="resposeResult" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="state" jdbcType="INTEGER" property="state" />
     <result column="oper_unit" jdbcType="VARCHAR" property="operUnit" />
     <result column="oper_client" jdbcType="VARCHAR" property="operClient" />
     <result column="oper_name" jdbcType="VARCHAR" property="operName" />
@@ -24,7 +24,7 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     oper_id, business_type, `method`, method_detail, request_url, request_method, request_param, 
-    respose_result, `status`, oper_unit, oper_client, oper_name, oper_ip, oper_address, 
+    respose_result, state, oper_unit, oper_client, oper_name, oper_ip, oper_address,
     error_msg, oper_time
   </sql>
 </mapper>
