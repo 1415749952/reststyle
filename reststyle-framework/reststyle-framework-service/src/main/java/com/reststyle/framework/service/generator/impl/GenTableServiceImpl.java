@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- *  Created with IntelliJ IDEA.
- *  Description:
- *  @version 1.0
- *  @author: TheFei
- *  @Date: 2021-07-21
- *  @Time: 15:37
- * 
+ * Created with IntelliJ IDEA.
+ * Description:
+ *
+ * @version 1.0
+ * @author: TheFei
+ * @Date: 2021-07-21
+ * @Time: 15:37
  */
 @Service
 public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable> implements GenTableService
@@ -33,8 +33,8 @@ public class GenTableServiceImpl extends ServiceImpl<GenTableMapper, GenTable> i
     @Override
     public PageInfo<GenTableVo> selectDbTableList(GenTableQueryBo genTableQueryBo)
     {
-        PageHelper.startPage(genTableQueryBo.getPageNum(),genTableQueryBo.getPageSize());
+        PageHelper.startPage(genTableQueryBo.getPageNum(), genTableQueryBo.getPageSize());
         List<GenTableVo> genTables = genTableMapper.selectDbTableList(genTableQueryBo);
-        return new PageInfo(genTables);
+        return new PageInfo<>(genTables);
     }
 }
